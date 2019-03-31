@@ -1106,7 +1106,7 @@ sockregionlepssrplot1 <- sockregionlepssr1 %>%
   geom_errorbar(aes(ymin = loCI, ymax = upCI, width = 0), position = position_dodge(width = 0.8), colour = 'Black') +
   geom_point(size = 4, position = position_dodge(width = 0.8)) +
   scale_colour_manual(values = c('grey60', 'grey20')) +
-  labs(title = 'Sockeye Salmon', x = '', y = 'Average Number of Motile Lice Per Fish') +
+  labs(title = 'Sockeye Salmon', x = '', y = 'Average Number of Motile L. salmonis Lice Per Fish') +
   guides(shape = guide_legend(override.aes = list(shape = c(22)), type = 'b')) +
   scale_y_continuous(limits = c(0, 0.62)) +
   fte_themeSock3()
