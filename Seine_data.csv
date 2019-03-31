@@ -1,0 +1,583 @@
+seine_id,survey_id,set_number,set_type,time_searching,set_time,lat,lon,set_sliders,set_poppers,set_dimpling,fish_retained,so_taken,so_total,pi_taken,pi_total,cu_taken,cu_total,co_taken,co_total,he_taken,he_total,ck_taken,ck_total,preservation_status,collection_protocol,seine_comments
+DN200,DE100,3,targeted,40,11:40:00,49.9613,-124.747,NA,NA,NA,Yes,30,NA,0,0,10,NA,1,NA,2,NA,NA,NA,1,SEMSP,NA
+DE100N1,DE100,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DE100N2,DE100,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN201,DE101,1,targeted,NA,09:49:00,50.07902,-124.8509,NA,NA,NA,Yes,30,400,0,0,10,40,0,0,0,0,NA,NA,1,SEMSP,NA
+DN202,DE102,1,targeted,NA,07:38:00,49.99932,-125.1395,NA,NA,NA,Yes,30,300,0,0,0,0,0,0,7,10,NA,NA,1,SEMSP,NA
+DN203,DE103,1,targeted,NA,07:50:00,50.16142,-124.8842,NA,NA,NA,Yes,30,200,1,1,5,6,0,0,0,0,NA,NA,1,SEMSP,NA
+DN204,DE104,1,targeted,NA,10:21:00,50.08007,-124.8511,NA,NA,NA,Yes,30,300,0,0,10,10,0,0,1,1,NA,NA,1,SEMSP,NA
+DN205,DE105,1,targeted,NA,13:28:00,50.11842,-125.07512,NA,NA,NA,Yes,30,40,0,0,10,20,0,0,2,2,NA,NA,1,SEMSP,NA
+DN206,DE106,1,targeted,NA,08:00:00,50.08005,-125.2468,NA,NA,NA,Yes,30,600,2,2,10,1000,4,4,0,0,NA,NA,1,SEMSP,NA
+DN207,DE107,1,targeted,NA,12:30:00,50.16412,-125.1602,NA,NA,NA,Yes,30,500,1,1,10,300,1,1,10,10,NA,NA,1,SEMSP,NA
+DN208,DE108,1,targeted,NA,09:00:00,50.08123,-124.8549,NA,NA,NA,Yes,8,8,0,0,10,90,0,0,0,0,NA,NA,1,SEMSP,NA
+DN209,DE109,1,targeted,NA,07:30:00,50.11405,-125.0787,NA,NA,NA,Yes,30,70,0,0,1,10,0,0,2,2,NA,NA,1,SEMSP,NA
+DN210,DE110,1,targeted,NA,11:30:00,50.1659,-124.8888,NA,NA,NA,Yes,6,6,1,1,10,30,0,0,0,0,NA,NA,1,SEMSP,NA
+DN211,DE111,1,targeted,NA,10:30:00,50.34273,-125.0841,NA,NA,NA,Yes,30,200,2,2,10,100,2,6,5,10,NA,NA,1,SEMSP,"Fish moved by jug from net to buckets (30 sockeye in one 5 gallon pale; 50 total chum, pink, herring, coho in a second five gallon pale and two aquaria) to avoid net collapse on fish during onshore wind."
+DN212,DE112,1,targeted,NA,08:00:00,50.30787,-125.3293,NA,NA,NA,Yes,30,200,0,0,10,30,1,1,10,30,NA,NA,1,SEMSP,NA
+DN214,DE114,1,targeted,30,09:45:00,50.13705,-125.1175,NA,NA,NA,Yes,3,3,5,5,10,30,1,5,0,0,NA,NA,1,SEMSP,"Coho: 4 out of 5 in net too large for Whirl-Pak, not taken."
+DN215,DE115,2,targeted,17,13:00:00,50.18217,-125.1493,NA,NA,NA,Yes,30,200,8,10,10,50,1,1,0,0,NA,NA,1,SEMSP,First set (40 fish) released due to net collapse. Second set targeted different school.
+DE115N1,DE115,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN216,DE116,1,targeted,9,07:00:00,50.31962,-125.0395,NA,NA,NA,Yes,29,29,0,0,10,40,1,2,1,1,NA,NA,1,SEMSP,NA
+DN217,DE117,1,targeted,20,10:15:00,50.44365,-125.279,NA,NA,NA,Yes,30,3000,2,10,2,100,0,0,1,10,NA,NA,1,SEMSP,NA
+DN220,DE120,2,targeted,25,08:40:00,50.34655,-125.45602,NA,NA,NA,Yes,30,200,0,0,10,300,1,1,6,10,NA,NA,1,SEMSP,NA
+DE120N1,DE120,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN221,DE121,1,targeted,47,12:10:00,50.30723,-125.33345,NA,NA,NA,Yes,30,200,2,2,4,4,0,0,1,1,NA,NA,1,SEMSP,NA
+DN224,DE124,1,targeted,0,07:35:00,50.3153,-125.05186,NA,NA,NA,Yes,30,200,0,0,10,40,0,0,0,0,NA,NA,1,SEMSP,NA
+DN225,DE125,1,targeted,22,10:23:00,NA,NA,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"Set on 1 slider, no catch"
+DN228,DE128,4,targeted,97,08:45:00,50.44466,-125.2804,NA,NA,NA,Yes,30,200,0,0,5,10,1,1,1,2,NA,NA,1,SEMSP,NA
+DE128N1,DE128,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DE128N2,DE128,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DE128N3,DE128,3,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN230,DE130,1,targeted,11,12:29:00,50.30795,-125.32452,NA,NA,NA,Yes,30,40,0,0,10,10,0,0,0,0,NA,NA,1,SEMSP,NA
+DN237,DE137,1,targeted,28,06:45:00,50.44941,-125.33027,NA,NA,NA,Yes,30,30,0,0,5,10,0,0,1,1,NA,NA,1,SEMSP,NA
+DN238,DE138,1,targeted,33,09:55:00,NA,NA,NA,NA,NA,No,0,0,0,0,0,0,0,6,0,0,NA,NA,NA,SEMSP,"CO = 6 total, released"
+DN239,DE139,1,targeted,10,11:10:00,50.30884,-125.32275,NA,NA,NA,Yes,30,200,0,0,10,10,0,0,3,3,NA,NA,1,SEMSP,NA
+DN240,DE140,1,targeted,36,10:19:00,50.10015,-125.27265,NA,NA,NA,Yes,30,40,0,0,10,200,0,0,0,0,NA,NA,1,SEMSP,NA
+DN243,DE143,1,targeted,5,06:25:00,50.31763,-125.04942,NA,NA,NA,Yes,2,2,1,1,10,60,0,0,0,0,NA,NA,1,SEMSP,NA
+DN245,DE145,1,targeted,22,09:32:00,50.06119,-124.87916,NA,NA,NA,No,0,0,0,0,0,10,0,10,0,0,NA,NA,NA,SEMSP,NA
+DN246,DE146,1,targeted,16,10:49:00,NA,NA,NA,NA,NA,No,0,0,0,0,0,6,0,0,0,0,NA,NA,NA,SEMSP,"CU = 6 total, released"
+DN248,DE148,1,targeted,30,13:04:00,NA,NA,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,bycatch 200 squuid
+DN249,DE149,1,targeted,4,06:34:00,50.44527,-125.2774,NA,NA,NA,Yes,30,800,0,0,0,2,1,1,1,1,NA,NA,1,SEMSP,NA
+DN250,DE150,3,targeted,35,09:32:00,50.34762,-125.45358,NA,NA,NA,Yes,30,100,1,1,10,200,1,1,1,1,NA,NA,1,SEMSP,NA
+DE150N1,DE150,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DE150N2,DE150,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN251,DE151,1,targeted,5,12:53:00,50.30492,-125.33058,NA,NA,NA,Yes,30,500,0,0,10,100,0,0,3,4,NA,NA,1,SEMSP,NA
+DN252,DE152,3,targeted,56,06:42:00,50.44217,-125.27406,NA,NA,NA,Yes,30,500,1,1,10,300,0,0,1,2,NA,NA,1,SEMSP,NA
+DE152N1,DE152,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DE152N2,DE152,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN253,DE153,2,targeted,19,10:21:00,50.34851,-125.44831,NA,NA,NA,Yes,12,15,0,0,10,300,1,1,0,0,NA,NA,1,SEMSP,NA
+DE153N1,DE153,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN254,DE154,1,targeted,20,13:11:00,50.30759,-125.32969,NA,NA,NA,Yes,30,40,1,1,10,40,0,0,7,7,NA,NA,1,SEMSP,NA
+DN255,DE155,1,targeted,13,06:23:00,50.31954,-125.04247,NA,NA,NA,Yes,29,60,0,0,2,2,0,0,0,0,NA,NA,1,SEMSP,NA
+DN258,DE158,2,targeted,27,11:32:00,50.07966,-125.24845,NA,NA,NA,Yes,15,40,4,20,3,20,0,0,0,0,NA,NA,1,SEMSP,NA
+DE158N1,DE158,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN260,DE160,1,targeted,19,07:00:00,50.44342,-125.27904,NA,NA,NA,Yes,22,25,3,5,10,600,0,0,1,3,NA,NA,1,SEMSP,NA
+DN262,DE162,1,targeted,15,10:59:00,50.30771,-125.32864,NA,NA,NA,Yes,30,100,0,0,10,200,1,4,1,1,NA,NA,1,SEMSP,NA
+DN263,DE163,1,targeted,9,14:00:00,50.19112,-125.14202,NA,NA,NA,Yes,13,13,0,0,10,100,0,0,0,1,NA,NA,1,SEMSP,NA
+DN264,DE164,1,targeted,22,10:06:00,NA,NA,NA,NA,NA,No,0,0,0,0,0,100,0,1,0,0,NA,NA,NA,SEMSP,"CU = 100 total, CO = 1 total, released"
+DN268,DE168,1,targeted,5,10:51:00,50.30812,-125.3269,NA,NA,NA,Yes,30,40,1,1,10,10,0,0,1,1,NA,NA,1,SEMSP,NA
+DN269,DE169,2,targeted,17,14:13:00,50.1915,-125.14292,NA,NA,NA,Yes,30,30,6,6,10,70,0,0,0,0,NA,NA,1,SEMSP,NA
+DE169N1,DE169,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN270,DE170,2,targeted,30,06:34:00,50.30734,-125.33514,NA,NA,NA,Yes,27,27,1,1,10,100,0,0,3,3,NA,NA,1,SEMSP,Net collapse first set
+DE170N1,DE170,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN271,DE171,2,targeted,27,10:20:00,NA,NA,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"First set 40 chum, second set 0 fish."
+DE171N1,DE171,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN273,DE173,1,targeted,8,13:22:00,50.19077,-125.14249,NA,NA,NA,Yes,30,200,2,2,10,100,5,7,0,1,NA,NA,1,SEMSP,11 sockeye taken for DFO 6 frozen 5 formalin
+DN274,DE174,1,targeted,3,09:20:00,50.30806,-125.32972,NA,NA,NA,Yes,30,100,1,1,10,100,0,0,5,5,NA,NA,1,SEMSP,Samples marked D09(2). Initial set removed due to potential bias from snag on bottom.
+DN275,DE175,1,targeted,17,12:05:00,50.19017,-125.14437,NA,NA,NA,Yes,1,1,3,3,10,25,10,20,0,0,NA,NA,1,SEMSP,NA
+DN279,DE179,1,targeted,21,11:30:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN282,DE182,1,targeted,10,14:29:00,50.19051,-125.1444,NA,NA,NA,Yes,22,23,3,3,10,100,5,6,0,0,NA,NA,1,SEMSP,Fish with lesions SO # 10
+DN283,DE183,2,targeted,31,07:30:00,50.30767,-125.33023,NA,NA,NA,Yes,26,26,1,1,10,200,0,0,2,2,NA,NA,1,SEMSP,SO 2 and 26 had lesions on dorasl surface of body. SO 4 had hemorrhaging gills. HE 1 had hem. fins.
+DE183N1,DE183,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN284,DE184,1,targeted,17,10:58:00,50.34741,-125.45333,NA,NA,NA,Yes,30,600,2,10,10,400,1,1,0,0,NA,NA,1,SEMSP,NA
+DN285,DE185,2,targeted,33,13:56:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,No sockeye in sets
+DE185N1,DE185,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN286,DE186,1,targeted,54,07:50:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,No sockeye in set
+DN289,DE189,1,targeted,44,12:21:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,No sockeye in set
+DN290,DE190,1,targeted,28,01:50:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,No sockeye in set
+DN292,DE192,3,targeted,48,09:41:00,50.34866,-125.44482,NA,NA,NA,Yes,30,200,1,1,10,100,1,1,0,1,NA,NA,1,SEMSP,NA
+DE192N1,DE192,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DE192N2,DE192,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN293,DE193,1,targeted,15,15:44:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,10,NA,NA,NA,NA,NA,SEMSP,No sockeye in set
+DN294,DE194,1,targeted,36,11:02:00,50.32119,-125.03856,NA,NA,NA,Yes,12,13,0,0,10,18,2,2,1,1,NA,NA,1,SEMSP,NA
+DN295,DE195,1,targeted,38,14:12:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,No sockeye in set
+DN298,DE198,2,targeted,14,08:05:00,50.34829,-125.45001,NA,NA,NA,Yes,30,200,0,0,10,200,1,1,6,20,NA,NA,1,SEMSP,"Herring not numbered in order, Lesions: SO 28 ( also hem on pectrol fin)"
+DE198N1,DE198,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN299,DE199,1,targeted,2,11:16:00,50.30819,-125.32694,NA,NA,NA,Yes,30,50,0,0,10,50,0,0,10,10,NA,NA,1,SEMSP,NA
+DN301,DE201,1,targeted,30,10:14:00,50.09809,-125.27142,NA,NA,NA,Yes,5,6,0,0,10,300,0,0,1,1,NA,NA,1,SEMSP,NA
+DN305,DE205,2,targeted,32,09:33:00,50.34758,-125.4553,NA,NA,NA,Yes,3,3,2,2,10,44,0,0,0,0,NA,NA,1,SEMSP,NA
+DE205N1,DE205,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN306,DE206,1,targeted,34,12:29:00,50.30597,-125.33588,NA,NA,NA,Yes,30,200,0,0,10,80,2,2,10,10,NA,NA,1,SEMSP,NA
+DN307,DE207,1,targeted,38,07:00:00,NA,NA,NA,NA,NA,No,0,0,0,0,0,14,0,1,0,0,NA,NA,NA,SEMSP,"No sockeye in set. coho =1, chum=14, released"
+DN312,DE212,2,targeted,67,07:13:00,50.44949,-125.32427,NA,NA,NA,Yes,30,60,0,0,10,200,0,0,0,0,NA,NA,1,SEMSP,NA
+DE212N1,DE212,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN313,DE213,1,targeted,52,11:06:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,No sockeye in set
+DN314,DE214,1,targeted,8,12:27:00,50,-125,NA,NA,NA,Yes,29,100,7,7,10,300,0,0,4,4,NA,NA,1,SEMSP,NA
+DN316,DE216,1,targeted,25,07:14:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,No sockeye in set
+DN317,DE217,2,targeted,53,08:32:00,50.10264,-125.27585,NA,NA,NA,Yes,6,6,4,10,10,2000,0,0,1,5,NA,NA,1,SEMSP,NA
+DE217N1,DE217,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN318,DE218,1,targeted,10,07:05:00,50.44045,-125.27069,NA,NA,NA,Yes,7,7,0,0,10,40,1,1,1,1,NA,NA,1,SEMSP,NA
+DN319,DE219,1,targeted,12,08:58:00,50.34969,-125.44451,NA,NA,NA,Yes,9,9,10,300,10,500,0,0,0,0,NA,NA,1,SEMSP,NA
+DN320,DE220,1,targeted,2,11:07:00,50.30698,-125.3259,NA,NA,NA,Yes,30,240,0,0,5,5,1,1,0,0,NA,NA,1,SEMSP,NA
+DN321,DE221,1,targeted,18,09:22:00,50.30702,-125.33509,NA,NA,NA,Yes,19,20,10,20,10,30,0,0,0,0,NA,NA,1,SEMSP,NA
+DN324,DE224,1,targeted,59,06:48:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN325,DE225,1,targeted,8,08:17:00,50.34844,-125.44666,NA,NA,NA,Yes,30,50,0,0,10,200,0,0,0,0,NA,NA,1,SEMSP,NA
+DN326,DE226,2,targeted,46,10:52:00,50.30764,-125.33348,NA,NA,NA,Yes,8,8,2,2,10,80,0,0,0,0,NA,NA,1,SEMSP,NA
+DE226N1,DE226,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN331,DE231,2,targeted,20,09:47:00,50.30377,-125.33768,NA,NA,NA,Yes,30,60,7,8,10,200,0,0,10,20,NA,NA,1,SEMSP,NA
+DE231N1,DE231,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN334,DE234,1,targeted,10,13:30:00,50.34874,-125.44617,NA,NA,NA,Yes,1,1,10,20,10,100,0,0,0,0,NA,NA,1,SEMSP,NA
+DN336,DE236,1,targeted,0,06:56:00,50.30641,-125.31584,NA,NA,NA,Yes,4,4,0,0,10,50,0,0,7,7,NA,NA,1,SEMSP,NA
+DN337,DE237,1,targeted,8,08:43:00,50.34825,-125.44895,NA,NA,NA,Yes,23,23,10,100,10,400,0,0,0,0,NA,NA,1,SEMSP,NA
+DN338,DE238,1,targeted,11,11:46:00,50.34797,-125.45584,NA,NA,NA,Yes,17,18,10,50,10,500,0,0,0,0,NA,NA,1,SEMSP,NA
+DN339,DE239,2,targeted,18,14:13:00,50.3079,-125.32955,NA,NA,NA,Yes,5,5,10,100,10,100,0,0,3,3,NA,NA,1,SEMSP,NA
+DE239N1,DE239,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+DN340,DE240,1,targeted,16,06:50:00,50.30717,-125.33303,NA,NA,NA,Yes,30,200,1,1,8,10,0,0,0,0,NA,NA,1,SEMSP,Sockeye very small
+DN341,DE241,1,targeted,26,09:33:00,50.34811,-125.454,NA,NA,NA,Yes,5,5,10,200,10,300,0,0,1,1,NA,NA,1,SEMSP,72 training fish taken recorded as morts
+DN345,DE245,1,targeted,92,07:25:00,50.318037,-125.049415,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"No fish caught in either set. Fish surface activity: rapid splashing as of many fish. Visual on several: small <7cm, some distinct popping also. No specific set activity recorded for second set."
+DN346,DE245,2,targeted,92,07:40:00,50.318037,-125.049415,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"No fish caught in either set. Fish surface activity: rapid splashing as of many fish. Visual on several: small <7cm, some distinct popping also."
+DN355,DE255,1,targeted,15,07:28:00,50.023957,-124.914675,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,Saw fish immediately upon site arrival
+DN356,DE255,2,targeted,10,08:03:00,50.023957,-124.914675,NA,NA,NA,Yes,31,400,10,20,10,20,0,0,9,9,NA,NA,1,SEMSP,Saw fish immediately upon site arrival
+DN358,DE258,1,targeted,12,14:00:00,49.9865,-125.162953,NA,NA,NA,Yes,30,60,3,3,1,1,2,2,0,0,NA,NA,1,SEMSP,mortality: 1 unidentified juvenile salmon
+DN359,DE259,1,targeted,10,06:25:00,50.237386,-125.12002,NA,NA,NA,Yes,30,200,1,1,1,1,0,0,10,11,NA,NA,1,SEMSP,NA
+DN360,DE260,1,targeted,35,10:35:00,50.32113,-125.040588,NA,NA,NA,Yes,2,2,3,3,0,0,1,1,9,9,NA,NA,1,SEMSP,NA
+DN361,DE261,1,targeted,4,13:01:00,50.19304,-125.136573,NA,NA,NA,Yes,30,100,2,2,3,3,1,1,10,16,NA,NA,1,SEMSP,NA
+DN362,DE262,1,targeted,71,07:40:00,50.287179,-125.33416,NA,NA,NA,No,0,0,0,0,0,1,0,2,0,0,NA,NA,NA,SEMSP,NA
+DN363,DE263,1,targeted,16,09:50:00,50.243454,-125.398108,NA,NA,NA,Yes,30,700,10,20,10,30,2,2,10,30,NA,NA,1,SEMSP,NA
+DN364,DE264,1,targeted,20,13:40:00,50.208559,-125.355064,NA,NA,NA,No,0,1000,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,Released fish due to abrasion on net.
+DN365,DE264,2,targeted,13,14:20:00,50.208559,-125.355064,NA,NA,NA,No,0,2,0,9,0,9,0,1,0,0,NA,NA,NA,SEMSP,Released fish due to more fish in the area.
+DN367,DE267,1,targeted,38,09:50:00,50.393263,-125.373514,NA,NA,NA,Yes,30,500,0,0,3,6,0,1,6,9,NA,NA,1,SEMSP,"Had to end sampling to prevent drifting onto rocks. (Could not sample more CU, HE, or CO)"
+DN369,DE269,1,targeted,22,06:20:00,50.020465,-124.917743,NA,NA,NA,No,0,2,0,0,0,50,0,0,0,0,NA,NA,NA,SEMSP,"First set 06:20 mostly chum fry. Set on dimpling 2 and a single slider event(1) resume search 06:48, second set 06:58-targeted set."
+DN370,DE269,2,targeted,22,06:58:00,50.020465,-124.917743,NA,NA,NA,Yes,30,200,3,3,5,10,0,0,0,0,NA,NA,1,SEMSP,"First set 06:20 mostly chum fry. Set on dimpling 2 and a single slider event(1) resume search 06:48, second set 06:58-targeted set."
+DN372,DE272,2,targeted,27,12:51:00,49.990151,-125.160818,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,Resume search 13:05 after first set.
+DN373,DE272,1,targeted,27,13:15:00,49.990151,-125.160818,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,set surface activity only recorded once. Unclear which set it's for.
+DN374,DE274,1,targeted,25,06:56:00,50.319977,-125.042165,NA,NA,NA,Yes,30,100,3,3,8,8,1,1,0,0,NA,NA,1,SEMSP,NA
+DN375,DE275,1,targeted,10,10:52:00,50.241361,-125.119113,NA,NA,NA,Yes,30,600,10,20,10,20,1,1,0,0,NA,NA,1,SEMSP,morst in MS222 waste by accident
+DN376,DE276,1,targeted,7,14:10:00,50.191099,-125.138578,NA,NA,NA,Yes,30,100,10,70,10,70,0,0,0,0,NA,NA,1,SEMSP,NA
+DN377,DE277,1,targeted,4,06:30:00,50.30908,-125.325703,NA,NA,NA,Yes,30,600,10,40,10,40,1,1,0,0,NA,NA,1,SEMSP,Coho neglected and in dry shipper.
+DN378,DE278,1,targeted,19,09:30:00,50.274701,-125.377445,NA,NA,NA,Yes,30,600,10,100,10,100,0,0,4,4,NA,NA,1,SEMSP,NA
+DN379,DE279,1,targeted,45,13:00:00,50.224106,-125.395004,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,First set originally not entered due to no fish in catch. Set surface activity was not recorded for first set.
+DN380,DE279,2,targeted,45,13:25:00,50.224106,-125.395004,NA,NA,NA,Yes,30,600,10,60,10,60,7,7,3,3,NA,NA,1,SEMSP,NA
+DN382,DE282,1,targeted,33,08:44:00,50.392115,-125.374782,NA,NA,NA,Yes,30,500,4,4,4,7,2,3,0,0,NA,NA,1,SEMSP,NA
+DN384,DE284,1,targeted,42,07:13:00,50.3175,-125.050736,NA,NA,NA,No,0,3,0,1,0,9,0,1,0,0,NA,NA,NA,SEMSP,NA
+DN385,DE284,2,targeted,42,07:52:00,50.3175,-125.050736,NA,NA,NA,No,0,2,0,40,0,20,0,2,0,0,NA,NA,NA,SEMSP,NA
+DN387,DE287,1,targeted,5,11:06:00,50.190737,-125.143169,NA,NA,NA,Yes,30,600,10,80,10,80,0,0,0,0,NA,NA,1,SEMSP,NA
+DN388,DE288,1,targeted,9,07:00:00,50.243773,-125.397476,NA,NA,NA,Yes,30,400,10,40,8,20,0,0,0,1,NA,NA,1,SEMSP,NA
+DN390,DE290,1,targeted,5,11:30:00,50.304166,-125.333511,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"Caught net on bottom, abandoned set to free net."
+DN391,DE290,2,targeted,5,12:32:00,50.304166,-125.333511,NA,NA,NA,Yes,30,200,9,9,10,13,0,0,4,4,NA,NA,1,SEMSP,NA
+DN392,DE292,1,targeted,0,07:47:00,50.308769,-125.326765,NA,NA,NA,Yes,30,200,3,3,10,60,0,0,0,0,NA,NA,1,SEMSP,NA
+DN393,DE293,1,targeted,0,10:50:00,50.274055,-125.328828,NA,NA,NA,Yes,30,1000,10,100,10,100,1,2,10,13,NA,NA,1,SEMSP,NA
+DN394,DE294,1,targeted,2,14:35:00,50.24565,-125.396035,NA,NA,NA,Yes,30,50,10,100,10,10,0,0,0,0,NA,NA,1,SEMSP,First dayaltering search time method. First day with altered set/site-wide surface activity
+DN395,DE295,1,targeted,7,07:17:00,50.347739,-125.45463,NA,NA,NA,Yes,30,400,4,4,10,100,0,0,3,3,NA,NA,1,SEMSP,Boat/Net pushed around in current while maneuvering boat into ssafe position. Significant scale loss. Fish may not be suitable for sea lice enumeration.
+DN396,DE296,1,targeted,5,10:38:00,50.386065,-125.376067,NA,NA,NA,Yes,30,200,6,6,10,200,0,0,0,0,NA,NA,1,SEMSP,NA
+DN397,DE297,1,targeted,5,14:39:00,50.462513,-125.368231,NA,NA,NA,Yes,30,300,4,100,3,80,0,0,0,1,NA,NA,1,SEMSP,NA
+DN399,DE299,1,targeted,3,08:21:00,50.239953,-125.126574,NA,NA,NA,Yes,30,200,10,200,10,200,1,1,0,0,NA,NA,1,SEMSP,NA
+DN400,DE300,1,targeted,4,12:45:00,50.190887,-125.143416,NA,NA,NA,Yes,30,600,10,100,10,100,1,2,0,0,NA,NA,1,SEMSP,NA
+DN401,DE301,1,targeted,1,08:25:00,50.30436,-125.332956,NA,NA,NA,Yes,30,80,0,0,10,15,0,0,0,0,NA,NA,1,SEMSP,"Visual estimate of catch: 80 sockeye, 5 chum, 3 chinook. Census of catch (milk jug scoop): 82 sockeye, 8 chum, 3 chinook.Total abundance estimate: B: 110, L: 80, M: 60"
+DN402,DE302,1,targeted,4,13:10:00,50.242671,-125.398265,NA,NA,NA,Yes,30,570,10,36,10,80,1,2,10,16,NA,NA,1,SEMSP,"Counted fish individually as they swam over the corks during release process for more precise enumeration. Numbers on reverse of data sheet. Enumerated numbers was conducted after sampling and does not include sampled fish. Sockeye: 537, chum: 71, pink: 36, coho: 1, herring: 6"
+DN403,DE303,1,targeted,4,06:40:00,50.347862,-125.455554,NA,NA,NA,Yes,30,400,10,100,10,100,0,0,0,0,NA,NA,1,SEMSP,NA
+DN405,DE305,1,targeted,17,11:45:00,50.461604,-125.368943,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,No fish in first set.
+DN406,DE305,2,targeted,17,12:00:00,50.461604,-125.368943,NA,NA,NA,Yes,30,100,10,50,10,50,1,1,0,0,NA,NA,1,SEMSP,NA
+DN407,DE307,1,targeted,2,07:00:00,50.31794,-125.050807,NA,NA,NA,Yes,0,0,10,26,10,40,1,1,1,1,NA,NA,1,SEMSP,NA
+DN408,DE308,1,targeted,1,10:30:00,50.190683,-125.143138,NA,NA,NA,Yes,30,80,10,60,4,100,0,0,0,0,NA,NA,1,SEMSP,"Fish became unhappy in net, released before able to take all 10 chum samples"
+DN410,DE310,1,targeted,0,06:35:00,50.021998,-124.916211,NA,NA,NA,No,0,0,0,0,0,10,0,1,0,0,NA,NA,NA,SEMSP,NA
+DN411,DE310,2,targeted,0,07:05:00,50.021998,-124.916211,NA,NA,NA,Yes,1,1,8,10,5,6,0,0,0,0,NA,NA,1,SEMSP,NA
+DN415,DE315,1,targeted,40,09:50:00,50.391225,-125.365332,NA,NA,NA,Yes,15,15,10,100,9,80,0,0,0,0,NA,NA,1,SEMSP,NA
+DN417,DE317,1,random,NA,06:34:00,50.305971,-125.334369,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,random blind set thus no other data collected
+DN418,DE317,2,random,NA,06:59:00,50.305971,-125.334369,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,random blind set thus no other data collected
+DN419,DE317,3,random,NA,07:40:00,50.305971,-125.334369,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,random blind set thus no other data collected
+DN420,DE320,1,targeted,11,08:47:00,50.235322,-125.39888,NA,NA,NA,Yes,30,200,10,400,10,400,0,0,0,0,NA,NA,1,SEMSP,mort due to miscount
+DN421,DE321,1,targeted,2,11:58:00,50.275083,-125.381356,NA,NA,NA,Yes,6,6,10,500,10,20,0,0,0,0,NA,NA,1,SEMSP,mort due to miscount. DS00996 clip removed because it was a pink not a sockeye.
+DN422,DE322,1,targeted,3,14:20:00,50.307203,-125.332605,NA,NA,NA,Yes,30,100,10,100,10,200,0,0,0,0,NA,NA,1,SEMSP,"3 random sets conducted over DFO accoustic moorings. 1) 06:34 @ 50.305971N, 125.334369W - Dimpling observed but no fish in net. 2) 06:59 @ same as 1st set - some dimpling observed, no fish in net. 3) 07:40 @ western mooring. No surface activity observed, no fish."
+DN423,DE323,1,targeted,52,06:58:00,50.319224,-125.044219,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"Sampling with DFO. Chrys Neville/Nordic Queen first set time: 06:33. One splash and one dimple ovserved, but not deemed 'settable school'. No other surface activity observed in area. DFO also reported minimal fish in their catch, almost no sockeye."
+DN424,DE323,2,random,52,07:20:00,50.319224,-125.044219,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"Sampling with DFO. Chrys Neville/Nordic Queen second set time: 07:00. Zero surface activity and no fish. DFO also reported minimal fish in their catch, almost no sockeye."
+DN425,DE325,1,targeted,0,08:50:00,50.238067,-125.1179,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,NA
+DN426,DE325,2,targeted,0,09:22:00,50.238067,-125.1179,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"Sparse splashing, no fish."
+DN427,DE327,1,targeted,9,11:23:00,50.191383,-125.143884,NA,NA,NA,Yes,30,100,10,30,10,30,0,0,0,0,NA,NA,1,SEMSP,"Released first set, then remembered Brett's request for trainer fish. 10 or more fish escaped from the net through gaps between net and corks."
+DN428,DE327,2,targeted,9,14:00:00,50.191383,-125.143884,NA,NA,NA,Yes,30,300,0,100,0,100,0,0,0,0,NA,NA,1,SEMSP,"Took 30 sockeye to train lab personnel. Set time not taken, but estimated to be 14:00."
+DN429,DE329,1,targeted,3,09:23:00,50.30661,-125.335266,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"DFO set at 09:30. No fish in our first set but large school observed. 3 CTD drops total: 1 practice, 1 @ oceanography site (65m), 1 @ fish site (10m)"
+DN430,DE329,2,targeted,3,09:36:00,50.30661,-125.335266,NA,NA,NA,Yes,14,14,10,20,10,30,0,0,0,0,NA,NA,1,SEMSP,"DFO set at 09:30. No fish in our first set but large school observed. 3 CTD drops total: 1 practice, 1 @ oceanography site (65m), 1 @ fish site (10m), catch enumerated (sockeye: 14, chum: 36, pink: 27)"
+DN433,DE331,1,targeted,7,14:37:00,50.236643,-125.39734,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,3rd set caught approximately 300 fish. Current caused issues and needed to release set.
+DN435,DE335,1,targeted,0,06:33:00,50.382455,-125.373533,NA,NA,NA,No,0,0,0,0,0,0,0,1,0,0,NA,NA,NA,SEMSP,1st set: 1 coho only
+DN436,DE335,2,targeted,0,07:00:00,50.382455,-125.373533,NA,NA,NA,Yes,60,100,10,200,10,200,0,0,0,0,NA,NA,1,SEMSP,2nd set: 0700. 30 sockeye taken as trainer fish.
+DN437,DE337,1,targeted,30,10:52:00,50.38992,-125.613237,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,DFO set at 10:44 - Cameron & Julia report zero sockeye in set. 1st set 10:52 on one aggressive slider. Suspect coho
+DN438,DE338,1,targeted,8,13:00:00,50.458706,-125.365059,NA,NA,NA,Yes,30,50,10,100,10,100,0,0,3,3,NA,NA,1,SEMSP,NA
+DN441,DE341,1,targeted,12,10:20:00,50.24043,-125.119941,NA,NA,NA,Yes,21,21,10,100,10,200,0,0,3,3,NA,NA,1,SEMSP,NA
+DN442,DE342,1,targeted,23,07:50:00,50.022465,-124.916635,NA,NA,NA,No,0,0,0,10,0,10,0,0,0,0,NA,NA,NA,SEMSP,NA
+DN444,DE344,1,targeted,21,11:45:00,49.997783,-125.15945,NA,NA,NA,Yes,9,9,10,70,10,70,0,0,3,3,NA,NA,1,SEMSP,"1st set no fish, interupted oceanography to set. Crafty fish, very skittish. Gone Quickly. Ipad not working and coordinates were taken off phne in degree decimal minutes. 2nd set: after leaving the site."
+DN450,DE350,1,random,14,09:24:00,50.307068,-125.329361,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"Set 1 with DFO. DFO set at 09:22, Sloop Jo set at 09:24. Random set, no fish."
+DN451,DE350,2,targeted,14,10:02:00,50.307068,-125.329361,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"Set 2 with DFO. DFO set at 10:00, Sloop Jo set at 10:02. Targeted school seen below the surface. No fish."
+DN452,DE352,1,targeted,0,06:43:00,50.378699,-125.373927,NA,NA,NA,Yes,6,6,10,300,10,300,0,0,2,2,NA,NA,1,SEMSP,NA
+DN453,DE353,1,targeted,18,09:45:00,50.348081,-125.455923,NA,NA,NA,Yes,22,22,10,200,10,40,0,0,0,0,NA,NA,1,SEMSP,NA
+DN455,DE355,1,targeted,15,15:15:00,50.462531,-125.359047,NA,NA,NA,Yes,6,6,10,70,10,50,0,0,0,0,NA,NA,1,SEMSP,"Search paused at 14:51, continued at 15:08."
+DN457,DE357,1,targeted,7,08:30:00,50.240733,-125.12055,NA,NA,NA,No,0,0,0,1,0,1,0,0,0,0,NA,NA,NA,SEMSP,NA
+DN458,DE357,2,targeted,7,08:50:00,50.240733,-125.12055,NA,NA,NA,No,0,0,0,8,0,1,0,0,0,0,NA,NA,NA,SEMSP,NA
+DN460,DE360,1,targeted,8,06:40:00,50.275178,-125.378066,NA,NA,NA,Yes,24,24,10,200,10,40,0,0,0,0,NA,NA,1,SEMSP,NA
+DN461,DE361,1,targeted,3,09:45:00,50.304502,-125.336639,NA,NA,NA,No,0,1,0,40,0,20,0,0,0,0,NA,NA,NA,SEMSP,re set because there was lots of surface activity elsewhere
+DN462,DE361,2,targeted,NA,10:15:00,50.307066,-125.322977,NA,NA,NA,Yes,8,8,10,100,10,100,1,1,0,0,NA,NA,1,SEMSP,"DFO set: @ 09:55. Luke thinks they fd (net twist) But SJ and BJ think different. LR probably correct because we heard swearing from DFO boat during their net retrieval. Our catch enumerated: 195 fish. DFO caught chum, coho, no sox. DFO earlier in the day caight ~ 300 fish mostly pink + chum with chinook at Deep Water Bay."
+DN1,DE364,1,targeted,NA,11:12:00,50.18049002,-125.330849,0,0,10,Yes,0,0,4,25,4,15,0,0,0,0,0,0,1,SEMSP,"1 unknown mort. Non-formal visual survey conducted. Performed a trial run of collection procedure, in which the one set was both for retention and sea licing. Fish were anaesthetized (for sea licing), placed into recovery, and then euthanized for retention. Due to time restraints, we weren't able to collect complete packages of 10 fish per species."
+DN3,DE365,1,targeted,NA,08:50:00,50.309067,-125.3257,1,0,10,Yes,30,30,2,2,10,50,4,4,0,0,0,0,1,SEMSP,9th chum & water poured out of whirl pack by accident
+DN5,DE366,1,targeted,NA,10:47:00,50.17999062,-125.0189455,1,0,10,Yes,30,168,0,0,0,0,5,5,1,1,0,0,1,SEMSP,Informal site survery; did not have time for a lousing seine. First coho out at 11:26; in dewar at unknown time (in quickly though). Coho # 2 onwards out at 12:36
+DN7,DE367,1,targeted,NA,11:43:00,50.309278,-125.320699,1,0,10,Yes,8,8,1,1,10,105,0,0,1,1,0,0,1,SEMSP,NA
+DN9,DE368,1,targeted,NA,12:00:00,50.301803,-125.03049,0,0,0,Yes,0,0,3,3,10,56,4,4,0,0,1,1,1,SEMSP,Set targeted based on visual sighting of fish (not surface activity). No time left (or container) for zoop sample
+DN11,DE369,1,targeted,NA,10:10:00,50.305482,-125.024803,1,0,0,Yes,11,11,0,0,10,100,0,0,1,1,0,0,1,SEMSP,NA
+DN13,DE370,1,targeted,NA,11:15:00,50.274875,-125.376937,1,0,1,Yes,30,420,10,20,10,50,0,0,3,3,0,0,1,SEMSP,Time out of water for PI estimated.
+DN15,DE371,1,targeted,NA,08:00:00,50.307761,-125.325384,1,0,10,Yes,30,380,5,5,11,160,0,0,3,3,0,0,1,SEMSP,Hinch set @ 06:30; 100 SO retained by Hinch crew. 1 unhealthy SO released. 1 trainer CU taken.
+DN16,DE371,2,targeted,NA,11:00:00,50.306252,-125.336051,1,0,0,No,0,105,0,0,0,70,0,0,0,0,0,0,NA,SEMSP,NA
+DN17,DE372,1,targeted,NA,10:05:00,50.3041,-125.33841,1,0,0,Yes,30,85,0,0,10,128,0,0,1,1,0,0,1,SEMSP,1 chum trainer sample
+DN18,DE372,2,targeted,NA,12:40:00,50.307811,-125.329505,1,0,0,No,0,30,0,0,0,270,0,0,0,0,0,0,NA,SEMSP,NA
+DN19,DE373,1,targeted,NA,09:15:00,50.29725,-125.338485,1,0,0,Yes,23,23,2,3,10,285,0,0,2,2,0,0,1,SEMSP,"U10762 - some water dumped out of bag. 1 trainer PI retained. 1 SO retained for GM (M7, MP4)"
+DN20,DE373,2,targeted,NA,11:52:00,50.297362,-125.339472,1,0,0,Yes,8,14,0,0,0,120,0,0,0,0,0,0,1,SEMSP,NA
+DN21,DE374,1,targeted,NA,07:30:00,50.434701,-125.26607,1,10,0,Yes,10,10,0,0,10,535,0,0,1,1,0,0,1,SEMSP,NA
+DN23,DE375,1,targeted,NA,11:15:00,50.27485,-125.377707,1,0,0,Yes,3,4,8,8,10,1962,0,0,2,2,1,2,1,SEMSP,NA
+DN25,DE376,1,targeted,NA,09:10:00,50.274596,-125.377527,1,0,1,Yes,30,130,0,0,10,505,0,0,3,3,2,2,1,SEMSP,U14004 adipose
+DN26,DE376,2,targeted,NA,12:25:00,50.274783,-125.377569,1,0,0,No,0,21,0,0,0,384,0,0,0,0,0,0,NA,SEMSP,U14004 adipose
+DN27,DE377,1,targeted,NA,08:20:00,50.236254,-125.398402,1,0,0,Yes,30,40,0,0,12,320,0,0,0,0,0,0,1,SEMSP,"U11070 touched deck. 2 CU from DN27 retained for Gideon Mordecai (Freezer 3, Shelf 2). Set twice at D09 to collect fish for Tianyi Chen, Sam James, & Hinch lab. First set at 11:15, retained 1 CU for TC (released 100 CU, 1 unhealthy SO). Second set at 12:15, retained 1 CU for GM & 18 CU for TC (released 150 CU). "
+DN29,DE378,1,targeted,NA,07:20:00,50.304561,-125.337253,1,1,0,Yes,10,10,0,0,10,240,0,0,0,0,0,0,1,SEMSP,NA
+DN31,DE379,1,targeted,NA,07:45:00,50.237837,-125.396111,1,0,0,Yes,0,0,0,0,10,145,0,0,0,0,0,0,1,SEMSP,Field liced chum in seine
+DN33,DE380,1,targeted,NA,07:40:00,50.307981,-125.320206,1,0,0,Yes,2,2,1,1,10,126,0,0,0,0,0,0,1,SEMSP,NA
+DN35,DE381,1,targeted,NA,08:15:00,50.305134,-125.337052,0,10,0,Yes,0,0,0,0,10,63,0,0,0,0,0,0,1,SEMSP,"Trial run of combining retention & lousing duties in one set. Retained 10 CU as normal and 45 as ""mock sockeye"" (designated as trainer fish and thus excluded from retention data). Liced 10 chum."
+DN37,DE382,1,targeted,NA,12:15:00,NA,NA,NA,NA,NA,Yes,0,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,1,GM,Seine conducted to obtain fish for Hinch crew. Fish retained for GM
+DN39,DE383,1,targeted,NA,NA,NA,NA,NA,NA,NA,Yes,2,NA,NA,NA,0,NA,NA,NA,NA,NA,NA,NA,1,GM,Seine conducted to obtain fish for Hinch crew. Fish retained for GM
+DN41,DE384,1,targeted,NA,NA,NA,NA,NA,NA,NA,Yes,1,NA,NA,NA,0,NA,NA,NA,NA,NA,NA,NA,1,GM,Seine conducted to obtain fish for Hinch crew. Fish retained for GM
+DN123,DE436,1,NA,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,"One set attempted; did not catch SO and school otherwise too small for worthwhile retention (~20 fish in net). Noticed drastic decrease in surface activity following end of site-wide survey, and almost no activity noticed following oceanographic survey. Schools very elusive, in general."
+DN61,DE454A,1,targeted,NA,,,,NA,NA,NA,Yes,10,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN62,DE454A,2,targeted,NA,,,,NA,NA,NA,Yes,0,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN63,DE454A,3,targeted,NA,,,,NA,NA,NA,Yes,10,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN64,DE454A,4,targeted,NA,,,,NA,NA,NA,Yes,10,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN65,DE454A,5,targeted,NA,,,,NA,NA,NA,Yes,10,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN69,DE454B,6,targeted,NA,,,,NA,NA,NA,Yes,10,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN70,DE454B,7,targeted,NA,,,,NA,NA,NA,Yes,10,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN71,DE454B,8,targeted,NA,,,,NA,NA,NA,Yes,10,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN73,DE455A,1,targeted,NA,,,,NA,NA,NA,Yes,0,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN74,DE455A,2,targeted,NA,,,,NA,NA,NA,Yes,0,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN75,DE455A,3,targeted,NA,,,,NA,NA,NA,Yes,0,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN76,DE455A,4,targeted,NA,,,,NA,NA,NA,Yes,0,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN77,DE455B,5,targeted,NA,,,,NA,NA,NA,Yes,0,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN78,DE455B,6,targeted,NA,,,,NA,NA,NA,Yes,0,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN79,DE455B,7,targeted,NA,,,,NA,NA,NA,Yes,0,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN80,DE455B,8,targeted,NA,,,,NA,NA,NA,Yes,0,,0,,10,,0,,0,,0,,1,DFO,Sam James' UBC diet study (fish collected by DFO)
+DN97A,DE457,1,targeted,NA,04:50:00,50.297141,-125.340397,1,0,10,Yes,2,2,0,10,10,218,0,0,0,1,0,0,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN97B,DE457,2,targeted,NA,05:30:00,50.297141,-125.340397,NA,NA,NA,Yes,3,3,0,0,0,200,0,0,0,0,0,0,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN97C,DE457,3,targeted,NA,06:25:00,50.297141,-125.340397,NA,NA,NA,Yes,2,2,7,7,0,118,0,0,0,0,0,0,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN98,DE458,1,targeted,NA,07:30:00,50.30969,-125.321237,10,0,10,Yes,10,35,10,10,10,875,0,0,0,0,0,0,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN99A,DE459,1,targeted,NA,10:55:00,50.30955,-125.306633,1,0,10,Yes,2,2,2,2,10,83,0,0,0,0,0,0,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN99B,DE459,2,targeted,NA,11:40:00,50.30955,-125.306633,NA,NA,NA,Yes,8,8,0,0,0,149,0,0,0,1,0,0,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN100,DE460,1,targeted,NA,13:50:00,50.29885,-125.337833,1,0,1,Yes,10,10,1,1,10,226,0,0,0,2,0,0,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN101,DE461,1,targeted,NA,13:30:00,50.306507,-125.330603,1,0,1,Yes,9,9,5,5,10,480,0,0,0,5,0,0,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN102A,DE462,1,targeted,NA,16:30:00,50.308201,-125.327355,1,0,1,Yes,6,6,3,3,10,664,0,0,0,5,0,1,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN102B,DE462,2,targeted,NA,17:15:00,50.308201,-125.327355,NA,NA,NA,Yes,4,9,0,0,0,545,0,0,0,0,0,0,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN103A,DE463,1,targeted,NA,19:20:00,50.308112,-125.326899,1,0,1,Yes,1,1,5,5,10,1300,0,0,0,5,0,1,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN103B,DE463,2,targeted,NA,20:25:00,50.308112,-125.326899,NA,NA,NA,No,0,0,0,0,0,169,0,0,0,5,0,0,NA,SJUBC,Sam James' UBC diet study (24-hour)
+DN103C,DE463,3,targeted,NA,20:52:00,50.299822,-125.3415,NA,NA,NA,Yes,3,3,5,15,0,842,0,0,0,5,0,0,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN104A,DE464,1,targeted,NA,22:25:00,50.300978,-125.341211,1,0,1,Yes,5,5,4,4,7,170,0,0,0,0,0,0,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+DN104B,DE464,2,targeted,NA,23:20:00,50.300978,-125.341211,0,0,1,Yes,0,0,0,0,3,23,0,0,0,0,0,0,1,SJUBC,Sam James' UBC diet study (24-hour). Fish batch euthanized in MS222.
+JN200,JE100,1,targeted,30,07:10:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN201,JE101,1,targeted,10,09:50:00,50.50535,-126.24163,NA,NA,NA,Yes,30,300,1,1,10,20,6,6,4,4,NA,NA,0,SEMSP,fish not labelled in order
+JN202,JE102,2,targeted,10,06:20:00,50.47479,-126.03259,NA,NA,NA,Yes,30,100,0,0,10,30,3,3,0,0,NA,NA,0,SEMSP,NA
+JE102N1,JE102,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN203,JE103,2,targeted,90,13:40:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE103N1,JE103,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN204,JE104,1,targeted,1,06:40:00,50.45614,-126.11933,NA,NA,NA,Yes,30,600,0,0,1,1,4,4,0,0,NA,NA,0,SEMSP,NA
+JN205,JE105,2,targeted,3,09:40:00,50.48078,-126.41037,NA,NA,NA,Yes,30,150,0,0,3,3,10,150,0,0,NA,NA,0,SEMSP,NA
+JE105N1,JE105,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN206,JE106,4,targeted,10,13:50:00,50.52222,-126.39167,NA,NA,NA,Yes,30,150,0,0,2,2,10,10,1,1,NA,NA,0,SEMSP,NA
+JE106N1,JE106,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE106N2,JE106,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE106N3,JE106,3,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN207,JE107,2,targeted,0,06:00:00,50.54648,-126.67096,NA,NA,NA,Yes,30,300,0,0,0,0,0,0,0,0,NA,NA,0,SEMSP,"all fish samples labelled ""J0CP"" for now, will need to be hanged once site name confirmed J03"
+JE107N1,JE107,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN208,JE108,2,targeted,0,09:00:00,50.54039,-126.78096,NA,NA,NA,Yes,30,200,0,0,10,25,8,8,5,5,NA,NA,0,SEMSP,NA
+JE108N1,JE108,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN209,JE109,3,targeted,0,12:35:00,50.55787,-126.73532,NA,NA,NA,Yes,30,1200,0,0,10,20,0,0,0,0,NA,NA,0,SEMSP,NA
+JE109N1,JE109,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE109N2,JE109,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN210,JE110,2,targeted,1,06:25:00,50.60101,-126.70394,NA,NA,NA,Yes,30,400,0,0,7,7,1,1,0,0,NA,NA,1,SEMSP,NA
+JE110N1,JE110,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN212,JE112,1,targeted,5,14:00:00,50.47696,-126.0273,NA,NA,NA,Yes,30,400,0,0,2,2,0,0,0,0,NA,NA,1,SEMSP,NA
+JN213,JE113,1,targeted,1,05:40:00,50.49853,-126.21348,NA,NA,NA,Yes,30,300,0,0,10,150,0,0,4,4,NA,NA,1,SEMSP,NA
+JN214,JE114,1,targeted,70,09:50:00,50.52363,-126.39046,NA,NA,NA,Yes,30,800,2,2,10,50,4,4,0,0,NA,NA,1,SEMSP,NA
+JN215,JE115,1,targeted,25,13:00:00,50.48103,-126.41291,NA,NA,NA,Yes,30,40,0,0,10,15,1,1,3,3,NA,NA,1,SEMSP,NA
+JN216,JE116,1,targeted,1,05:45:00,50.45622,-126.11838,NA,NA,NA,Yes,30,1000,0,0,10,200,1,1,5,5,NA,NA,1,SEMSP,"unknown salmonid bycatch not sockeye, chum, pink, coho, or chinook"
+JN217,JE117,2,targeted,1,09:35:00,50.54672,-126.67256,NA,NA,NA,Yes,30,1000,0,0,10,30,1,1,0,0,NA,NA,1,SEMSP,NA
+JE117N1,JE117,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN218,JE118,1,targeted,2,12:55:00,50.53989,-126.78256,NA,NA,NA,Yes,30,1500,1,1,10,100,0,0,1,1,NA,NA,1,SEMSP,NA
+JN219,JE119,1,targeted,40,06:00:00,50.55951,-126.75326,NA,NA,NA,Yes,30,100,0,0,10,30,10,20,0,0,NA,NA,1,SEMSP,NA
+JN222,JE122,2,targeted,10,13:15:00,50.53957,-126.7781,NA,NA,NA,Yes,30,2000,0,0,10,200,6,10,2,3,NA,NA,1,SEMSP,small hole in the bunt. Lots of fish escaped. May have been more herring and coho originally. School > 2000
+JE122N1,JE122,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN223,JE123,3,targeted,70,05:35:00,50.57078,-126.70066,NA,NA,NA,Yes,30,1000,0,0,10,200,2,10,1,10,NA,NA,1,SEMSP,NA
+JE123N1,JE123,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE123N2,JE123,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN226,JE126,1,targeted,85,06:55:00,50.4838,-126.01069,NA,NA,NA,Yes,30,40,0,0,10,200,1,1,6,10,NA,NA,1,SEMSP,NA
+JN227,JE127,1,targeted,150,11:30:00,NA,NA,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"one net set, no fish caught"
+JN228,JE128,2,targeted,45,06:30:00,50.50733,-126.24336,NA,NA,NA,Yes,30,300,0,0,10,300,1,1,0,0,NA,NA,1,SEMSP,NA
+JE128N1,JE128,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN229,JE129,3,targeted,60,09:25:00,50.45679,-126.16458,NA,NA,NA,Yes,30,600,0,0,10,400,4,4,5,5,NA,NA,1,SEMSP,NA
+JE129N1,JE129,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE129N2,JE129,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN231,JE131,1,targeted,5,15:05:00,50.48405,-126.3987,NA,NA,NA,Yes,30,1000,1,10,10,300,1,1,10,20,NA,NA,1,SEMSP,NA
+JN232,JE132,1,targeted,90,06:45:00,50.52152,-126.40028,NA,NA,NA,Yes,30,100,0,0,10,200,0,0,3,3,NA,NA,1,SEMSP,NA
+JN233,JE133,1,targeted,30,09:45:00,50.54605,-126.66218,NA,NA,NA,Yes,30,400,0,0,10,200,0,0,10,20,NA,NA,1,SEMSP,NA
+JN234,JE134,1,targeted,15,12:30:00,50.53808,-126.77494,NA,NA,NA,Yes,30,400,0,0,10,100,1,1,0,0,NA,NA,1,SEMSP,NA
+JN236,JE136,1,targeted,10,05:30:00,50.60051,-126.70319,NA,NA,NA,Yes,30,400,0,0,5,10,0,0,0,0,NA,NA,1,SEMSP,NA
+JN237,JE137,1,targeted,110,07:40:00,50.57871,-126.72129,NA,NA,NA,Yes,25,25,1,1,10,300,5,5,1,1,NA,NA,1,SEMSP,NA
+JN238,JE138,1,targeted,15,12:30:00,50.55853,-126.73145,NA,NA,NA,Yes,30,300,2,10,10,100,4,4,0,0,NA,NA,1,SEMSP,NA
+JN239,JE139,1,targeted,25,05:20:00,50.50763,-126.24218,NA,NA,NA,Yes,30,200,0,0,10,600,3,5,0,0,NA,NA,1,SEMSP,NA
+JN240,JE140,1,targeted,25,08:25:00,50.45649,-126.16619,NA,NA,NA,Yes,30,500,2,10,10,500,0,0,5,5,NA,NA,1,SEMSP,NA
+JN241,JE141,1,targeted,20,11:00:00,NA,NA,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,snagged net on bottom- no fish. strong current dragged us into the shallows
+JN242,JE142,1,targeted,75,06:15:00,50.48189,-126.01128,NA,NA,NA,Yes,30,100,0,0,10,100,0,0,3,3,NA,NA,1,SEMSP,NA
+JN243,JE143,1,targeted,0,10:15:00,50.48072,-126.40915,NA,NA,NA,Yes,30,15000,0,0,10,2000,0,0,0,1,NA,NA,1,SEMSP,"could not find herring again because too many fish; unsure of herring, pink, and coho numbers because too many fish"
+JN245,JE145,1,targeted,1,14:55:00,50.53944,-126.78254,NA,NA,NA,Yes,30,100,0,0,10,200,0,0,5,5,NA,NA,1,SEMSP,NA
+JN246,JE146,1,targeted,30,06:30:00,50.52232,-126.39556,NA,NA,NA,Yes,30,300,0,0,10,500,0,0,2,2,NA,NA,1,SEMSP,"labeled CU5 is actually CU4; CU6 is CU5; CU7 is CU6; CU8 is CU7; CU9 is CU8, CU10 is CU9, CU4 is CU10"
+JN247,JE147,1,targeted,50,10:00:00,50.54216,-126.63511,NA,NA,NA,Yes,30,200,7,7,10,300,0,0,10,15,NA,NA,1,SEMSP,31 Sockeye taken by accident. One possibly without label
+JN248,JE148,3,targeted,50,13:40:00,50.5956,-126.69022,NA,NA,NA,Yes,30,300,1,1,10,300,6,6,0,0,NA,NA,1,SEMSP,"CO-03, CO-05, CO-06 did not have white-tipped anal fin. Probably a chinook, but no black gums. Not chum, pink or sockeye. Check species ID in lab."
+JE148N1,JE148,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE148N2,JE148,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN249,JE149,1,targeted,5,05:25:00,50.55855,-126.73248,NA,NA,NA,Yes,30,300,0,0,10,200,1,1,0,0,NA,NA,1,SEMSP,NA
+JN250,JE150,1,targeted,2,08:20:00,50.56784,-126.69728,NA,NA,NA,Yes,30,1000,3,3,10,400,3,3,2,2,NA,NA,1,SEMSP,NA
+JN252,JE152,1,targeted,20,06:20:00,50.45987,-126.16961,NA,NA,NA,Yes,30,100,3,3,10,100,0,0,0,0,NA,NA,1,SEMSP,NA
+JN253,JE153,1,targeted,10,08:25:00,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN254,JE154,1,targeted,5,05:05:00,50.47794,-126.02803,NA,NA,NA,Yes,30,100,0,0,10,200,4,4,2,2,NA,NA,1,SEMSP,"CO-03 might be a chinook, make sure to check ID in lab"
+JN255,JE155,1,targeted,10,07:45:00,50.49983,-126.20581,NA,NA,NA,Yes,30,300,0,0,10,300,1,1,0,0,NA,NA,1,SEMSP,NA
+JN257,JE157,2,targeted,1,11:00:00,50.47923,-126.41485,NA,NA,NA,Yes,30,200,3,3,10,4000,0,0,0,1,NA,NA,1,SEMSP,"Too many fish to say that there wer no other herring, coho, or pink. Definitely missed one herring that could not be found again in net."
+JE157N1,JE157,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN259,JE159,1,targeted,1,14:35:00,50.539,-126.7781,NA,NA,NA,Yes,29,400,10,30,10,600,1,1,0,0,NA,NA,1,SEMSP,NA
+JN260,JE160,1,targeted,20,06:05:00,50.52411,-126.39107,NA,NA,NA,Yes,30,300,2,2,10,300,1,1,2,3,NA,NA,1,SEMSP,"3 herring in the net, but only took 2 because one jumped out of  milk jug"
+JN261,JE161,1,targeted,45,10:20:00,50.54418,-126.63202,NA,NA,NA,Yes,30,200,1,1,10,200,0,0,2,3,NA,NA,1,SEMSP,"3 herring in net, only took 2, one jumped out of net; all sockeye from this site were labeled 20150508 instead of 20150608, mistake caught after fish dewar- made note on group labels about this for both bundles of 15 sockeye for this site"
+JN262,JE162,1,targeted,30,13:34:00,50.57687,-126.72184,NA,NA,NA,Yes,30,200,10,30,10,300,3,3,0,0,NA,NA,1,SEMSP,NA
+JN263,JE163,1,targeted,45,07:00:00,50.59537,-126.69062,NA,NA,NA,Yes,30,200,0,0,10,200,7,7,2,2,NA,NA,1,SEMSP,NA
+JN265,JE165,1,targeted,15,07:12:00,50.50008,-126.20937,NA,NA,NA,Yes,30,500,10,20,10,500,0,0,3,5,NA,NA,1,SEMSP,"5 herring in net, only took 3, 2 escaped when releasing sockeye, pink & chum"
+JN266,JE166,1,targeted,1,11:45:00,50.45951,-126.16958,NA,NA,NA,Yes,30,2000,4,50,10,4000,0,0,10,60,NA,NA,1,SEMSP,"saw 1 coho in net, never saw it again with all the other fish; difficult to sort through school to find other pinks"
+JN268,JE168,1,targeted,10,05:37:00,50.47959,-126.02629,NA,NA,NA,Yes,4,4,0,0,10,50,1,1,10,11,NA,NA,1,SEMSP,NA
+JN271,JE171,2,targeted,0,11:50:00,50.53988,-126.78291,NA,NA,NA,Yes,30,1000,0,0,10,900,6,6,0,0,NA,NA,1,SEMSP,approx 50/1000 sockeye had lesions ; total aprox 2000; saw 3 or 4 lesioned chum (photos on marks phone - no yellow around mouth)
+JE171N1,JE171,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN272,JE172,4,targeted,5,08:50:00,50.47679,-126.02843,NA,NA,NA,Yes,30,600,10,30,10,600,0,0,1,1,NA,NA,1,SEMSP,"one fish discarded because ID unsure.  Had both chum and sockeye characteristics.  Not pink, coho, or chinook."
+JE172N1,JE172,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE172N2,JE172,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE172N3,JE172,3,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN273,JE173,1,targeted,3,11:20:00,50.45698,-126.16944,NA,NA,NA,Yes,30,1000,7,7,10,3000,0,0,10,20,NA,NA,1,SEMSP,NA
+JN274,JE174,1,targeted,10,14:05:00,50.49881,-126.21349,NA,NA,NA,Yes,30,300,2,2,10,700,0,0,0,0,NA,NA,1,SEMSP,NA
+JN275,JE175,1,targeted,5,05:20:00,50.52618,-126.38632,NA,NA,NA,Yes,7,7,0,0,10,1000,0,0,0,0,NA,NA,1,SEMSP,NA
+JN276,JE176,2,targeted,0,07:50:00,50.48035,-126.41265,NA,NA,NA,Yes,30,100,10,60,10,1000,0,0,0,1,NA,NA,1,SEMSP,NA
+JE176N1,JE176,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN277,JE177,2,targeted,4,11:30:00,50.54719,-126.67487,NA,NA,NA,Yes,30,100,0,0,10,500,0,0,0,0,NA,NA,1,SEMSP,"Number taken and total in set not recorded for herring, coho, and pink. Sean's fault for not checking. Make sure to record in lab later (or from group labels in -80"
+JE177N1,JE177,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN278,JE178,1,targeted,5,14:00:00,50.55792,-126.73617,NA,NA,NA,Yes,30,300,10,40,10,500,1,1,6,6,NA,NA,1,SEMSP,NA
+JN279,JE179,1,targeted,66,06:12:00,50.58185,-126.71983,NA,NA,NA,Yes,30,100,10,200,10,200,0,0,0,0,NA,NA,1,SEMSP,NA
+JN280,JE180,2,targeted,30,08:30:00,50.59549,-126.69036,NA,NA,NA,Yes,6,6,10,200,10,400,2,3,1,1,NA,NA,1,SEMSP,NA
+JE180N1,JE180,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN281,JE181,2,targeted,60,15:30:00,50.54327,-126.81252,NA,NA,NA,Yes,30,700,9,200,10,1500,8,8,10,20,NA,NA,1,SEMSP,NA
+JE181N1,JE181,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN282,JE182,1,targeted,3,06:02:00,50.52491,-126.38617,NA,NA,NA,Yes,3,3,10,50,10,300,0,0,0,0,NA,NA,1,SEMSP,NA
+JN283,JE183,1,targeted,0,07:51:00,50.47943,-126.41631,NA,NA,NA,Yes,30,35,4,4,10,100,0,0,2,2,NA,NA,1,SEMSP,NA
+JN284,JE184,1,targeted,2,11:50:00,50.5463,-126.66727,NA,NA,NA,Yes,3,3,10,80,10,500,0,0,10,20,NA,NA,1,SEMSP,NA
+JN285,JE185,1,targeted,3,05:35:00,50.47909,-126.02584,NA,NA,NA,Yes,20,20,2,2,10,300,0,0,0,0,NA,NA,1,SEMSP,NA
+JN286,JE186,1,targeted,0,08:47:00,50.45747,-126.16879,NA,NA,NA,Yes,30,300,1,2,10,3000,0,1,0,0,NA,NA,1,SEMSP,"So many fish in net - unsure of true numbers for herring, coho, pink. Saw one pink & coho and never saw again."
+JN287,JE187,1,targeted,10,11:15:00,50.49921,-126.20961,NA,NA,NA,Yes,17,17,10,20,10,300,0,0,0,0,NA,NA,1,SEMSP,NA
+JN288,JE188,1,targeted,10,13:23:00,50.58086,-126.72272,NA,NA,NA,Yes,4,4,10,200,10,6000,0,0,4,10,NA,NA,1,SEMSP,Too many fish to sort through - lost herring in amongst other fish
+JN289,JE189,2,targeted,1,06:35:00,50.54362,-126.81951,NA,NA,NA,Yes,30,200,10,50,10,1000,0,0,1,1,NA,NA,1,SEMSP,NA
+JE189N1,JE189,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN290,JE190,1,targeted,1,09:51:00,50.55814,-126.73386,NA,NA,NA,Yes,30,200,10,20,10,400,0,0,8,8,NA,NA,1,SEMSP,NA
+JN291,JE191,1,targeted,1,14:19:00,50.60263,-126.70188,NA,NA,NA,Yes,30,50,10,100,10,200,1,1,6,6,NA,NA,1,SEMSP,NA
+JN292,JE192,1,targeted,2,06:20:00,50.5194,-126.40831,NA,NA,NA,Yes,30,30,10,200,10,300,0,0,4,4,NA,NA,1,SEMSP,NA
+JN293,JE193,1,targeted,0,09:21:00,50.48001,-126.41469,NA,NA,NA,Yes,5,5,10,100,10,200,0,0,0,0,NA,NA,1,SEMSP,NA
+JN295,JE195,1,targeted,4,15:30:00,50.45804,-126.16997,NA,NA,NA,Yes,24,24,10,50,10,250,0,0,0,0,NA,NA,1,SEMSP,NA
+JN296,JE196,1,targeted,0,05:55:00,50.4763,-126.02838,NA,NA,NA,Yes,30,1200,9,20,10,1500,1,1,10,80,NA,NA,1,SEMSP,NA
+JN297,JE197,1,targeted,0,09:07:00,50.49608,-126.21645,NA,NA,NA,Yes,30,200,1,1,10,200,0,0,2,2,NA,NA,1,SEMSP,NA
+JN298,JE198,2,targeted,5,13:02:00,50.55821,-126.73327,NA,NA,NA,Yes,30,100,8,8,10,600,0,0,1,1,NA,NA,1,SEMSP,NA
+JE198N1,JE198,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN299,JE199,2,targeted,0,06:20:00,50.54774,-126.67774,NA,NA,NA,Yes,30,50,10,20,10,300,1,1,5,5,NA,NA,1,SEMSP,NA
+JE199N1,JE199,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN300,JE200,1,targeted,5,09:36:00,50.58209,-126.71978,NA,NA,NA,Yes,18,18,2,2,10,200,0,0,0,0,NA,NA,1,SEMSP,NA
+JN301,JE201,3,targeted,10,12:30:00,50.60237,-126.70219,NA,NA,NA,Yes,18,18,10,10,10,70,0,0,0,0,NA,NA,1,SEMSP,NA
+JE201N1,JE201,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE201N2,JE201,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN302,JE202,1,targeted,0,15:45:00,50.54414,-126.81843,NA,NA,NA,Yes,30,500,10,300,10,300,2,2,10,30,NA,NA,1,SEMSP,NA
+JN303,JE203,1,targeted,2,05:30:00,50.47705,-126.02871,NA,NA,NA,Yes,8,8,10,20,10,200,1,1,10,70,NA,NA,1,SEMSP,NA
+JN304,JE204,2,targeted,0,08:05:00,50.45524,-126.11718,NA,NA,NA,Yes,29,37,4,4,10,13,0,0,0,0,NA,NA,1,SEMSP,NA
+JE204N1,JE204,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN305,JE205,1,targeted,3,10:20:00,50.49837,-126.21404,NA,NA,NA,Yes,30,60,10,20,10,400,0,0,1,1,NA,NA,1,SEMSP,NA
+JN306,JE206,2,targeted,5,13:55:00,50.4787,-126.41567,NA,NA,NA,Yes,19,19,10,100,10,300,0,0,10,300,NA,NA,1,SEMSP,NA
+JE206N1,JE206,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN307,JE207,2,targeted,0,07:00:00,50.55961,-126.7542,NA,NA,NA,Yes,10,10,10,115,10,115,4,4,0,0,NA,NA,1,SEMSP,NA
+JE207N1,JE207,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN308,JE208,2,targeted,0,11:15:00,50.58165,-126.71952,NA,NA,NA,Yes,10,10,10,100,10,400,0,0,2,2,NA,NA,1,SEMSP,NA
+JE208N1,JE208,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN309,JE209,1,targeted,0,15:00:00,50.5438,-126.81988,NA,NA,NA,Yes,30,100,10,800,10,1200,0,0,10,10,NA,NA,1,SEMSP,NA
+JN310,JE210,2,targeted,0,06:05:00,50.60255,-126.70201,NA,NA,NA,Yes,0,0,10,300,10,200,10,20,5,5,NA,NA,1,SEMSP,NA
+JE210N1,JE210,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN311,JE211,1,targeted,5,10:50:00,50.54277,-126.64149,NA,NA,NA,Yes,0,0,10,100,10,100,1,1,10,15,NA,NA,1,SEMSP,NA
+JN312,JE212,1,targeted,1,05:45:00,50.47895,-126.41667,NA,NA,NA,Yes,0,0,10,100,10,100,0,0,2,2,NA,NA,1,SEMSP,NA
+JN313,JE213,1,targeted,2,08:40:00,50.45942,-126.16916,NA,NA,NA,Yes,30,400,10,100,10,500,0,0,5,6,NA,NA,1,SEMSP,One herring was accidentally released.
+JN316,JE216,1,targeted,3,06:50:00,50.55809,-126.73246,NA,NA,NA,Yes,4,3,10,20,10,400,0,0,2,2,NA,NA,1,SEMSP,NA
+JN317,JE217,1,targeted,1,08:40:00,50.54703,-126.67197,NA,NA,NA,Yes,3,3,10,60,8,8,0,0,5,5,NA,NA,1,SEMSP,NA
+JN318,JE218,1,targeted,1,13:00:00,50.54329,-126.8169,NA,NA,NA,Yes,30,40,10,200,10,100,3,10,10,20,NA,NA,1,SEMSP,"Most sockeye in set small, likely Nimpkish or other local stock."
+JN319,JE219,1,targeted,40,07:30:00,NA,NA,NA,NA,NA,No,0,0,0,300,0,300,0,0,0,0,0,0,NA,SEMSP,"SO = 0, CU = 300, HE = 0, CO = 0, PI = 300"
+JN320,JE220,1,targeted,20,09:18:00,NA,NA,NA,NA,NA,No,0,0,0,100,0,100,0,5,0,20,0,10,NA,SEMSP,"SO = 0, CU = 100, HE = 20, CO = 5, PI = 100, chinook = 10"
+JN321,JE221,1,targeted,4,05:54:00,NA,NA,NA,NA,NA,No,0,0,0,0,0,40,0,10,0,0,0,2,NA,SEMSP,"SO = 0, CU = 40, HE = 0, CO = 10, PI = 0, chinook = 2"
+JN324,JE224,1,targeted,20,09:10:00,NA,NA,NA,NA,NA,No,0,0,0,10,0,300,0,5,0,1,0,0,NA,SEMSP,"SO = 0, CU = 300, HE = 1, CO = 5, PI = 10"
+JN325,JE225,1,targeted,30,10:30:00,NA,NA,NA,NA,NA,Yes,30,30,10,300,,10,1,1,0,0,NA,NA,1,SEMSP,"28 or 29 of sockeye were very small, likely from Nimpkish or other local watershed"
+JN327,JE227,1,targeted,35,07:35:00,NA,NA,NA,NA,NA,No,0,0,0,100,0,100,0,0,0,0,0,0,NA,SEMSP,"SO = 0, CU = 100, HE = 0, CO = 0, PI = 100"
+JN328,JE228,1,targeted,40,08:40:00,NA,NA,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,0,0,NA,SEMSP,"net set on possible smolt school, fish not caught or seen again. Otherwise no smolt activity."
+JN329,JE229,2,targeted,40,10:00:00,NA,NA,NA,NA,NA,No,0,0,0,20,0,100,0,0,0,0,0,0,NA,SEMSP,"SO = 0, CU = 100, HE = 0, CO = 0, PI = 20"
+JE229N1,JE229,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN331,JE231,1,targeted,1,11:43:00,50.506881,-126.247378,NA,NA,NA,Yes,30,2000,1,1,2,2,0,0,0,0,NA,NA,1,SEMSP,NA
+JN332,JE232,1,targeted,15,14:48:00,50.458043,-126.152637,NA,NA,NA,No,0,0,0,50,0,50,0,10,0,0,NA,NA,NA,SEMSP,NA
+JN333,JE233,1,targeted,0,05:22:00,50.473969,-126.247378,NA,NA,NA,Yes,30,2000,0,0,0,0,0,0,1,1,NA,NA,1,SEMSP,NA
+JN334,JE234,2,targeted,0,08:58:00,50.458043,-126.152637,NA,NA,NA,Yes,30,150,10,15,0,0,1,1,0,0,NA,NA,1,SEMSP,NA
+JE234N1,JE234,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN335,JE235,3,targeted,123,12:00:00,50.526493,-126.38718,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"few small cryptic schools, unable to catch"
+JE235N1,JE235,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE235N2,JE235,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN336,JE236,1,targeted,8,14:35:00,50.480359,-126.412275,NA,NA,NA,Yes,25,25,2,2,0,0,3,3,1,1,NA,NA,1,SEMSP,NA
+JN337,JE237,1,targeted,0,05:06:00,50.543296,-126.816816,NA,NA,NA,Yes,30,40,10,20,9,9,5,5,1,1,NA,NA,1,SEMSP,NA
+JN338,JE238,1,targeted,1,08:21:00,50.558361,-126.732241,NA,NA,NA,Yes,30,300,6,6,7,7,0,0,0,0,NA,NA,1,SEMSP,NA
+JN339,JE239,2,targeted,5,10:55:00,50.54692,-126.67193,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,NA
+JE239N1,JE239,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN340,JE240,1,targeted,2,12:45:00,50.601718,-126.701857,NA,NA,NA,Yes,30,500,10,15,8,8,1,1,0,0,NA,NA,1,SEMSP,NA
+JN343,JE243,2,targeted,20,07:50:00,50.522967,-126.377383,NA,NA,NA,Yes,30,400,5,5,7,7,6,6,0,0,NA,NA,1,SEMSP,NA
+JE243N1,JE243,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN344,JE244,1,targeted,10,11:00:00,50.495266,-126.211667,NA,NA,NA,Yes,30,400,10,500,10,100,0,0,0,0,NA,NA,1,SEMSP,NA
+JN345,JE245,2,targeted,0,05:45:00,50.477037,-126.028592,NA,NA,NA,Yes,30,300,9,9,10,30,7,7,0,0,NA,NA,1,SEMSP,NA
+JE245N1,JE245,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN346,JE246,1,targeted,0,07:55:00,50.4559,-126.1191,NA,NA,NA,Yes,30,70,0,0,0,0,10,16,0,0,NA,NA,1,SEMSP,NA
+JN348,JE248,1,targeted,0,14:20:00,50.543432,-126.8134,NA,NA,NA,Yes,30,400,2,2,1,1,1,1,0,0,NA,NA,1,SEMSP,NA
+JN349,JE249,1,targeted,8,16:40:00,50.576696,-126.721158,NA,NA,NA,Yes,30,200,10,10,10,50,1,1,0,0,NA,NA,1,SEMSP,NA
+JN350,JE250,2,targeted,0,05:15:00,50.60125,-126.704457,NA,NA,NA,Yes,30,750,6,6,10,15,0,0,0,0,NA,NA,1,SEMSP,No fish on first set
+JE250N1,JE250,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN351,JE251,1,targeted,0,09:10:00,50.545897,-126.668909,NA,NA,NA,Yes,30,100,0,0,1,1,10,85,0,0,NA,NA,1,SEMSP,NA
+JN352,JE252,1,targeted,0,10:22:00,50.60125,-126.704457,NA,NA,NA,Yes,30,2000,10,100,10,900,4,4,7,7,NA,NA,1,SEMSP,NA
+JN353,JE253,1,targeted,3,13:35:00,50.576696,-126.721158,NA,NA,NA,Yes,18,18,10,200,10,100,0,0,0,0,NA,NA,1,SEMSP,Morts due to misidentification
+JN354,JE254,1,targeted,0,05:37:00,50.477038,-126.028566,NA,NA,NA,Yes,30,80,1,1,5,5,1,1,0,0,NA,NA,1,SEMSP,NA
+JN355,JE255,2,targeted,18,09:49:00,50.543432,-126.8134,NA,NA,NA,Yes,30,600,5,6,10,400,6,6,1,1,NA,NA,1,SEMSP,Couldn't locate whatman paper for JS00541-JS00660
+JE255N1,JE255,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN356,JE256,1,targeted,6,14:51:00,50.540979,-126.78085,NA,NA,NA,Yes,30,300,10,100,10,100,0,0,2,2,NA,NA,1,SEMSP,Mort due to missidentification
+JN357,JE257,1,targeted,6,13:17:00,50.507301,-126.24325,NA,NA,NA,Yes,30,4000,1,300,10,700,0,0,0,1,NA,NA,1,SEMSP,"Rough weather, fish  not happy in net, let them go before getting all pink and the 1 herring. One sockeye mort floating on surface on arrival to site."
+JN358,JE258,1,targeted,17,16:22:00,50.459012,-126.1695,NA,NA,NA,Yes,30,400,10,100,10,100,0,0,0,0,NA,NA,1,SEMSP,NA
+JN359,JE259,3,targeted,0,06:13:00,50.458983,-126.169594,NA,NA,NA,Yes,30,3000,0,0,10,100,0,0,0,0,NA,NA,1,SEMSP,morts due to caught in the net when pulling in
+JE259N1,JE259,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE259N2,JE259,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN360,JE260,1,targeted,1,10:14:00,50.525287,-126.390347,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,"no fish, stopped for weather"
+JN361,JE261,1,targeted,7,13:44:00,50.543029,-126.632233,NA,NA,NA,Yes,30,700,10,100,6,100,2,2,0,0,NA,NA,1,SEMSP,there were extra chum that escaped through a hole in the net
+JN362,JE262,1,targeted,1,07:22:00,50.544941,-126.816489,NA,NA,NA,Yes,29,600,10,300,10,300,1,1,1,1,NA,NA,1,SEMSP,NA
+JN363,JE263,1,targeted,7,12:26:00,50.55543,-126.724521,NA,NA,NA,Yes,30,50,10,50,10,100,8,8,0,0,NA,NA,1,SEMSP,NA
+JN364,JE264,1,targeted,9,13:19:00,50.602327,-126.701507,NA,NA,NA,Yes,30,200,10,80,10,100,2,2,2,2,NA,NA,1,SEMSP,NA
+JN365,JE265,1,targeted,8,05:34:00,50.5771,-126.721684,NA,NA,NA,Yes,22,27,10,200,10,200,0,0,0,0,NA,NA,1,SEMSP,NA
+JN366,JE266,1,targeted,14,08:07:00,50.547475,-126.676942,NA,NA,NA,Yes,30,100,10,50,2,50,1,1,0,0,NA,NA,1,SEMSP,"Cruise ship wake: Sockeye #1-11 OK (before wake), Pink # 1-6 OK (before wake), Coho # 1 OK (before wake), Chum # 1-2 OK (before wake), remainder were heavily de-scaled"
+JN367,JE267,1,targeted,1,10:34:00,50.51821,-126.406079,NA,NA,NA,Yes,30,200,9,9,10,13,0,0,0,0,NA,NA,1,SEMSP,NA
+JN368,JE268,1,targeted,2,13:45:00,50.480214,-126.4142,NA,NA,NA,Yes,30,1000,10,2000,10,2000,0,0,10,100,NA,NA,1,SEMSP,NA
+JN369,JE269,1,targeted,14,05:13:00,50.476173,-126.029443,NA,NA,NA,Yes,29,2000,10,2000,10,2000,1,1,1,2,NA,NA,1,SEMSP,"pink mort due to mis identification as a sockeye, only 29 sockeye taken as a result; no set site coordinates taken"
+JN370,JE270,1,targeted,10,08:47:00,50.456683,-126.153895,NA,NA,NA,Yes,30,300,10,700,10,500,0,0,5,6,NA,NA,1,SEMSP,pink mort due to mis identification
+JN371,JE271,1,targeted,16,11:45:00,50.500269,-126.209365,NA,NA,NA,Yes,30,1000,10,200,10,1000,0,0,0,0,NA,NA,1,SEMSP,chum mort at the bottom of the bunt
+JN372,JE272,2,targeted,1,07:35:00,50.602051,-126.704553,NA,NA,NA,Yes,30,2000,10,100,7,100,3,3,1,3,NA,NA,1,SEMSP,~10% of fish suffered scaling due to repositioning of boat in high current conditions
+JE272N1,JE272,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN373,JE273,1,targeted,41,13:15:00,50.579213,-126.71432,NA,NA,NA,Yes,30,80,10,2000,10,1000,0,0,1,1,NA,NA,1,SEMSP,NA
+JN374,JE274,2,targeted,1,06:37:00,50.579393,-126.714162,NA,NA,NA,Yes,30,100,10,400,10,400,7,7,0,0,NA,NA,1,SEMSP,NA
+JE274N1,JE274,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN376,JE276,1,targeted,30,13:42:00,50.546326,-126.669166,NA,NA,NA,Yes,6,6,10,100,10,20,0,0,2,2,NA,NA,1,SEMSP,"Chinook mis-IDed as Coho, couldn't revive."
+JN378,JE278,1,targeted,5,07:53:00,50.483183,-126.403858,NA,NA,NA,No,0,3,0,80,0,75,0,0,0,2,NA,NA,NA,SEMSP,Three seperate sets no sockeye. No fish collected.
+JN379,JE278,2,targeted,5,07:53:00,50.483183,-126.403858,NA,NA,NA,No,0,3,0,80,0,30,0,0,0,1,NA,NA,NA,SEMSP,Three seperate sets no sockeye. No fish collected.
+JN380,JE278,3,targeted,5,07:53:00,50.483183,-126.403858,NA,NA,NA,No,0,0,0,80,0,10,0,2,0,8,NA,NA,NA,SEMSP,Three seperate sets no sockeye. No fish collected.
+JN381,JE281,1,targeted,69,11:05:00,50.506302,-126.24142,NA,NA,NA,No,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,SEMSP,NA
+JN382,JE282,1,targeted,10,13:20:00,50.506323,-126.241304,NA,NA,NA,Yes,30,500,10,3000,10,500,0,0,7,7,NA,NA,1,SEMSP,NA
+JN383,JE283,1,targeted,13,05:47:00,50.455728,-126.116461,NA,NA,NA,Yes,30,300,10,100,10,100,0,0,0,0,NA,NA,1,SEMSP,Morts due to being caught in net during pull up. :(
+JN384,JE284,1,targeted,1,11:20:00,50.54401,-126.81461,NA,NA,NA,No,0,1,0,300,0,300,0,1,0,0,NA,NA,NA,SEMSP,"Caught sockeye for Emma, no sockeye in next set. No other sockeye found at site after 20 minute search."
+JN385,JE285,1,targeted,0,13:20:00,50.55803,-126.73463,NA,NA,NA,Yes,30,100,10,100,10,100,10,50,5,5,NA,NA,0,SEMSP,NA
+JN386,JE286,1,targeted,7,16:17:00,50.55803,-126.73463,NA,NA,NA,Yes,26,27,10,1000,10,700,2,2,7,7,NA,NA,0,SEMSP,One sockeye released b/c dropped during transfer.
+JN388,JE288,1,targeted,5,06:30:00,50.6017,-126.70318,NA,NA,NA,Yes,4,4,10,20,10,20,1,1,0,0,NA,NA,0,SEMSP,"Other activity in area, but no distinct sockeye. Difficult catching consditions, so kept school. Herring was small (~6cm) and dead when net was brought in."
+JN390,JE290,2,targeted,8,15:05:00,50.4806,-126.40961,NA,NA,NA,Yes,10,10,10,300,10,300,0,0,2,2,NA,NA,0,SEMSP,"Strong current, some fish were jostled and lost scales. Additional bycatch 1 gunnel fish."
+JE290N1,JE290,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN391,JE291,1,targeted,0,05:21:00,50.47508,-126.03392,NA,NA,NA,Yes,30,300,10,600,10,300,1,1,1,1,NA,NA,0,SEMSP,NA
+JN392,JE292,1,targeted,1,07:52:00,50.45733,-126.16553,NA,NA,NA,Yes,30,50,10,400,10,20,0,0,0,0,NA,NA,0,SEMSP,Morts due to misidentification.
+JN393,JE293,2,targeted,0,11:40:00,50.49874,-126.21257,NA,NA,NA,Yes,28,28,10,300,10,300,0,0,0,0,NA,NA,0,SEMSP,NA
+JE293N1,JE293,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN394,JE294,2,targeted,3,06:15:00,50.601529,-126.703784,NA,NA,NA,No,0,2,0,20,0,20,0,2,0,0,NA,NA,NA,SEMSP,NA
+JE294N1,JE294,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN395,JE295,1,targeted,5,07:51:00,50.580247,-126.721745,NA,NA,NA,No,0,0,0,500,0,300,0,0,0,0,NA,NA,NA,SEMSP,NA
+JN398,JE298,1,targeted,18,13:35:00,50.543818,-126.794456,NA,NA,NA,Yes,15,50,10,200,10,200,7,7,0,0,NA,NA,1,SEMSP,NA
+JN400,JE300,1,targeted,1,07:38:00,50.47779,-126.429726,NA,NA,NA,No,0,0,0,20,0,80,0,1,0,0,0,10,NA,SEMSP,NA
+JN402,JE302,1,targeted,3,12:45:00,50.456886,-126.162647,NA,NA,NA,Yes,30,200,10,300,10,300,0,0,1,1,NA,NA,1,SEMSP,NA
+JN403,JE303,1,targeted,7,07:05:00,50.457049,-126.162651,NA,NA,NA,Yes,22,22,10,300,10,300,1,2,0,0,NA,NA,1,SEMSP,NA
+JN1,JE304,2,targeted,NA,08:20:00,50.54522,-126.65949,10,0,10,Yes,23,23,0,0,10,59,8,8,0,0,0,0,1,SEMSP,NA
+JE304N1,JE304,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN4,JE305,1,targeted,NA,15:27:00,50.6022,-126.70567,10,0,1000,Yes,7,600,0,0,0,100,0,100,0,10,0,0,1,SEMSP,"No oceanography completed due to sudden change in weather. Trialled live-licing and anaesthatization protocols, but could not finish due to weather. Some morphological measurements missing. "
+JN5,JE306,1,targeted,NA,07:10:00,50.5438,-126.80927,10,0,100,Yes,30,325,0,0,10,50,10,45,0,0,0,0,1,SEMSP,NA
+JN6,JE306,2,targeted,NA,11:20:00,50.54393,-126.8131,10,0,100,No,0,130,0,10,0,10,0,10,0,1,0,0,NA,SEMSP,NA
+JN7,JE307,1,targeted,NA,06:23:00,50.54411,-126.65398,10,0,100,Yes,30,300,0,0,10,250,10,25,10,25,1,1,1,SEMSP,Chinook in package JP25 (UFN14037). First chum of JP29 (UFN12681) had a cal mot that came out of the bag. First chinook out at 6:50 and straight into dewar (package JP25). Used remaining fish in net from retention set in place of lousing set due to weather. Only loused 10 chum. 
+JN9,JE308,1,targeted,NA,09:37:00,50.60233,-126.70309,1,0,100,Yes,30,200,1,4,10,500,5,5,10,30,1,1,1,SEMSP,"Last half of visual survey was a B2-3, so visibility was difficult. We caught 3 local pink fry."
+JN10,JE308,2,random,NA,14:22:00,50.60224,-126.70529,1,0,0,No,0,40,0,0,0,160,0,0,0,3,0,1,NA,SEMSP,NA
+JN11,JE309,1,targeted,NA,06:37:00,50.54487,-126.81252,1,0,10,Yes,30,175,0,0,10,75,0,0,2,2,0,0,1,SEMSP,NA
+JN12,JE309,2,targeted,NA,11:11:00,50.54628,-126.81474,10,0,10,No,0,120,0,0,0,180,0,0,0,1,0,0,NA,SEMSP,NA
+JN13,JE310,1,targeted,NA,07:10:00,50.54574,-126.81679,1,1,0,Yes,26,26,3,3,10,58,2,2,1,1,0,0,1,SEMSP,"20 sockeye in retention set were bucketed, and then returned to the bunt before individual fish collection occured."
+JN14,JE310,1,targeted,NA,11:17:00,50.54582,-126.81618,1,1,0,Yes,4,390,0,60,0,660,0,10,0,10,0,0,1,SEMSP,NA
+JN15,JE311,5,targeted,NA,10:27:00,50.60278,-126.70284,10,0,100,Yes,30,43,10,15,10,530,4,4,4,5,2,2,1,SEMSP,"First half of visual survey was a B2, second half was a B3. Loused 10 chum and 10 pink from retention set instead of setting the net again. Secchi hit the bottom at 7.5m."
+JE311N1,JE311,1,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE311N2,JE311,2,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE311N3,JE311,3,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JE311N4,JE311,4,targeted,NA,NA,NA,NA,NA,NA,NA,No,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SEMSP,NA
+JN17,JE312,1,targeted,NA,06:56:00,50.54505,-126.65729,10,1,100,Yes,0,0,6,6,10,425,0,0,10,20,0,0,1,SEMSP,NA
+JN20,JE313,1,targeted,NA,10:16:00,50.60144,-126.70046,10,0,10,No,0,0,0,1,0,119,0,6,0,2,0,2,NA,SEMSP,NA
+JN21,JE314,1,targeted,NA,06:45:00,50.54372,-126.81769,100,1,100,Yes,1,1,10,15,10,580,2,4,2,2,0,0,1,SEMSP,"2 coho not retained, did not fit through milk jug"
+JN22,JE314,2,targeted,NA,09:59:00,50.54454,-126.81227,1,0,100,No,0,0,0,20,0,230,0,0,0,0,0,0,NA,SEMSP,NA
+JN23,JE315,1,targeted,NA,11:06:00,50.54533,-126.65855,10,0,10,No,0,0,0,90,0,450,0,0,0,60,0,0,NA,SEMSP,NA
+JN25,JE316,1,targeted,NA,07:13:00,50.546,-126.81509,10,1,100,No,0,0,0,3,0,95,0,1,0,1,0,0,NA,SEMSP,NA
+DE505N1,DE505,1,random,NA,10:30:00,50.316217,-125.052033,0,0,0,no,0,0,0,0,0,2,0,0,0,0,0,0,,SEMSP,
+DE505N2,DE505,2,targeted,NA,10:55:00,50.3154,-125.053,0,0,0,no,0,0,0,1,0,0,0,0,0,0,0,0,,SEMSP,
+DE506N1,DE506,1,targeted,NA,07:25:00,50.18167,-125.1523,0,1,10,yes,0,0,10,30,10,70,2,2,0,0,0,0,,SEMSP,
+DE510N1,DE510,1,targeted,NA,10:15:00,50.309206,-125.323291,0,1,10,yes,0,0,10,117,10,217,0,0,0,0,0,0,,SEMSP,
+JE411N1,JE411,1,random,NA,07:00:00,50.54526,-126.8154,0,0,1,no,0,0,0,0,0,0,0,1,0,0,0,0,,SEMSP,
+JE412N1,JE412,1,targeted,NA,08:25:00,50.53912,-126.77893,1,1,10,no,0,0,0,0,0,0,0,39,0,3,0,2,,SEMSP,
+DE516N1,DE516,1,targeted,NA,09:10:00,50.316983,-125.049967,0,1,0,no,0,0,0,0,0,0,0,0,0,0,0,0,,SEMSP,
+DE516N2,DE516,2,targeted,NA,09:46:00,50.316117,-125.052167,0,0,1,yes,0,0,10,30,7,0,10,15,0,0,1,1,,SEMSP,
+JE401N1,JE401,1,targeted,NA,07:12:00,50.5429,-126.81615,0,1,10,no,0,0,0,0,0,0,0,0,0,0,0,0,,SEMSP,
+JE402N1,JE402,1,targeted,NA,08:49:00,50.53927,-126.78078,0,1,10,yes,3,3,0,0,0,0,10,87,5,6,0,0,,SEMSP,
+DE517N1,DE517,1,targeted,NA,07:30:00,NA,NA,1,0,0,no,0,0,0,0,0,0,0,0,0,0,0,0,,SEMSP,
+DE517N2,DE517,2,targeted,NA,08:15:00,50.31006,-125.317963,10,0,10,yes,30,40,10,50,8,10,1,1,2,2,0,0,,SEMSP,
+DE531N1,DE531,1,targeted,NA,09:00:00,50.271333,-125.368,0,1,0,yes,30,1564,10,1956,4,391,0,0,2,2,0,1,,SEMSP,"Let out 2,150 fish during processing due to elevated stress caused by high density in net"
+DE512N1,DE512,1,random,NA,10:06:00,50.316807,-125.050581,0,0,0,yes,0,0,8,8,9,9,0,0,0,0,0,0,,SEMSP,
+DE513N1,DE513,1,targeted,NA,07:25:00,50.30785,-125.328333,1,0,0,no,0,4,0,14,0,0,0,0,0,0,0,0,,SEMSP,
+DE513N2,DE513,2,targeted,NA,08:00:00,50.30705,-125.332333,1,0,0,yes,30,189,5,21,10,10,0,0,0,4,0,2,,SEMSP,
+DE519N1,DE519,1,random,NA,07:35:00,50.27045,-125.3656,0,0,0,yes,3,8,10,104,10,21,0,0,0,0,0,0,,SEMSP,
+DE514N1,DE514,1,targeted,NA,09:00:00,50.440686,-125.294356,0,1,0,yes,4,4,10,24,10,266,0,0,0,0,1,1,,SEMSP,
+JE417N1,JE417,1,targeted,NA,07:22:00,50.54342,-126.81474,10,10,10,yes,30,146,10,49,10,39,10,20,0,0,0,1,,SEMSP,
+JE418N1,JE418,1,targeted,NA,06:57:00,50.54561,-126.66166,10,0,100,yes,30,113,10,28,10,22,1,1,5,5,0,0,,SEMSP,"1st pink out at 07:30am mistaken for sockeye, put in dewar immediately after measurements taken."
+DE520N1,DE520,1,random,NA,07:43:00,50.305683,-125.336917,0,0,0,no,0,7,0,0,0,7,0,0,0,0,0,0,,SEMSP,
+DE520N2,DE520,2,targeted,NA,08:15:00,50.307767,-125.32905,1,0,1,no,0,3,0,3,0,16,0,0,0,0,0,0,,SEMSP,
+DE520N3,DE520,3,targeted,NA,08:35:00,50.306917,-125.3288,0,0,10,yes,8,8,10,56,10,56,0,0,0,0,0,0,,SEMSP,
+DE521N1,DE521,1,targeted,NA,06:50:00,50.267967,-125.358733,1,1,10,yes,24,48,10,302,10,132,0,0,6,55,0,0,,SEMSP,NA
+JE414N1,JE414,1,targeted,NA,07:03:00,50.54387,-126.80852,10,10,100,yes,30,488,10,203,10,81,3,33,0,8,0,0,,SEMSP,Morts and unhealthy fish caused by unseen fold in net under piece of kelp caught during set. Coho and Herring not sampled due to poor weather conditions / unhealthy fish.
+DE522N1,DE522,1,targeted,NA,07:43:00,50.443485,-125.28775,1,0,10,yes,30,450,10,1060,10,1060,0,30,10,460,0,0,,SEMSP,not sampled coho because too big for whirlpacks and it has been more than 2 hours we had the fish. majority of pink/chum seems locals (pretty small ones)
+DE523N1,DE523,1,targeted,NA,07:05:00,50.3099,-125.319633,1,1,10,no,0,14,0,1080,0,257,0,0,0,0,0,0,,SEMSP,
+DE523N2,DE523,2,targeted,NA,08:08:00,50.307183,-125.335133,0,0,0,no,0,7,0,0,0,0,0,0,0,0,0,0,,SEMSP,
+DE523N3,DE523,3,targeted,NA,08:45:00,50.30345,-125.33885,1,1,1,yes,26,31,10,340,10,150,0,2,0,1,0,0,,SEMSP,"Coho too big to fit into whirl-paks; had to release fish after 2 hrs holding in net due to morts observed and noticeable scale loss due to rough conditions, so unable to take full retention of SO & HE"
+JE415N1,JE415,1,targeted,NA,06:54:00,50.60207,-126.70187,1,1,10,no,0,40,0,480,0,240,0,0,0,40,0,0,,SEMSP,"first set released due to strong current, unsafe to process."
+JE415N2,JE415,2,targeted,NA,07:41:00,50.60197,-126.70232,0,0,10,yes,8,8,10,26,10,22,0,0,0,3,0,0,,SEMSP,left early due to possible gas leak on boat and building weather.
+DE524N1,DE524,1,targeted,NA,07:04:00,50.27095,-125.365483,0,0,10,no,0,5,0,235,0,235,0,1,0,1,0,0,,SEMSP,
+DE524N2,DE524,2,targeted,NA,07:42:00,50.268817,-125.359533,0,0,10,no,0,0,0,95,0,96,0,0,0,1,0,0,,SEMSP,
+DE524N3,DE524,3,targeted,NA,07:57:00,50.270667,-125.365017,0,0,10,no,0,0,0,21,0,115,0,0,0,2,0,0,,SEMSP,
+DE524N4,DE524,4,targeted,NA,09:22:00,50.26805,-125.358833,1,0,10,no,0,0,0,22,0,100,0,3,0,1,0,0,,SEMSP,
+DE525N1,DE525,1,targeted,NA,11:15:00,50.233733,-125.395717,1,10,10,yes,0,20,10,4060,10,1740,0,1,0,6,0,0,,SEMSP,"Released ~3,000 fish prior to processing due to high density. Failed to find SO (and HE) in net before fish had to be released due to deteriorating condition in net. CO too large to fit in whirl-pak (post-smolt, >30cm). 11 fish released in poor condition (species unverified)."
+DE526N1,DE526,1,targeted,NA,08:35:00,338575.5,-125.273467,1,1,1,yes,1,1,10,360,10,40,0,0,0,0,1,1,,SEMSP,
+JE419N1,JE419,1,targeted,NA,07:25:00,50.54416,-126.80831,10,10,10,yes,16,27,10,537,10,537,0,0,0,10,0,0,,SEMSP,Gas leak in Althea. Fish exposed to full slick. Unable to process Herring or perform  a second set.
+DE527N1,DE527,1,targeted,NA,08:03:00,50.30915,-125.32305,0,0,0,no,0,0,0,70,0,30,0,0,0,0,0,0,,SEMSP,
+DE527N2,DE527,2,targeted,NA,08:40:00,50.303167,-125.3387,0,0,0,no,0,0,0,20,0,5,0,0,0,0,0,0,,SEMSP,
+DE527N3,DE527,3,targeted,NA,09:10:00,50.308417,-125.3309,0,0,1,yes,0,0,10,513,10,37,0,0,0,0,0,0,,SEMSP,
+DE528N1,DE528,1,targeted,NA,12:35:00,50.29,-125.317433,0,1,1,no,0,0,0,286,0,430,0,0,0,1,0,0,,SEMSP,
+DE529N1,DE529,1,targeted,NA,07:05:00,50.268067,-125.35845,0,1,1,no,0,0,0,88,0,87,0,2,0,0,0,1,,SEMSP,
+DE529N2,DE529,2,targeted,NA,07:58:00,50.2693,-125.360467,0,1,1,no,0,0,0,90,0,210,0,2,0,0,0,1,,SEMSP,
+DE530N1,DE530,1,targeted,NA,09:50:00,50.2351,-125.397083,1,0,0,no,0,0,0,1,0,0,0,0,0,0,0,0,,SEMSP,
+DE530N2,DE530,2,targeted,NA,10:51:00,50.239,-125.401233,0,1,1,yes,0,0,10,613,10,412,0,0,0,1,1,1,,SEMSP,
+JE420N1,JE420,1,targeted,NA,09:34:00,50.60216,-126.70131,0,1,10,yes,8,8,10,46,10,34,0,0,0,0,0,0,,SEMSP,
+DE532N1,DE532,1,targeted,NA,08:15:00,50.434567,-125.261567,0,1,1,no,0,0,0,0,0,0,0,0,0,0,0,0,,SEMSP,
+DE532N2,DE532,2,targeted,NA,09:00:00,50.434567,-125.261567,0,1,1,no,0,0,0,0,0,0,0,0,0,1,0,0,,SEMSP,"Set #2 herring released poor condition,"
+DE532N3,DE532,3,targeted,NA,09:45:00,50.435,-125.263767,1,1,10,yes,10,15,10,1242,10,2288,0,0,9,9,0,0,,SEMSP,"No ice packs for cooling fish, first 3 herring in 12:20"
+JE421N1,JE421,1,targeted,NA,08:24:00,50.54372,-126.81902,10,0,10,yes,17,17,10,359,10,359,0,0,10,19,0,0,,SEMSP,Released 400 fish after forming bunt.
+JE421N2,JE421,2,targeted,NA,12:14:00,50.54314,-126.81464,10,10,10,yes,13,376,0,909,0,545,0,0,0,0,0,0,,SEMSP,
+JE422N1,JE422,1,targeted,NA,07:18:00,50.54477,-126.65859,1,10,0,yes,5,5,10,219,10,99,1,3,0,0,0,0,,SEMSP,Two other Coho would not fit in Whirlpaks
+JE422N2,JE422,2,targeted,NA,10:28:00,50.54267,-126.65017,1,1,10,yes,12,12,0,131,0,87,0,0,1,1,0,0,,SEMSP,
+DE533N1,DE533,1,targeted,NA,07:22:00,50.305567,-125.337083,1,0,1,no,0,0,0,60,0,140,0,0,0,0,0,0,,SEMSP,
+DE533N2,DE533,2,targeted,NA,09:14:00,50.29995,-125.341167,0,0,0,yes,0,0,10,78,10,17,0,0,0,0,0,0,,SEMSP,
+JE423N1,JE423,1,targeted,NA,06:50:00,50.54327,-126.81796,1,10,10,yes,1,1,10,45,0,3,0,0,0,0,0,0,,SEMSP,
+JE423N2,JE423,2,targeted,NA,08:59:00,50.54343,-126.81577,10,1,10,yes,4,4,0,297,10,208,0,0,0,0,1,1,,SEMSP,
+DE534N1,DE534,1,targeted,NA,08:20:00,50.267517,-125.35945,0,1,0,no,0,0,0,0,0,0,0,0,0,0,0,0,,SEMSP,
+DE534N2,DE534,2,targeted,NA,08:55:00,50.26815,-125.360967,0,1,0,yes,1,1,10,212,10,12,0,0,0,0,1,1,,SEMSP,
+DE535N1,DE535,1,targeted,NA,07:20:00,50.438867,-125.267883,0,1,10,yes,0,0,10,183,10,68,0,0,0,0,0,0,,SEMSP,
+DE536N1,DE536,1,targeted,NA,11:00:00,50.298867,-125.337917,0,1,1,yes,2,2,0,100,1,151,0,0,0,0,0,0,,SEMSP,
+JE425N1,JE425,1,targeted,NA,08:43:00,50.60151,-126.70567,10,1,10,no,0,100,0,200,0,200,0,0,0,0,0,0,,SEMSP,"Current too strong to keep the fish, not safe to set again. School size is estimate only."
+DE537N1,DE537,1,targeted,NA,07:09:00,50.3092,-125.325,0,1,0,yes,0,0,10,85,1,1,0,0,0,0,0,0,,SEMSP,
+JE426N1,JE426,1,targeted,NA,07:14:00,50.54591,-126.6658,1,1,10,yes,1,1,10,185,10,185,0,0,1,1,0,0,,SEMSP,
+DE538N1,DE538,1,random,NA,07:03:00,50.268383,-125.357783,0,0,0,no,0,0,0,5,0,1,0,0,0,0,0,0,,SEMSP,
+DE538N2,DE538,2,random,NA,07:55:00,50.268783,-125.358283,0,0,0,yes,0,0,6,6,1,1,0,0,1,1,2,2,,SEMSP,
+JE427N1,JE427,1,targeted,NA,07:14:00,50.54367,-126.81252,1,10,10,yes,0,0,10,198,10,136,0,0,0,0,0,0,,SEMSP,
+JE427N2,JE427,2,targeted,NA,09:10:00,50.54412,-126.81375,0,1,10,no,0,0,0,35,0,35,0,0,0,0,0,0,,SEMSP,
+DE539N1,DE539,1,random,NA,07:15:00,50.437217,-125.265083,0,0,0,no,0,0,0,0,0,0,0,0,0,0,0,0,,SEMSP,
+DE539N2,DE539,2,targeted,NA,07:45:00,50.435883,-125.264217,0,1,1,yes,0,0,10,168,10,77,0,0,0,0,0,0,,SEMSP,
+JE428N1,JE428,1,targeted,NA,06:51:00,50.54549,-126.6642,0,1,10,yes,1,1,10,179,10,52,1,1,0,0,0,0,,SEMSP,
+JE429N1,JE429,1,targeted,NA,09:45:00,50.54308,-126.81553,0,1,10,yes,1,1,10,209,10,60,0,0,0,0,0,0,,SEMSP,Very licey seine. Lots of mots and attached stages
+DE540N1,DE540,1,targeted,NA,08:28:00,50.309033,-125.323467,0,0,1,yes,0,0,10,50,0,0,0,0,0,0,1,1,,SEMSP,
+DE541N1,DE541,1,targeted,NA,08:50:00,50.30655,-125.33625,0,10,1,yes,0,0,10,110,6,6,0,0,0,0,0,0,,SEMSP,
+DE546N1,DE546,1,targeted,NA,08:50:00,50.307068,-125.331276,0,1,0,no,0,0,0,0,0,1,0,0,0,0,0,0,,SEMSP,"location not taken in field, estimated from Google Earth"
+DE546N2,DE546,2,targeted,NA,09:50:00,50.300047,-125.340866,0,1,1,no,0,0,0,0,0,0,0,0,0,0,0,0,,SEMSP,"location not taken in field, estimated from Google Earth"
+DE542N1,DE542,1,targeted,NA,08:20:00,50.30865,-125.3255,0,0,1,no,0,0,0,0,0,0,0,0,0,0,0,0,,SEMSP,
+DE542N2,DE542,2,targeted,NA,08:45:00,50.308983,-125.325167,0,1,0,no,0,0,0,0,0,0,0,0,0,0,0,0,,SEMSP,
+DE543N1,DE543,1,targeted,NA,08:47:00,50.30945,-125.324067,0,1,1,no,0,0,0,0,0,0,0,0,0,0,0,0,,SEMSP,

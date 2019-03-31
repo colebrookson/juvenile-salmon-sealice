@@ -1,0 +1,86 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+## Steps in the scientific process 
+
+We can write out the steps to the scientific process
+
+1. Identify research questions (based on the datasets you choose)
+
+2. Read prior literature - develop an understanding of the dataset you choose
+
+3. Come up with some interesting hypotheses
+
+4. Write an outline or expected approach to answering the questions -- i.e. how the data will be collected (in our case, the data is already collected, but we need to determine what we're interested in looking at) -- you need to think about what type of anlyses you're doing because it will determine completely how you're gonna do your stats, and also how will the analyses be presented?
+
+5. Run the analyses 
+
+6. Visualize the results
+
+7. Interpret the results - sometimes the data is messy, the patterns aren't clean and you have to pull apart your results and see what's going on 
+
+8. Draw conclusions based on initial hypotheses
+
+9. DISSEMINATE!!! PUBLISH THAT BITCH 
+
+## Team Dynamics
+
+don't be a dick?...
+
+
+## Stages of group formation
+
+
+1. Forming: Getting to know one another. YAY! 
+
+2. Storming: Feeling comfortable and safer, testing boundaries...
+
+3. Norming: Opening up, voicing opinions and potential conflicts 
+
+4. Performing: Stronger bonds...more cooperative
+
+5. Adjourning: Greater energy for completion 
+
+6. Team ends after preoject is successfully completed 
+
+
+## Roles and responsibilities of Group Members 
+
+
+- A few key roles in the groups: 
+
+1. The Leader/Facilitator (keeps things moving and running smoothly, keep everyone on topic, mediate conflicts (try to), encourage everyone to partiipate)
+2. Recorder/Note-taker (keep detailed notes throughout meetings, define 'action items')
+3. Organizer (arrange for next meeting, send reminders, email agenda and 'action items')
+
+
+## Code of conduct
+
+- Establish boundaries and expectations of being a group member
+  + how do you want to be treated
+  + how do you deal with conflict
+  + what is acceptable and unacceptable behaviour
+- Mostly common sense 
+
+[**UofT Coders Code of Conduct**](github.com/uoftcoders/studygroup/)
+
+## As a group, complete these tasks:
+1. Get in your assinged groups
+2. Introduce one another - name, year of study, other stuff (interests, plans for next year etc)
+3. Create 'teamname' ----------- 'Boyle_et_al' 
+4. Assign roles to each other - These will be rotated: Fascilitator, recorder, organizer - discuss how and when roles will be rotated
+5. Discuss and brainstorm code of conduct
+6. take a minute to think about your own skills - share these and record them with your group 
+7. Discuss how responsibilities of each member will be decided on 
+
+
+
+
+
+
+
+
+
+
