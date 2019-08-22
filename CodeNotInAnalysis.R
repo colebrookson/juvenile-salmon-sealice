@@ -275,8 +275,8 @@ calmod.spyrsr <- glmmadmb(all.cal ~ spp + year + site.region - 1 + (1|collection
 calmod.flyrsr <- glmmadmb(all.cal ~ fork.length + year + site.region - 1 + (1|collection), 
                           data = mainlicefork, family = 'nbinom', zeroInflation = FALSE)
 
-calmod.spflyrsr <- glmmadmb(all.cal ~ spp + fork.length + year + site.region - 1 + (1|collection), 
-                            data = mainlicefork, family = 'nbinom', zeroInflation = FALSE)
+calmod.spflyrsr <- glmmTMB(all.cal ~ spp + fork.length + year + site.region - 1 + (1|collection), 
+                            data = mainlicefork, family = 'nbinom')
 
 ####leps
 lepmodnull <- glmmadmb(all.leps ~ 1 + (1|collection), 
@@ -326,7 +326,8 @@ lepmod.flyrsr <- glmmadmb(all.leps ~ year + fork.length + site.region - 1 + (1|c
 
 lepmod.spflyrsr <- glmmadmb(all.leps ~ spp + fork.length + year + site.region - 1 + (1|collection), 
                             data = mainlicefork, family = 'nbinom', zeroInflation = FALSE)
-
+calmod.spflyrsr <- glmmTMB(all.cal ~ spp + fork.length + year + site.region - 1 + (1|collection), 
+                           data = mainlicefork, family = 'nbinom')
 ###summaries
 summary(lepmodnull)
 summary(lepmod.sp); AICtab(lepmodnull, lepmod.sp)

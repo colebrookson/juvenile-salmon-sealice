@@ -1,0 +1,213 @@
+---
+title: "NewModelsForSeanToView"
+author: "Cole"
+date: "August 12, 2019"
+output: 
+  html_document: 
+    toc: yes
+---
+#Preliminary Things
+
+I thought this might be the easiest way to show you all the things without having to copy and paste everything into a word document, so here's an RMD instead lol. 
+
+Necessary packages etc:
+
+```{r, echo=FALSE}
+#packages
+library(tidyverse)
+library(glmmTMB)
+library(ggeffects)
+library(DHARMa)
+library(MuMIn)
+
+#data
+mainlice <- read.csv("Hakai_lice_data_CB_edits.csv")
+
+#make vars into factors
+mainlice$year <- as.factor(mainlice$year);mainlice$collection <- as.factor(mainlice$collection)
+```
+
+#Models
+
+Now, first off the models:
+
+```{r}
+lepmod.yrsrsp <- glmmTMB(all.leps ~ spp + site.region + year - 1 + (1|collection), 
+                      data = mainlice, family=nbinom2)
+calmod.yrsrsp <- glmmTMB(all.cal ~ spp + site.region + year - 1 + (1|collection), 
+                      data = mainlice, family=nbinom2)
+```
+
+#Model Diagnostics
+
+A look at the summaries, and we'll use the DHARMa package to look at the diagnostic plots since the usual techniques don't work with TMB objects. This package implements simulated quantile residuals for glmms. One important note, is that the developers of this package note that Simulate() is unconditional, i.e. all random effects will be re-simulated, and thus all predictions and simulations are conditional on REs, which can sometimes result in a positive correlation between res and predicted when the random effects are strong in the model. So I'm not too worried about the fact that there's a slight correlation here for us as I don't think it's a problem fit-wise.
+
+```{r, warning=TRUE}
+
+summary(lepmod.yrsrsp)
+res_lep = simulateResiduals(lepmod.yrsrsp)
+plot(res_lep)
+
+summary(calmod.yrsrsp)
+res_cal = simulateResiduals(calmod.yrsrsp)
+plot(res_cal, rank = T)
+```
+
+So we can see that the Caligus model as a significant value, but visually it looks good. 
+
+#AIC table
+
+I'll use dredging to get the full model set and see how it looks:
+
+```{r}
+lepmod.yrsrsp_dredge = MuMIn::dredge(lepmod.yrsrsp)
+calmod.yrsrsp_dredge = MuMIn::dredge(calmod.yrsrsp)
+lepmod.yrsrsp_dredge
+calmod.yrsrsp_dredge
+```
+
+This was our problem, that the best model for the leps was not the full model and so we couldn't get at region-level differences here.  
+
+#Effects Plots
+
+Using the ggeffects package we can get the predicted estimates/95% CIs and take a look at what those look like.
+
+```{r}
+calspeffects <- ggpredict(calmod.yrsrsp, terms = c('spp', 'year', 'site.region'))
+lepspeffects <- ggpredict(lepmod.yrsrsp, terms = c('spp', 'year', 'site.region'))
+
+calspeffects = calspeffects %>% 
+  rename(sal = x, reg = facet, yr = group)
+
+calspeffects$sal = factor(calspeffects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+lepspeffects = lepspeffects %>% 
+  rename(sal = x, reg = facet, yr = group)
+
+lepspeffects$sal = factor(lepspeffects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+## Make the plots
+
+leg_title <- 'Salmon Species'
+leps3fullmodplot <- lepspeffects %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "L. salmonis Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+leps3fullmodplot
+cal3fullmodplot <- calspeffects %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "C. clemensi Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+cal3fullmodplot
+```
+
+
+I can't fully remember the full conversation I had with Marty re: why we wanted to split up the models so we could see the region-level effects, but I'm pretty sure the gist of it was about the fact that the full model for the leps wasn't the best model. Anywyas, hopefully this is helpful! Let me know what you think about all of this and how you'd like me to move forwards! I'll go and start addressing some of your comments in the MS that don't necessarily rely on the exact results and I guess we can go from there!
+
+# Crossed Effects - 08/13/19
+
+Fit a set of new ones with the crossed effects from email.
+
+```{r}
+lepmod.crossed <- glmmTMB(all.leps ~ spp * site.region + spp * year + 
+                            site.region * year + (1 | collection), 
+                          data = mainlice, family=nbinom2)
+calmod.crossed <- glmmTMB(all.cal ~ spp * site.region + spp * year + 
+                            site.region * year + (1 | collection), 
+                          data = mainlice, family=nbinom2)
+```
+
+Let's diagnose the model:
+```{r}
+summary(lepmod.crossed)
+res_lep_crossed = simulateResiduals(lepmod.crossed)
+plot(res_lep_crossed)
+```
+Wow, this fits really well!!
+
+Okay, let's dredge it:
+```{r}
+lepmod.crossed_dredge = MuMIn::dredge(lepmod.crossed, subset = (`cond(site.region)` && `cond(year)`))
+lepmod.crossed_dredge
+```
+
+Okay so let's get the diagnostics for the top model:
+```{r}
+lepmod.crossed.top <- glmmTMB(all.leps ~ spp + site.region + year - 1 + (1 | collection), 
+                      data = mainlice, family=nbinom2)
+calmod.crossed.top <- glmmTMB(all.cal ~ spp + site.region + year + site.region * year + (1 | collection), 
+                      data = mainlice, family=nbinom2)
+
+summary(lepmod.crossed.top)
+res_lep_crossed_top = simulateResiduals(lepmod.crossed.top)
+plot(res_lep_crossed_top)
+
+summary(calmod.crossed.top)
+res_lep_crossed_top = simulateResiduals(lepmod.crossed.top)
+plot(res_lep_crossed_top)
+```
+
+Seems to fit well again which is good. Time for effects plot:
+```{r}
+lep_top_effects <- ggpredict(lepmod.crossed.top, terms = c('spp', 'year', 'site.region')) #not sure if I did this right
+
+lep_top_effects = lep_top_effects %>% 
+  rename(sal = x, reg = facet, yr = group)
+
+lep_top_effects$sal = factor(lep_top_effects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+## Make the plots
+
+leg_title <- 'Salmon Species'
+leps3fullmodplot_top <- lep_top_effects %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "L. salmonis Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+leps3fullmodplot_top
+
+```
+
+So I'm not 100% sure if I've done the effects plot correctly, as I told the ggpredict function to only take the fixed single terms since it won't take the crossed ones, and I don't really think you can plot that on this type of plot, but if that's okay, then this plot should be okay. But I'm not completely convinced as these are WAY different results than we had before. I'll look more into it, but for now this will at least do the trick. 
+
+
+Notes on How to Interpret 
+- Look at how many datapoints are in the data for 2017 with the large standard error
+- Model average these (not generally something you want to do, but in this case yes), so take top two models, generate mean expected louse count (feed into the model) so given each combo (i.e. chum, discovery islands, 2015), you generate an average coefficient via the weight of the different models 
+**IMPORTANT** you're model averaging predictions, not coefficients 
+- In the future, make a predictions plot
+- 
+
+
+```{r}
+DI = mainlice %>% 
+  filter(year == 2017) %>% 
+  filter(site.region == 'D') %>% 
+  filter()
+JS = mainlice %>% 
+  filter(year == 2017) %>% 
+  filter(site.region == 'J') 
+
+unique(mainlice$all.leps)
+```
+

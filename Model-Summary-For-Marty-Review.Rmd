@@ -1,0 +1,494 @@
+---
+title: "Hakai-Lice-Models-Overview"
+author: "Cole"
+date: "August 20, 2019"
+output: word_document
+---
+#Preliminary Things
+
+I thought this might be the easiest way to show you all the things without having to copy and paste everything into a word document, so here's an RMD instead lol. 
+
+Necessary packages etc:
+
+```{r, echo=FALSE}
+#packages
+library(tidyverse)
+library(glmmTMB)
+library(ggeffects)
+library(DHARMa)
+library(MuMIn)
+library(cowplot)
+
+#data
+mainlice <- read.csv("Hakai_lice_data_CB_edits.csv")
+
+#make vars into factors
+mainlice$year <- as.factor(mainlice$year);mainlice$collection <- as.factor(mainlice$collection)
+```
+
+#Initial Model Set 
+
+The first set of models from this past school year (region removed from initial model and fit by itself)
+
+## Species Level Models
+
+```{r}
+#models and dredge them
+lepmodspecies.full <- glmmTMB(all.leps ~ spp + year - 1 + (1|collection), 
+                         data = mainlice, family=nbinom2)
+calmodspecies.full <- glmmTMB(all.cal ~ spp + year - 1 + (1|collection), 
+                         data = mainlice, family=nbinom2)
+
+lepmodspecies.full_dredge = MuMIn::dredge(lepmodspecies.full)
+calmodspecies.full_dredge = MuMIn::dredge(calmodspecies.full)
+lepmodspecies.full_dredge
+calmodspecies.full_dredge
+
+```
+
+## Species Level Effects Plots
+
+```{r}
+#effects and plot them
+
+calspecieseffects <- ggpredict(calmodspecies.full, terms = c('spp', 'year'))
+lepspecieseffects <- ggpredict(lepmodspecies.full, terms = c('spp', 'year'))
+
+lepspecieseffects = lepspecieseffects %>% 
+  rename(sal = x, yr = group)
+
+lepspecieseffects$sal = factor(lepspecieseffects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+calspecieseffects = calspecieseffects %>% 
+  rename(sal = x, yr = group)
+
+calspecieseffects$sal = factor(calspecieseffects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+leg_title <- 'Salmon Species'
+lepspeciesfullmodplot <- lepspecieseffects %>% 
+  group_by(., yr,sal) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), colour = 'Black')+
+  geom_point(size = 4) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2')) +
+  labs(title = "L. salmonis Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish')
+lepspeciesfullmodplot
+calspeciesfullmodplot <- calspecieseffects %>% 
+  group_by(., yr,sal) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), colour = 'Black')+
+  geom_point(size = 4) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "C. clemensi Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish')
+calspeciesfullmodplot
+``` 
+
+## Region-Level Models
+
+```{r}
+#region-level models
+regionlice <- read.csv('Hakai_lice_data_all_fish_CB_edits.csv')
+
+#now lets do it between all three species, by making some sub-dfs first
+regionlice$week <- as.factor(regionlice$week); regionlice$year <- as.factor(regionlice$year)
+chum.region <- regionlice %>% 
+  filter(spp == 'CU')
+pink.region <- regionlice %>% 
+  filter(spp == 'PI')
+sock.region <- regionlice %>% 
+  filter(spp == 'SO')
+
+chumrmod.calnb <- glmmTMB(all.cal ~ site.region + year - 1 + (1|week), 
+                           data = chum.region, family=nbinom2)
+chumrmod.lepsnb <- glmmTMB(all.leps ~ site.region + year - 1 + (1|week), 
+                          data = chum.region, family=nbinom2)
+pinkrmod.calnb <- glmmTMB(all.cal ~ site.region + year - 1  + (1|week), 
+                         data = pink.region, family=nbinom2)
+pinkrmod.lepsnb <- glmmTMB(all.leps ~ site.region + year - 1 + (1|week), 
+                          data = pink.region, family=nbinom2)
+sockrmod.calnb <- glmmTMB(all.cal ~ site.region + year - 1 + (1|week), 
+                         data = sock.region, family=nbinom2)
+sockrmod.lepsnbsr <- glmmTMB(all.leps ~ site.region - 1 + (1|week), 
+                            data = sock.region, family=nbinom2)
+summary(chumrmod.calnb); summary(chumrmod.lepsnb); summary(pinkrmod.calnb); summary(pinkrmod.lepsnb); summary(sockrmod.calnb); summary(sockrmod.lepsnbsr)
+```
+
+## AIC tables
+
+```{r}
+chumcalspeffects <- ggpredict(chumrmod.calnb, terms = c('site.region', 'year'))
+chumcalspeffects = chumcalspeffects %>%
+  rename(site.region = x, yr = group) %>%
+  mutate(lice = 'cal')
+chumcalspeffects$site.region = factor(chumcalspeffects$site.region, levels = c(1, 2),
+                              labels = c('D', 'J'))
+
+chumlepspeffects <- ggpredict(chumrmod.lepsnb,terms = c('site.region', 'year'))
+chumlepspeffects = chumlepspeffects %>%
+  rename(site.region = x, yr = group)%>%
+  mutate(lice = 'leps')
+chumlepspeffects$site.region = factor(chumlepspeffects$site.region, levels = c(1, 2),
+                              labels = c('D', 'J'))
+
+pinkcalspeffects <- ggpredict(pinkrmod.calnb, terms = c('site.region', 'year'))
+pinkcalspeffects = pinkcalspeffects %>%
+  rename(site.region = x, yr = group)%>%
+  mutate(lice = 'cal')
+pinkcalspeffects$site.region = factor(pinkcalspeffects$site.region, levels = c(1, 2),
+                              labels = c('D', 'J'))
+
+pinklepspeffects <- ggpredict(pinkrmod.lepsnb,terms = c('site.region', 'year'))
+pinklepspeffects = pinklepspeffects %>%
+  rename(site.region = x, yr = group)%>%
+  mutate(lice = 'leps')
+pinklepspeffects$site.region = factor(pinklepspeffects$site.region, levels = c(1, 2),
+                              labels = c('D', 'J'))
+
+sockcalspeffects <- ggpredict(sockrmod.calnb, terms = c('site.region', 'year'))
+sockcalspeffects = sockcalspeffects %>%
+  rename(site.region = x, yr = group)%>%
+  mutate(lice = 'cal')
+sockcalspeffects$site.region = factor(sockcalspeffects$site.region, levels = c(1, 2),
+                              labels = c('D', 'J'))
+
+socklepspeffects <- ggpredict(sockrmod.lepsnbsr,terms = 'site.region')
+socklepspeffects = socklepspeffects %>%
+  rename(site.region = x)%>%
+  mutate(lice = 'leps')
+socklepspeffects$site.region = factor(socklepspeffects$site.region, levels = c(1, 2),
+                              labels = c('D', 'J'))
+
+chumeffects = rbind(chumcalspeffects, chumlepspeffects)
+pinkeffects = rbind(pinkcalspeffects, pinklepspeffects)
+
+```
+
+## Region Level Effects Plots
+
+```{r}
+#make some themes so it all looks nice beside each other
+fte_themeSock <- function(){
+  color.background = 'white'
+  color.grid.major = 'black'
+  color.axis.text = 'black'
+  color.axis.title = 'black'
+  color.title = 'black'
+  theme_bw(base_size = 9) +
+    theme(panel.background = element_rect(fill=color.background,color = color.background)) +
+    theme(plot.background = element_rect(fill = color.background, color = color.background)) +
+    theme(panel.border = element_blank()) +
+    theme(panel.grid.major = element_blank()) +
+    theme(panel.grid.minor = element_blank()) +
+    theme(axis.ticks = element_blank()) +
+    theme(plot.title = element_text(color = color.title, size = 15, vjust = 1.25)) +
+    theme(axis.text.x = element_text(size = 10, color = color.axis.text)) +
+    theme(axis.text.y = element_text(size = 10, color = color.axis.text)) +
+    theme(axis.title.x = element_text(size = 12, color = color.axis.title, vjust = 0)) +
+    theme(axis.title.y = element_text(size = 12, color = color.axis.title, vjust = 1.25)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.line.x = element_line(color="black", size = 0.15),
+          axis.line.y = element_line(color="black", size = 0.15)) +
+    theme(strip.background = element_blank(),
+                  strip.placement = 'outside',
+          strip.text = element_text(size = 10))+
+    theme(legend.position = 'none')
+}
+fte_themeSock2 <- function(){
+  color.background = 'white'
+  color.grid.major = 'black'
+  color.axis.text = 'black'
+  color.axis.title = 'black'
+  color.title = 'black'
+  theme_bw(base_size = 9) +
+    theme(panel.background = element_rect(fill=color.background,color = color.background)) +
+    theme(plot.background = element_rect(fill = color.background, color = color.background)) +
+    theme(panel.border = element_blank()) +
+    theme(panel.grid.major = element_blank()) +
+    theme(panel.grid.minor = element_blank()) +
+    theme(axis.ticks = element_blank()) +
+    theme(plot.title = element_text(color = color.title, size = 15, vjust = 1.25)) +
+    theme(axis.text.x = element_text(size = 10, color = color.axis.text)) +
+    theme(axis.text.y = element_text(size = 10, color = color.axis.text)) +
+    theme(axis.title.x = element_text(size = 12, color = color.axis.title, vjust = 0)) +
+    theme(axis.title.y = element_text(size = 12, color = color.axis.title, vjust = 1.25)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.line.x = element_line(color="black", size = 0.15),
+          axis.line.y = element_line(color="black", size = 0.15)) +
+    theme(strip.background = element_blank(),
+          strip.placement = 'outside',
+          strip.text = element_text(size = 10))+
+    theme(legend.position = c(0.9,0.82),
+          legend.text = element_text(size = 10),
+          legend.title = element_text(size = 10))
+}
+fte_themeSock3 <- function(){
+  color.background = 'white'
+  color.grid.major = 'black'
+  color.axis.text = 'black'
+  color.axis.title = 'black'
+  color.title = 'black'
+  theme_bw(base_size = 9) +
+    theme(panel.background = element_rect(fill=color.background,color = color.background)) +
+    theme(plot.background = element_rect(fill = color.background, color = color.background)) +
+    theme(panel.border = element_blank()) +
+    theme(panel.grid.major = element_blank()) +
+    theme(panel.grid.minor = element_blank()) +
+    theme(axis.ticks = element_blank()) +
+    theme(plot.title = element_text(color = color.title, size = 15, vjust = 1.25)) +
+    theme(axis.text.x = element_text(size = 10, color = color.axis.text)) +
+    theme(axis.text.y = element_text(size = 10, color = color.axis.text)) +
+    theme(axis.title.x = element_text(size = 12, color = color.axis.title,
+                                      margin= margin(t = 0.7, r = , b = 0, l = 0, unit = "cm"), vjust = 0)) +
+    theme(axis.title.y = element_text(size = 12, color = color.axis.title, vjust = 1.25)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.line.x = element_line(color="black", size = 0.15),
+          axis.line.y = element_line(color="black", size = 0.15)) +
+    theme(strip.background = element_blank(),
+          strip.placement = 'outside',
+          strip.text = element_text(size = 10))+
+    theme(legend.position = 'none')
+}
+fte_themePink <- function(){
+  color.background = 'white'
+  color.grid.major = 'black'
+  color.axis.text = 'black'
+  color.axis.title = 'black'
+  color.title = 'black'
+  theme_bw(base_size = 9) +
+    theme(panel.background = element_rect(fill=color.background,color = color.background)) +
+    theme(plot.background = element_rect(fill = color.background, color = color.background)) +
+    theme(panel.border = element_blank()) +
+    theme(panel.grid.major = element_blank()) +
+    theme(panel.grid.minor = element_blank()) +
+    theme(axis.ticks = element_blank()) +
+    theme(plot.title = element_text(color = color.title, size = 15, vjust = 1.25)) +
+    theme(axis.text.x = element_text(size = 10, color = color.axis.text)) +
+    theme(axis.text.y = element_blank()) +
+    theme(axis.title.x = element_text(size = 12, color = color.axis.title, vjust = 0)) +
+    theme(axis.title.y = element_text(size = 12, color = color.axis.title, vjust = 1.25)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.line.x = element_line(color="black", size = 0.15),
+          axis.line.y = element_line(linetype = 'dashed', color = 'grey75')) +
+    theme(strip.background = element_blank(),
+          strip.placement = 'outside',
+          strip.text = element_text(size = 10))+
+    theme(legend.position = 'none')
+}
+fte_themeChum <- function(){
+  color.background = 'white'
+  color.grid.major = 'black'
+  color.axis.text = 'black'
+  color.axis.title = 'black'
+  color.title = 'black'
+  theme_bw(base_size = 9) +
+    theme(panel.background = element_rect(fill=color.background,color = color.background)) +
+    theme(plot.background = element_rect(fill = color.background, color = color.background)) +
+    theme(panel.border = element_blank()) +
+    theme(panel.grid.major = element_blank()) +
+    theme(panel.grid.minor = element_blank()) +
+    theme(axis.ticks = element_blank()) +
+    theme(plot.title = element_text(color = color.title, size = 15, vjust = 1.25)) +
+    theme(axis.text.x = element_text(size = 10, color = color.axis.text)) +
+    theme(axis.text.y = element_blank()) +
+    theme(axis.title.x = element_text(size = 12, color = color.axis.title, vjust = 0)) +
+    theme(axis.title.y = element_text(size = 12, color = color.axis.title, vjust = 1.25)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.line.x = element_line(color="black", size = 0.15),
+          axis.line.y = element_line(linetype = 'dashed', color = 'grey75')) +
+    theme(strip.background = element_blank(),
+          strip.placement = 'outside',
+          strip.text = element_text(size = 10))+
+    theme(legend.position = c(0.8,0.82),
+          legend.text = element_text(size = 10),
+          legend.title = element_text(size = 10))
+}
+
+#make the plots
+regionestbyspplotchumnb <- chumeffects %>% 
+  group_by(.,lice,site.region,yr) %>% 
+  ggplot(aes(x=site.region, y = predicted, colour = site.region, shape = lice)) +
+  scale_shape_manual(values = c(17,15),labels = c('C. clemensi','L. salmonis'))+
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high, width = 0), position = position_dodge(width = 0.8),colour = 'Black') +
+  geom_point(size = 4, position = position_dodge(width=0.8)) +
+  facet_wrap(~yr, nrow=1, strip.position = 'bottom')+
+  scale_color_manual(values=c('grey60', 'grey20'))+
+  labs(title = "Chum Salmon",x = '', y = NULL,shape = 'Lice Species', colour = 'Region')+
+  guides(shape = guide_legend(override.aes = list(shape = c(24,22)), type = 'b'))+
+  scale_y_continuous(limits = c(0,1.25)) +
+  fte_themeChum()
+regionestbyspplotchumnb
+regionestbyspplotpinknb <- pinkeffects %>% 
+  group_by(.,lice,site.region,yr) %>% 
+  ggplot(aes(x=site.region, y = predicted, colour = site.region, shape = lice)) +
+  scale_shape_manual(values = c(17,15),labels = c('C. clemensi','L. salmonis'))+
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high, width = 0), position = position_dodge(width = 0.8),colour = 'Black') +
+  geom_point(size = 4, position = position_dodge(width=0.8)) +
+  facet_wrap(~yr, nrow=1, strip.position = 'bottom')+
+  theme(strip.background = element_blank(),strip.placement = 'outside') +
+  scale_color_manual(values=c('grey60', 'grey20'))+
+  labs(title = "Pink Salmon", x = 'Year & Region', y = NULL,shape = 'Lice Species')+
+  guides(shape = guide_legend(override.aes = list(shape = c(24,22)), type = 'b'))+
+  scale_y_continuous(limits = c(0,1.25)) +
+  fte_themePink()
+regionestbyspplotpinknb
+regionestbyspplotsockcal <- sockcalspeffects %>% 
+  group_by(.,lice,site.region,yr) %>% 
+  ggplot(aes(x=site.region, y = predicted, colour = site.region, shape = lice)) +
+  scale_shape_manual(values = c(17,15),labels = c('C. clemensi','L. salmonis'))+
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high, width = 0), position = position_dodge(width = 0.8),colour = 'Black') +
+  geom_point(size = 4, position = position_dodge(width=0.8)) +
+  facet_wrap(~yr, nrow=1, strip.position = 'bottom')+
+  theme(strip.background = element_blank(),strip.placement = 'outside') +
+  scale_color_manual(values=c('grey60', 'grey20'))+
+  labs(title = "Sockeye Salmon", x = '', y = 'Average Number of Motile Lice Per Fish',shape = 'Lice Species')+
+  guides(shape = guide_legend(override.aes = list(shape = c(24,22)), type = 'b'))+
+  scale_y_continuous(limits = c(0,1.25))+
+  fte_themeSock()
+regionestbyspplotsockcal
+
+regionbothcalsock <- plot_grid(regionestbyspplotsockcal,regionestbyspplotpinknb,regionestbyspplotchumnb,
+                          nrow = 1, labels = NULL, rel_widths = c(1,1,1)) 
+regionbothcalsock
+```
+
+# New Set of Models
+
+## Models (No Crossed Effects)
+
+```{r}
+lepmod.yrsrsp <- glmmTMB(all.leps ~ spp + site.region + year - 1 + (1|collection), 
+                      data = mainlice, family=nbinom2)
+calmod.yrsrsp <- glmmTMB(all.cal ~ spp + site.region + year - 1 + (1|collection), 
+                      data = mainlice, family=nbinom2)
+```
+
+## AIC tables
+
+```{r}
+lepmod.yrsrsp_dredge = MuMIn::dredge(lepmod.yrsrsp)
+calmod.yrsrsp_dredge = MuMIn::dredge(calmod.yrsrsp)
+lepmod.yrsrsp_dredge
+calmod.yrsrsp_dredge
+```
+
+## Effects Plots
+
+```{r}
+calspeffects <- ggpredict(calmod.yrsrsp, terms = c('spp', 'year', 'site.region'))
+lepspeffects <- ggpredict(lepmod.yrsrsp, terms = c('spp', 'year', 'site.region'))
+
+calspeffects = calspeffects %>% 
+  rename(sal = x, reg = facet, yr = group)
+
+calspeffects$sal = factor(calspeffects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+lepspeffects = lepspeffects %>% 
+  rename(sal = x, reg = facet, yr = group)
+
+lepspeffects$sal = factor(lepspeffects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+## Make the plots
+
+leg_title <- 'Salmon Species'
+leps3fullmodplot <- lepspeffects %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "L. salmonis Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+leps3fullmodplot
+cal3fullmodplot <- calspeffects %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "C. clemensi Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+cal3fullmodplot
+```
+
+## Models (Crossed Effects)
+
+```{r}
+lepmod.crossed <- glmmTMB(all.leps ~ spp * site.region + spp * year + 
+                            site.region * year + (1 | collection), 
+                          data = mainlice, family=nbinom2)
+calmod.crossed <- glmmTMB(all.cal ~ spp * site.region + spp * year + 
+                            site.region * year + (1 | collection), 
+                          data = mainlice, family=nbinom2)
+```
+
+## AIC Tables
+
+```{r}
+lepmod.crossed_dredge = MuMIn::dredge(lepmod.crossed, subset = (`cond(site.region)` && `cond(year)`))
+lepmod.crossed_dredge
+calmod.crossed_dredge = MuMIn::dredge(calmod.crossed, subset = (`cond(site.region)` && `cond(year)`))
+calmod.crossed_dredge
+```
+
+## Effects Plots
+
+```{r}
+lepmod.crossed.top <- glmmTMB(all.leps ~ spp + site.region + year + site.region * year - 1 + (1 | collection), 
+                      data = mainlice, family=nbinom2)
+summary(lepmod.crossed.top)
+calmod.crossed.top <- glmmTMB(all.cal ~ year + site.region + spp + spp * site.region + 
+                            site.region * year + (1 | collection), 
+                          data = mainlice, family=nbinom2)
+summary(calmod.crossed.top)
+
+lep_top_effects <- ggpredict(lepmod.crossed.top, terms = c('spp', 'year', 'site.region')) #not sure if I did this right
+cal_top_effects <- ggpredict(calmod.crossed.top, terms = c('spp', 'year', 'site.region'))
+
+lep_top_effects = lep_top_effects %>% 
+  rename(sal = x, reg = facet, yr = group)
+cal_top_effects = cal_top_effects %>% 
+  rename(sal = x, reg = facet, yr = group)
+
+lep_top_effects$sal = factor(lep_top_effects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+cal_top_effects$sal = factor(cal_top_effects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+## Make the plots
+
+leg_title <- 'Salmon Species'
+lepsfullmodplot_top <- lep_top_effects %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "L. salmonis Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+lepsfullmodplot_top
+calfullmodplot_top <- cal_top_effects %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "C. clemensi Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+calfullmodplot_top
+
+```
+

@@ -1,0 +1,521 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={NewModelsForSeanToView},
+            pdfauthor={Cole},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{NewModelsForSeanToView}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Cole}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{August 12, 2019}
+
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{Preliminary Things}\label{preliminary-things}
+
+I thought this might be the easiest way to show you all the things
+without having to copy and paste everything into a word document, so
+here's an RMD instead lol.
+
+Necessary packages etc:
+
+\begin{verbatim}
+## Warning: package 'tidyverse' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------------------------------------------------- tidyverse 1.2.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.1.1     v purrr   0.3.2
+## v tibble  2.1.3     v dplyr   0.8.1
+## v tidyr   0.8.3     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.4.0
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'ggplot2' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'tibble' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'tidyr' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'readr' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'purrr' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'dplyr' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'stringr' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'forcats' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'glmmTMB' was built under R version 3.5.2
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'ggeffects' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'DHARMa' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'MuMIn' was built under R version 3.5.3
+\end{verbatim}
+
+\section{Models}\label{models}
+
+Now, first off the models:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lepmod.yrsrsp <-}\StringTok{ }\KeywordTok{glmmTMB}\NormalTok{(all.leps }\OperatorTok{~}\StringTok{ }\NormalTok{spp }\OperatorTok{+}\StringTok{ }\NormalTok{site.region }\OperatorTok{+}\StringTok{ }\NormalTok{year }\OperatorTok{-}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{collection), }
+                      \DataTypeTok{data =}\NormalTok{ mainlice, }\DataTypeTok{family=}\NormalTok{nbinom2)}
+\NormalTok{calmod.yrsrsp <-}\StringTok{ }\KeywordTok{glmmTMB}\NormalTok{(all.cal }\OperatorTok{~}\StringTok{ }\NormalTok{spp }\OperatorTok{+}\StringTok{ }\NormalTok{site.region }\OperatorTok{+}\StringTok{ }\NormalTok{year }\OperatorTok{-}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{collection), }
+                      \DataTypeTok{data =}\NormalTok{ mainlice, }\DataTypeTok{family=}\NormalTok{nbinom2)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Model Diagnostics}\label{model-diagnostics}
+
+A look at the summaries, and we'll use the DHARMa package to look at the
+diagnostic plots since the usual techniques don't work with TMB objects.
+This package implements simulated quantile residuals for glmms. One
+important note, is that the developers of this package note that
+Simulate() is unconditional, i.e.~all random effects will be
+re-simulated, all predictions and simulations are conditional on REs,
+which can sometimes create a positive correlation between res and
+predicted when the random effects are strong. So I'm not too worried
+about the fact that there's a slight correlation here for us.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(lepmod.yrsrsp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Family: nbinom2  ( log )
+## Formula:          
+## all.leps ~ spp + site.region + year - 1 + (1 | collection)
+## Data: mainlice
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##    854.6    904.2   -418.3    836.6     1826 
+## 
+## Random effects:
+## 
+## Conditional model:
+##  Groups     Name        Variance Std.Dev.
+##  collection (Intercept) 0.6749   0.8215  
+## Number of obs: 1835, groups:  collection, 52
+## 
+## Overdispersion parameter for nbinom2 family (): 0.41 
+## 
+## Conditional model:
+##              Estimate Std. Error z value Pr(>|z|)    
+## sppCU         -1.9832     0.3980  -4.982 6.28e-07 ***
+## sppPI         -1.1917     0.3658  -3.258  0.00112 ** 
+## sppSO         -3.4837     0.4345  -8.017 1.08e-15 ***
+## site.regionJ  -0.1716     0.3367  -0.510  0.61032    
+## year2016      -0.6586     0.3881  -1.697  0.08969 .  
+## year2017      -2.0926     0.8863  -2.361  0.01822 *  
+## year2018      -2.1216     0.5139  -4.129 3.65e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res_lep =}\StringTok{ }\KeywordTok{simulateResiduals}\NormalTok{(lepmod.yrsrsp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## It seems you are diagnosing a glmmTBM model. There are still a few minor limitations associatd with this package. The most important is that glmmTMB doesn't implement an option to create unconditional predictions from the model, which means that predicted values (in res ~ pred) plots include the random effects. With strong random effects, this can sometimes create diagonal patterns from bottom left to top right in the res ~ pred plot. All other tests and plots should work as desired. Please see https://github.com/florianhartig/DHARMa/issues/16 for further details.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(res_lep)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{NewModelsForSeanToView_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(calmod.yrsrsp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Family: nbinom2  ( log )
+## Formula:          
+## all.cal ~ spp + site.region + year - 1 + (1 | collection)
+## Data: mainlice
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##   2990.3   3039.9  -1486.2   2972.3     1826 
+## 
+## Random effects:
+## 
+## Conditional model:
+##  Groups     Name        Variance Std.Dev.
+##  collection (Intercept) 0.1011   0.3179  
+## Number of obs: 1835, groups:  collection, 52
+## 
+## Overdispersion parameter for nbinom2 family (): 1.38 
+## 
+## Conditional model:
+##              Estimate Std. Error z value Pr(>|z|)    
+## sppCU         -1.1611     0.1729  -6.714 1.89e-11 ***
+## sppPI         -0.5805     0.1583  -3.667 0.000245 ***
+## sppSO         -0.6864     0.1526  -4.497 6.88e-06 ***
+## site.regionJ   0.4015     0.1265   3.175 0.001499 ** 
+## year2016      -0.5786     0.1578  -3.667 0.000245 ***
+## year2017      -0.7778     0.2848  -2.731 0.006307 ** 
+## year2018      -0.5159     0.1770  -2.915 0.003557 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res_cal =}\StringTok{ }\KeywordTok{simulateResiduals}\NormalTok{(calmod.yrsrsp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## It seems you are diagnosing a glmmTBM model. There are still a few minor limitations associatd with this package. The most important is that glmmTMB doesn't implement an option to create unconditional predictions from the model, which means that predicted values (in res ~ pred) plots include the random effects. With strong random effects, this can sometimes create diagonal patterns from bottom left to top right in the res ~ pred plot. All other tests and plots should work as desired. Please see https://github.com/florianhartig/DHARMa/issues/16 for further details.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(res_cal, }\DataTypeTok{rank =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{NewModelsForSeanToView_files/figure-latex/unnamed-chunk-3-2.pdf}
+
+So we can see that the Caligus model as a significant value, but
+visually it looks good.
+
+\section{AIC table}\label{aic-table}
+
+I'll use dredging to get the full model set and see how it looks:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lepmod.yrsrsp_dredge =}\StringTok{ }\NormalTok{MuMIn}\OperatorTok{::}\KeywordTok{dredge}\NormalTok{(lepmod.yrsrsp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Fixed term is "disp((Int))"
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in glmmTMB(formula = all.leps ~ 0, data = mainlice, family =
+## nbinom2, : unused argument (`NA` = ~(1 | collection)) (model 0 skipped)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{calmod.yrsrsp_dredge =}\StringTok{ }\NormalTok{MuMIn}\OperatorTok{::}\KeywordTok{dredge}\NormalTok{(calmod.yrsrsp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Fixed term is "disp((Int))"
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in glmmTMB(formula = all.cal ~ 0, data = mainlice, family =
+## nbinom2, : unused argument (`NA` = ~(1 | collection)) (model 0 skipped)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lepmod.yrsrsp_dredge}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Global model call: glmmTMB(formula = all.leps ~ spp + site.region + year - 1 + (1 | 
+##     collection), data = mainlice, family = nbinom2, ziformula = ~0, 
+##     dispformula = ~1)
+## ---
+## Model selection table 
+##   dsp((Int)) cnd(sit.rgn) cnd(spp) cnd(yer) df   logLik  AICc delta weight
+## 7          +                     +        +  8 -418.419 852.9  0.00  0.706
+## 8          +            +        +        +  9 -418.292 854.7  1.76  0.292
+## 3          +                     +           5 -427.833 865.7 12.78  0.001
+## 4          +            +        +           6 -427.751 867.5 14.63  0.000
+## 5          +                              +  6 -452.366 916.8 63.86  0.000
+## 6          +            +                 +  7 -452.342 918.7 65.83  0.000
+## 2          +            +                    4 -461.316 930.7 77.74  0.000
+## Models ranked by AICc(x) 
+## Random terms (all models): 
+## 'cond(1 | collection)'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{calmod.yrsrsp_dredge}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Global model call: glmmTMB(formula = all.cal ~ spp + site.region + year - 1 + (1 | 
+##     collection), data = mainlice, family = nbinom2, ziformula = ~0, 
+##     dispformula = ~1)
+## ---
+## Model selection table 
+##   dsp((Int)) cnd(sit.rgn) cnd(spp) cnd(yer) df    logLik   AICc delta
+## 8          +            +        +        +  9 -1486.158 2990.4  0.00
+## 7          +                     +        +  8 -1490.784 2997.6  7.23
+## 4          +            +        +           6 -1493.201 2998.4  8.03
+## 3          +                     +           5 -1497.330 3004.7 14.28
+## 6          +            +                 +  7 -1498.198 3010.5 20.04
+## 5          +                              +  6 -1502.828 3017.7 27.29
+## 2          +            +                    4 -1505.653 3019.3 28.91
+##   weight
+## 8  0.956
+## 7  0.026
+## 4  0.017
+## 3  0.001
+## 6  0.000
+## 5  0.000
+## 2  0.000
+## Models ranked by AICc(x) 
+## Random terms (all models): 
+## 'cond(1 | collection)'
+\end{verbatim}
+
+Now if I'm thinking about this right, for the leps, even though the full
+model isn't the highest AIC, because the deltaAIC is \textless{}2 and
+the neg. log-liklihood is lower for the full model, we can still use the
+full model right? Does the fact that we loose a df matter here? I can't
+remember what the rules are if your full model isn't the clear best
+choice.
+
+\section{Effects Plots}\label{effects-plots}
+
+so using the ggeffects package we can get the predicted estimates/95\%
+CIs and take a look at what those look like.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{calspeffects <-}\StringTok{ }\KeywordTok{ggpredict}\NormalTok{(calmod.yrsrsp, }\DataTypeTok{terms =} \KeywordTok{c}\NormalTok{(}\StringTok{'spp'}\NormalTok{, }\StringTok{'year'}\NormalTok{, }\StringTok{'site.region'}\NormalTok{))}
+\NormalTok{lepspeffects <-}\StringTok{ }\KeywordTok{ggpredict}\NormalTok{(lepmod.yrsrsp, }\DataTypeTok{terms =} \KeywordTok{c}\NormalTok{(}\StringTok{'spp'}\NormalTok{, }\StringTok{'year'}\NormalTok{, }\StringTok{'site.region'}\NormalTok{))}
+
+\NormalTok{calspeffects =}\StringTok{ }\NormalTok{calspeffects }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{sal =}\NormalTok{ x, }\DataTypeTok{reg =}\NormalTok{ facet, }\DataTypeTok{yr =}\NormalTok{ group)}
+
+\NormalTok{calspeffects}\OperatorTok{$}\NormalTok{sal =}\StringTok{ }\KeywordTok{factor}\NormalTok{(calspeffects}\OperatorTok{$}\NormalTok{sal, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{'CU'}\NormalTok{, }\StringTok{'PI'}\NormalTok{, }\StringTok{'SO'}\NormalTok{))}
+
+\NormalTok{lepspeffects =}\StringTok{ }\NormalTok{lepspeffects }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{sal =}\NormalTok{ x, }\DataTypeTok{reg =}\NormalTok{ facet, }\DataTypeTok{yr =}\NormalTok{ group)}
+
+\NormalTok{lepspeffects}\OperatorTok{$}\NormalTok{sal =}\StringTok{ }\KeywordTok{factor}\NormalTok{(lepspeffects}\OperatorTok{$}\NormalTok{sal, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{'CU'}\NormalTok{, }\StringTok{'PI'}\NormalTok{, }\StringTok{'SO'}\NormalTok{))}
+
+\NormalTok{## Make the plots}
+
+\NormalTok{leg_title <-}\StringTok{ 'Salmon Species'}
+\NormalTok{leps3fullmodplot <-}\StringTok{ }\NormalTok{lepspeffects }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(., yr,sal,reg) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ sal, }\DataTypeTok{y =}\NormalTok{ predicted, }\DataTypeTok{colour =}\NormalTok{ sal, }\DataTypeTok{shape =}\NormalTok{ reg)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_shape_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\DecValTok{15}\NormalTok{,}\DecValTok{17}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_errorbar}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{ymin=}\NormalTok{conf.low, }\DataTypeTok{ymax =}\NormalTok{ conf.high,}\DataTypeTok{width =} \DecValTok{0}\NormalTok{), }\DataTypeTok{position =} \KeywordTok{position_dodge}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.8}\NormalTok{),}\DataTypeTok{colour =} \StringTok{'Black'}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{4}\NormalTok{,}\DataTypeTok{position =} \KeywordTok{position_dodge}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.8}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{yr,}\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{,}\DataTypeTok{strip.position =} \StringTok{"bottom"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{strip.background =} \KeywordTok{element_blank}\NormalTok{(), }\DataTypeTok{strip.placement =} \StringTok{"outside"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(leg_title,}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\StringTok{'seagreen2'}\NormalTok{, }\StringTok{'hotpink1'}\NormalTok{, }\StringTok{'steelblue2'}\NormalTok{))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"L. salmonis Effects Plot"}\NormalTok{, }\DataTypeTok{x =} \StringTok{'Salmon Species/Year'}\NormalTok{, }\DataTypeTok{y =} \StringTok{'Average Number of Motile Lice Per Fish'}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{guide_legend}\NormalTok{(}\DataTypeTok{title =} \StringTok{'Region'}\NormalTok{, }\DataTypeTok{override.aes =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{)), }\DataTypeTok{type =} \StringTok{'b'}\NormalTok{))}
+\NormalTok{leps3fullmodplot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{NewModelsForSeanToView_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cal3fullmodplot <-}\StringTok{ }\NormalTok{calspeffects }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(., yr,sal,reg) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ sal, }\DataTypeTok{y =}\NormalTok{ predicted, }\DataTypeTok{colour =}\NormalTok{ sal, }\DataTypeTok{shape =}\NormalTok{ reg)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_shape_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\DecValTok{15}\NormalTok{,}\DecValTok{17}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_errorbar}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{ymin=}\NormalTok{conf.low, }\DataTypeTok{ymax =}\NormalTok{ conf.high,}\DataTypeTok{width =} \DecValTok{0}\NormalTok{), }\DataTypeTok{position =} \KeywordTok{position_dodge}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.8}\NormalTok{),}\DataTypeTok{colour =} \StringTok{'Black'}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{4}\NormalTok{,}\DataTypeTok{position =} \KeywordTok{position_dodge}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.8}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{yr,}\DataTypeTok{nrow=}\DecValTok{1}\NormalTok{,}\DataTypeTok{strip.position =} \StringTok{"bottom"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{strip.background =} \KeywordTok{element_blank}\NormalTok{(), }\DataTypeTok{strip.placement =} \StringTok{"outside"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(leg_title,}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\StringTok{'seagreen2'}\NormalTok{, }\StringTok{'hotpink1'}\NormalTok{, }\StringTok{'steelblue2'}\NormalTok{))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"C. clemensi Effects Plot"}\NormalTok{, }\DataTypeTok{x =} \StringTok{'Salmon Species/Year'}\NormalTok{, }\DataTypeTok{y =} \StringTok{'Average Number of Motile Lice Per Fish'}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{guide_legend}\NormalTok{(}\DataTypeTok{title =} \StringTok{'Region'}\NormalTok{, }\DataTypeTok{override.aes =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{shape =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{)), }\DataTypeTok{type =} \StringTok{'b'}\NormalTok{))}
+\NormalTok{cal3fullmodplot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{NewModelsForSeanToView_files/figure-latex/unnamed-chunk-5-2.pdf}
+
+So I think this looks like it might work? I don't know if the
+significant factor in the outlier test is enough to mean we need to do
+something further with that or not? My intuition says that because its
+barely significant and because visually it looks really good that it's
+not a huge problem, but I don't know a whole ton about standard practice
+here so I'd love to know your thoughts on that!
+
+Anyways, hopefully this is helpful! Let me know what you think about all
+of this and how you'd like me to move forwards! I'll go and start
+addressing some of your comments in the MS that don't necessarily rely
+on the exact results and I guess we can go from there!
+
+
+\end{document}

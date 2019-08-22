@@ -12,6 +12,9 @@ library(rsample)
 library(tibble)
 library(glmmTMB)
 library(ggeffects)
+library(DHARMa)
+library(MuMIn)
+
 
 # First lets take a look at some of the summary statistics with the data and get a handle on it. 
 # we'll look at the structure of the dataframe, and we'll also spend some time subsetting it into 'workable intervals'
@@ -2387,3 +2390,76 @@ summary(pinkrmod.calp2)
 summary(pinkrmod.lepsp2)
 summary(sockrmod.calp2)
 summary(sockrmod.lepsp2)
+
+
+############################################# New Analyses for Sean (08/12/19)
+
+#try running the full model with region again but use TMB
+mainlice$year <- as.factor(mainlice$year);mainlice$collection <- as.factor(mainlice$collection)
+
+lepmod.yrsrsp <- glmmTMB(all.leps ~ spp + site.region + year - 1 + (1|collection), 
+                      data = mainlice, family=nbinom2)
+calmod.yrsrsp <- glmmTMB(all.cal ~ spp + site.region + year - 1 + (1|collection), 
+                         data = mainlice, family=nbinom2)
+
+#use DHARMa package to look at residual plots
+summary(lepmod.yrsrsp)
+res_lep = simulateResiduals(lepmod.yrsrsp)
+plot(res_lep)
+
+summary(calmod.yrsrsp)
+res_cal = simulateResiduals(calmod.yrsrsp)
+plot(res_cal, rank = T)
+
+#let's dredge this thing
+lepmod.yrsrsp_dredge = MuMIn::dredge(lepmod.yrsrsp)
+calmod.yrsrsp_dredge = MuMIn::dredge(calmod.yrsrsp)
+lepmod.yrsrsp_dredge
+calmod.yrsrsp_dredge
+
+
+#let's look at the plots via ggeffects
+calspeffects <- ggpredict(calmod.yrsrsp, terms = c('spp', 'year', 'site.region'))
+lepspeffects <- ggpredict(lepmod.yrsrsp, terms = c('spp', 'year', 'site.region'))
+
+calspeffects = calspeffects %>% 
+  rename(sal = x, reg = facet, yr = group)
+
+calspeffects$sal = factor(calspeffects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+lepspeffects = lepspeffects %>% 
+  rename(sal = x, reg = facet, yr = group)
+
+lepspeffects$sal = factor(lepspeffects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+## Make the plots
+
+leg_title <- 'Salmon Species'
+leps3fullmodplot <- lepspeffects %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "L. salmonis Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+leps3fullmodplot
+cal3fullmodplot <- calspeffects %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "C. clemensi Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+cal3fullmodplot
+
+
+
+
