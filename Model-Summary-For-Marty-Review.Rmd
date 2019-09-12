@@ -2,7 +2,9 @@
 title: "Hakai-Lice-Models-Overview"
 author: "Cole"
 date: "August 20, 2019"
-output: word_document
+output:
+  html_document:
+    df_print: paged
 ---
 #Preliminary Things
 
@@ -18,6 +20,8 @@ library(ggeffects)
 library(DHARMa)
 library(MuMIn)
 library(cowplot)
+library(AICcmodavg)
+library(latexpdf)
 
 #data
 mainlice <- read.csv("Hakai_lice_data_CB_edits.csv")
@@ -490,5 +494,378 @@ calfullmodplot_top <- cal_top_effects %>%
   guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
 calfullmodplot_top
 
+```
+
+# Model Averaging
+
+So the goal here is to hard code all of this, starting with the model-averaged predictions and then the confidence intervals. 
+
+For the predictions, we have the set of $R$ candidate models ${M_1,...,M_n}$ models and we want the model-averaged estimator $\hat{theta}$ of $\theta$ as the weighted average from each model$$\hat{theta} = \sum_{i=1}^R \w_i\hat{theta}$$. This can be used to average the predictions that we get using the ggpredict package. 
+
+First we need all our candidate models - for simplicity sake they've been organized by the ranking from the model comparison. 
+
+```{r}
+#omited the last two models in each set since their weights were 0. 
+lep1 = glmmTMB(all.leps ~ site.region + year + spp + 
+            site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep2 = glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * year + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep3 = glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * site.region + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep4 = glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * site.region + spp * year + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep5 = glmmTMB(all.leps ~ site.region + year + spp + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep6 = glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * year +  
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep7 = glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * site.region + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep8 = glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * site.region + spp * year +  
+            (1 | collection), data = mainlice, family = nbinom2) 
+
+
+
+cal1 = glmmTMB(all.cal ~ site.region + year + spp + 
+            site.region * year + site.region * spp +
+            (1 | collection), data = mainlice, family = nbinom2) 
+cal2 = glmmTMB(all.cal ~ site.region + year + spp + 
+            site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+cal3 = glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * site.region + site.region * year + spp * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+cal4 = glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * year + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2)
+cal5 = glmmTMB(all.cal ~ site.region + year + spp + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+cal6 = glmmTMB(all.cal ~ site.region + year + spp + 
+            site.region * year +  
+            (1 | collection), data = mainlice, family = nbinom2)
+cal7 = glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+cal8 = glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * site.region + spp * year +  
+            (1 | collection), data = mainlice, family = nbinom2) 
+```
+
+Now let's use the ggpredict package to get predictions with confidence intervals:
+
+```{r}
+lep1pred <- ggpredict(lep1, terms = c('spp', 'year', 'site.region'))
+lep2pred <- ggpredict(lep2, terms = c('spp', 'year', 'site.region')) 
+lep3pred <- ggpredict(lep3, terms = c('spp', 'year', 'site.region')) 
+lep4pred <- ggpredict(lep4, terms = c('spp', 'year', 'site.region')) 
+lep5pred <- ggpredict(lep5, terms = c('spp', 'year', 'site.region')) 
+lep6pred <- ggpredict(lep6, terms = c('spp', 'year', 'site.region')) 
+lep7pred <- ggpredict(lep7, terms = c('spp', 'year', 'site.region')) 
+lep8pred <- ggpredict(lep8, terms = c('spp', 'year', 'site.region')) 
+
+cal1pred <- ggpredict(cal1, terms = c('spp', 'year', 'site.region'))
+cal2pred <- ggpredict(cal2, terms = c('spp', 'year', 'site.region')) 
+cal3pred <- ggpredict(cal3, terms = c('spp', 'year', 'site.region')) 
+cal4pred <- ggpredict(cal4, terms = c('spp', 'year', 'site.region')) 
+cal5pred <- ggpredict(cal5, terms = c('spp', 'year', 'site.region')) 
+cal6pred <- ggpredict(cal6, terms = c('spp', 'year', 'site.region')) 
+cal7pred <- ggpredict(cal7, terms = c('spp', 'year', 'site.region')) 
+cal8pred <- ggpredict(cal8, terms = c('spp', 'year', 'site.region')) 
+
+```
+
+So now that we have the predictions, we can use the weights to get model averaged results for each. 
+
+```{r}
+###start by getting them all in one dataframe with the weights
+
+#pull the predicted values from each one
+lepallpred = data.frame(cbind(lep1pred$predicted, lep2pred$predicted, lep3pred$predicted, lep4pred$predicted,
+                   lep5pred$predicted, lep6pred$predicted, lep7pred$predicted, lep8pred$predicted)) %>% 
+                  rename(lep1 = X1, lep2 = X2, lep3 = X3, lep4 = X4, lep5 = X5, lep6 = X6, lep7 = X7, lep8 = X8)
+calallpred = data.frame(cbind(cal1pred$predicted, cal2pred$predicted, cal3pred$predicted, cal4pred$predicted,
+                   cal5pred$predicted, cal6pred$predicted, cal7pred$predicted, cal8pred$predicted)) %>% 
+                  rename(cal1 = X1, cal2 = X2, cal3 = X3, cal4 = X4, cal5 = X5, cal6 = X6, cal7 = X7, cal8 = X8)
+
+#add the weights from the model selection object
+lepallpred = lepallpred %>% 
+  mutate(w1 = rep(lepmod.crossed_dredge$weight[1], nrow(lepallpred)), 
+         w2 = rep(lepmod.crossed_dredge$weight[2], nrow(lepallpred)),
+         w3 = rep(lepmod.crossed_dredge$weight[3], nrow(lepallpred)),
+         w4 = rep(lepmod.crossed_dredge$weight[4], nrow(lepallpred)),
+         w5 = rep(lepmod.crossed_dredge$weight[5], nrow(lepallpred)),
+         w6 = rep(lepmod.crossed_dredge$weight[6], nrow(lepallpred)),
+         w7 = rep(lepmod.crossed_dredge$weight[7], nrow(lepallpred)),
+         w8 = rep(lepmod.crossed_dredge$weight[8], nrow(lepallpred)))
+
+calallpred = calallpred %>% 
+  mutate(w1 = rep(calmod.crossed_dredge$weight[1], nrow(calallpred)), 
+         w2 = rep(calmod.crossed_dredge$weight[2], nrow(calallpred)),
+         w3 = rep(calmod.crossed_dredge$weight[3], nrow(calallpred)),
+         w4 = rep(calmod.crossed_dredge$weight[4], nrow(calallpred)),
+         w5 = rep(calmod.crossed_dredge$weight[5], nrow(calallpred)),
+         w6 = rep(calmod.crossed_dredge$weight[6], nrow(calallpred)),
+         w7 = rep(calmod.crossed_dredge$weight[7], nrow(calallpred)),
+         w8 = rep(calmod.crossed_dredge$weight[8], nrow(calallpred)))
+
+#now make averaged predictions!
+lepallpred = lepallpred %>% 
+  mutate(lep1w = lep1*w1, lep2w = lep2*w2, lep3w = lep3*w3, lep4w = lep4*w4, lep5w = lep5*w5, lep6w = lep6*w6, lep7w = lep7*w7, lep8w = lep8*w8) %>% 
+  mutate(avg = lep1w + lep2w + lep3w + lep4w + lep5w + lep6w + lep7w + lep8w)
+
+calallpred = calallpred %>% 
+  mutate(cal1w = cal1*w1, cal2w = cal2*w2, cal3w = cal3*w3, cal4w = cal4*w4, cal5w = cal5*w5, cal6w = cal6*w6, cal7w = cal7*w7, cal8w = cal8*w8) %>% 
+  mutate(avg = cal1w + cal2w + cal3w + cal4w + cal5w + cal6w + cal7w + cal8w)
+
+#keep just the averaged predictions and the relevant grouping info 
+lepavgpred = lepallpred %>% 
+  select(avg) %>% 
+  mutate(sal = lep1pred$x, reg = lep1pred$facet, yr = lep1pred$group)
+lepavgpred$sal = factor(lepavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+calavgpred = calallpred %>% 
+  select(avg) %>% 
+  mutate(sal = cal1pred$x, reg = cal1pred$facet, yr = cal1pred$group)
+calavgpred$sal = factor(calavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+```
+
+So now we need an averaged confidence interval for each of these. To do this, we're going to use model-averaged tail area profile liklihood methods as described by Fletcher & Turek (2012). To do this, we can obtain an approximation to the lower limit of a $(1-2\alpha)100%$ model-averaged profile likelihood interval by finding the value of $\theta_L$ which satisfies $$sum_{i=1}^R p(M_i|y) \Phi(r_i(\theta_L)) = \alpha,$$
+where $r_i$ is the signed likelihood ratio statistic defined under model $M_i$ by $$r(\theta) = \mathrm{sign}(\hat{theta}-\theta)sqrt{2(\log(L_p(\hat{theta}))-\log(L_p(\theta))))},$$ using the maximum likelihood estimate $\hat{theta}$ of the parameter $\theta$, and the profile likelihood function for $theta$ given by $$L_p(\theta) = \max_{\lambda}L(\theta,\lambda).$$ In this case, $L(\theta,\lambda)$ is the likelihood function for model $M$ parameterized in terms of $\theta$ and the remaining parameters $\lambda$. In sum, the lower limit of a $(1-2\alpha)100%$ model-averaged profile likelihood interval can by obtained from: $$\sum_{i=1}^R w_i \Phi(r_i(\theta_L)) = \alpha.$$ We can obtain the upper limit by replacing $\alpha$ with $(1-\alpha)$. This 
+
+```{r}
+#first thing is to go through and start from the r function and go from there to get all the functions
+#use the documented code to assist this
+
+```
+
+
+
+
+
+
+The signed lielihood ratio is essentially a test statistic. 
+
+```{r}
+#example code
+### Model 3 l o g-l i k e l i h o o d f u n c t i o n s
+# `113.mu` = function(much.b1.b2.b12.logk, xy) {
+#   mu.ch=much.b1.b2.b12.logk[1]
+#   b1=much.b1.b2.b12.logk[2]
+#   b2=much.b1.b2.b12.logk[3]
+#   b12=much . b1 . b2 . b12 . l o g k [ 4 ]
+#   k=exp(much . b1 . b2 . b12 . l o g k [ 5 ] )
+#   mu = mu. ch * exp( b1*( xy$x1-xy$x1 . ch )+b2*( xy$x2-xy$x2 . ch )+b12*( xy$x1*xy
+#   $x2-xy$x1 . ch*xy$x2 . ch ) )
+#   sum(dnbinom( xy$y , s i z e=k , mu=mu, log=T) ) }
+# 
+# `113.logmu` = function(logmuch . b1 . b2 . b12 . logk , xy ) {
+#   mu. ch=exp( logmuch . b1 . b2 . b12 . l o g k [ 1 ] )
+#   b1=logmuch . b1 . b2 . b12 . l o g k [ 2 ]
+#   b2=logmuch . b1 . b2 . b12 . l o g k [ 3 ]
+#   b12=logmuch . b1 . b2 . b12 . l o g k [ 4 ]
+#   k=exp( logmuch . b1 . b2 . b12 . l o g k [ 5 ] )
+#   mu = mu. ch * exp( b1*( xy$x1-xy$x1 . ch )+b2*( xy$x2-xy$x2 . ch )+b12*( xy$x1*xy
+#   $x2-xy$x1 . ch*xy$x2 . ch ) )
+#   sum(dnbinom( xy$y , s i z e=k , mu=mu, log=T) ) }
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+#this part is trying with MuMIn
+
+#start by getting the models and model averaging the estimates
+confleps = get.models(lepmod.crossed_dredge, subset = TRUE)
+summary(confleps)
+lepavg = model.avg(confleps)
+summary(lepavg)
+
+#now make a new DF to predict over
+nseq <- function(x, len = length(x)) seq(min(x, na.rm = TRUE),
+    max(x, na.rm=TRUE), length = len)
+
+DI = as.vector(rep('DI', 12)); JS = as.vector(rep('JS', 12))
+f = as.vector(rep('2015', 3)); si = as.vector(rep('2016', 3)); sv = as.vector(rep('2017', 3)); e = as.vector(rep('2018', 3))
+year = as.vector(cbind(f, si, sv, e)); year = as.vector(replicate(2, year))
+CU = 'CU'; PI = 'PI'; SO = 'SO'
+spp = as.vector(rbind(CU, PI, SO)); spp = as.vector(replicate(8, spp))
+
+newdata <- matrix(nrow = 24, ncol = 4)
+newdata[c(1:12), 1] = DI; newdata[c(13:24), 1] = JS
+newdata[c(1:24), 2] = year
+newdata[c(1:24), 3] = spp
+
+newdata = data.frame(newdata) 
+newdata = newdata %>% 
+  rename(site.region = `X1`, year = `X2`, spp = `X3`, collection = `X4`)
+
+
+# Predictions from each of the models in a set, and with averaged coefficients
+n = length(confleps)
+pred <- data.frame(
+	model = sapply(confleps, predict, newdata = newdata),
+    averaged.full = predict(lepavg, newdata, full = TRUE)
+	)
+
+
+
+# New predictors: X1 along the range of original data, other
+# variables held constant at their means
+newdata <- as.data.frame(lapply(lapply(Cement[, -1], mean), rep, 25))
+newdata$X1 <- nseq(Cement$X1, nrow(newdata))
+
+
+
+
+
+
+
+
+
+calavg = model.avg(calmod.crossed_dredge)
+summary(calavg)
+
+
+
+
+
+
+
+
+calpredict = predict(calavg)
+confsetlep = get.models(lepmod.crossed_dredge, subset = TRUE)
+
+
+lepavg = model.avg(confsetlep)
+leppredict = predict(lepavg)
+lepavgpred = ggpredict(lepavg, terms = c('site.region', 'year', 'spp'))
+
+
+y = leppredict
+
+
+
+
+calavg = model.avg(calmod.crossed_dredge)
+summary(model.avg(lepmod.crossed_dredge))
+
+#trying the AICcmodavg package
+leplist = list(
+  glmmTMB(all.leps ~ site.region + year + spp + 
+            site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * year + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * site.region + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * site.region + spp * year + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.leps ~ site.region + year + spp + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * year +  
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * site.region + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * site.region + spp * year +  
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.leps ~ site.region + year + 
+            site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.leps ~ site.region + year +
+            (1 | collection), data = mainlice, family = nbinom2))
+
+callist = list(
+  glmmTMB(all.cal ~ site.region + year + spp + 
+            site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * year + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * site.region + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * site.region + spp * year + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.cal ~ site.region + year + spp + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * year +  
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * site.region + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * site.region + spp * year +  
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.cal ~ site.region + year + 
+            site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2), 
+  glmmTMB(all.cal ~ site.region + year +
+            (1 | collection), data = mainlice, family = nbinom2))
+lepavgAIC = modavgPred(leplist)
+```
+
+```{r}
+data(cement)
+# Example from Burnham and Anderson (2002), page 100:
+library(lme4)
+fm1 <- lm(y ~ x1 + x2 + x3 + x4, data = cement)
+summary(fm1)
+
+options(na.action = "na.fail")
+ms1 <- MuMIn::dredge(fm1)
+confset.95p <- get.models(ms1, subset = cumsum(weight) <= .95)
+avgm <- model.avg(confset.95p)
+
+nseq <- function(x, len = length(x)) seq(min(x, na.rm = TRUE),
+    max(x, na.rm=TRUE), length = len)
+
+# New predictors: X1 along the range of original data, other
+# variables held constant at their means
+newdata <- as.data.frame(lapply(lapply(Cement[, -1], mean), rep, 25))
+newdata$X1 <- nseq(Cement$X1, nrow(newdata)) 
+newdata = newdata %>% 
+  rename(x1 = X1, x2 = X2, x3 = X3, x4 = X4)
+
+n <- length(confset.95p)
+
+# Predictions from each of the models in a set, and with averaged coefficients
+pred <- data.frame(
+	model = sapply(confset.95p, predict, newdata = newdata),
+	averaged.subset = predict(avgm, newdata, full = FALSE, se.fit = TRUE),
+    averaged.full = predict(avgm, newdata, full = TRUE)
+	)
+options(na.action = "na.omit")
 ```
 
