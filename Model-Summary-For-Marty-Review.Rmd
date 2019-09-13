@@ -642,6 +642,11 @@ where $r_i$ is the signed likelihood ratio statistic defined under model $M_i$ b
 #first thing is to go through and start from the r function and go from there to get all the functions
 #use the documented code to assist this
 
+str(lepmod.crossed)
+lepmod.crossed$obj
+
+  
+
 ```
 
 
@@ -699,12 +704,25 @@ The signed lielihood ratio is essentially a test statistic.
 #this part is trying with MuMIn
 
 #start by getting the models and model averaging the estimates
-confleps = get.models(lepmod.crossed_dredge, subset = TRUE)
+confleps = get.models(lepmod.crossed_dredge, subset = TRUE, fit = TRUE)
 summary(confleps)
-lepavg = model.avg(confleps)
+lepavg = model.avg(lepmod.crossed_dredge, fit = TRUE)
 summary(lepavg)
 
-#now make a new DF to predict over
+pred.se = predict(lepavg, type = 'link' , se.fit = TRUE, full = TRUE, newdata)
+newdata$fit = pred.se$fit
+newdata$upr=newdata$fit+1.96*newdata$SE
+newdata$lwr=newdata$fit-1.96*newdata$SE
+
+
+
+
+
+
+
+
+
+ #now make a new DF to predict over
 nseq <- function(x, len = length(x)) seq(min(x, na.rm = TRUE),
     max(x, na.rm=TRUE), length = len)
 
