@@ -22,6 +22,7 @@ library(MuMIn)
 library(cowplot)
 library(AICcmodavg)
 library(latexpdf)
+library(MATA)
 
 #data
 mainlice <- read.csv("Hakai_lice_data_CB_edits.csv")
@@ -555,9 +556,10 @@ cal7 = glmmTMB(all.cal ~ site.region + year + spp +
 cal8 = glmmTMB(all.cal ~ site.region + year + spp + 
             spp * site.region + spp * year +  
             (1 | collection), data = mainlice, family = nbinom2) 
+summary(cal1)
 ```
 
-Now let's use the ggpredict package to get predictions with confidence intervals:
+Now let's use the ggpredict package to get predictions:
 
 ```{r}
 lep1pred <- ggpredict(lep1, terms = c('spp', 'year', 'site.region'))
@@ -634,6 +636,275 @@ calavgpred = calallpred %>%
   mutate(sal = cal1pred$x, reg = cal1pred$facet, yr = cal1pred$group)
 calavgpred$sal = factor(calavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
 ```
+
+Now to use the MATA package to get a model-averaged confidence interval
+
+```{r}
+############################################## Leps
+#first get the model weights
+modelweightsleps = lepmod.crossed_dredge$weight
+residualsleps = lepmod.crossed_dredge$df
+
+##fitted value 1
+#get the theta hats for the first prediction and the SE of theta hat
+thetahatsleps = c(lep1pred$predicted[1], lep2pred$predicted[1], lep3pred$predicted[1], lep4pred$predicted[1], 
+                  lep5pred$predicted[1], lep6pred$predicted[1], lep7pred$predicted[1], lep8pred$predicted[1])
+sethetahatsleps=c(lep1pred$std.error[1], lep2pred$std.error[1], lep3pred$std.error[1], lep4pred$std.error[1], 
+                  lep5pred$std.error[1], lep6pred$std.error[1], lep7pred$std.error[1], lep8pred$std.error[1])
+#run the function
+lepsCI1 = mata.wald(theta.hats = thetahatsleps, se.theta.hats = sethetahatsleps, 
+          model.weights = modelweightsleps[c(1:8)], mata.t = FALSE)
+#put the values into the big dataframe
+lepallpred$conf.low[1] = lepsCI1[1]; lepallpred$conf.high[1] = lepsCI1[2]
+
+##fitted value 2
+thetahatsleps = c(lep1pred$predicted[2], lep2pred$predicted[2], lep3pred$predicted[2], lep4pred$predicted[2], 
+                  lep5pred$predicted[2], lep6pred$predicted[2], lep7pred$predicted[2], lep8pred$predicted[2])
+sethetahatsleps=c(lep1pred$std.error[2], lep2pred$std.error[2], lep3pred$std.error[2], lep4pred$std.error[2], 
+                  lep5pred$std.error[2], lep6pred$std.error[2], lep7pred$std.error[2], lep8pred$std.error[2])
+lepsCI1 = mata.wald(theta.hats = thetahatsleps, se.theta.hats = sethetahatsleps, 
+          model.weights = modelweightsleps[c(1:8)], mata.t = FALSE)
+lepallpred$conf.low[2] = lepsCI1[1]; lepallpred$conf.high[2] = lepsCI1[2]
+
+##fitted value 3
+thetahatsleps = c(lep1pred$predicted[3], lep2pred$predicted[3], lep3pred$predicted[3], lep4pred$predicted[3], 
+                  lep5pred$predicted[3], lep6pred$predicted[3], lep7pred$predicted[3], lep8pred$predicted[3])
+sethetahatsleps=c(lep1pred$std.error[3], lep2pred$std.error[3], lep3pred$std.error[3], lep4pred$std.error[3], 
+                  lep5pred$std.error[3], lep6pred$std.error[3], lep7pred$std.error[3], lep8pred$std.error[3])
+lepsCI1 = mata.wald(theta.hats = thetahatsleps, se.theta.hats = sethetahatsleps, 
+          model.weights = modelweightsleps[c(1:8)], mata.t = FALSE)
+lepallpred$conf.low[3] = lepsCI1[1]; lepallpred$conf.high[3] = lepsCI1[2]
+
+##fitted value 4
+thetahatsleps = c(lep1pred$predicted[4], lep2pred$predicted[4], lep3pred$predicted[4], lep4pred$predicted[4], 
+                  lep5pred$predicted[4], lep6pred$predicted[4], lep7pred$predicted[4], lep8pred$predicted[4])
+sethetahatsleps=c(lep1pred$std.error[4], lep2pred$std.error[4], lep3pred$std.error[4], lep4pred$std.error[4], 
+                  lep5pred$std.error[4], lep6pred$std.error[4], lep7pred$std.error[4], lep8pred$std.error[4])
+lepsCI1 = mata.wald(theta.hats = thetahatsleps, se.theta.hats = sethetahatsleps, 
+          model.weights = modelweightsleps[c(1:8)], mata.t = FALSE)
+lepallpred$conf.low[4] = lepsCI1[1]; lepallpred$conf.high[4] = lepsCI1[2]
+
+##fitted value 5
+thetahatsleps = c(lep1pred$predicted[5], lep2pred$predicted[5], lep3pred$predicted[5], lep4pred$predicted[5], 
+                  lep5pred$predicted[5], lep6pred$predicted[5], lep7pred$predicted[5], lep8pred$predicted[5])
+sethetahatsleps=c(lep1pred$std.error[5], lep2pred$std.error[5], lep3pred$std.error[5], lep4pred$std.error[5], 
+                  lep5pred$std.error[5], lep6pred$std.error[5], lep7pred$std.error[5], lep8pred$std.error[5])
+lepsCI1 = mata.wald(theta.hats = thetahatsleps, se.theta.hats = sethetahatsleps, 
+          model.weights = modelweightsleps[c(1:8)], mata.t = FALSE)
+lepallpred$conf.low[5] = lepsCI1[1]; lepallpred$conf.high[5] = lepsCI1[2]
+
+##fitted value 6
+thetahatsleps = c(lep1pred$predicted[6], lep2pred$predicted[6], lep3pred$predicted[6], lep4pred$predicted[6], 
+                  lep5pred$predicted[6], lep6pred$predicted[6], lep7pred$predicted[6], lep8pred$predicted[6])
+sethetahatsleps=c(lep1pred$std.error[6], lep2pred$std.error[6], lep3pred$std.error[6], lep4pred$std.error[6], 
+                  lep5pred$std.error[6], lep6pred$std.error[6], lep7pred$std.error[6], lep8pred$std.error[6])
+lepsCI1 = mata.wald(theta.hats = thetahatsleps, se.theta.hats = sethetahatsleps, 
+          model.weights = modelweightsleps[c(1:8)], mata.t = FALSE)
+lepallpred$conf.low[6] = lepsCI1[1]; lepallpred$conf.high[6] = lepsCI1[2]
+
+##fitted value 7
+thetahatsleps = c(lep1pred$predicted[7], lep2pred$predicted[7], lep3pred$predicted[7], lep4pred$predicted[7], 
+                  lep5pred$predicted[7], lep6pred$predicted[7], lep7pred$predicted[7], lep8pred$predicted[7])
+sethetahatsleps=c(lep1pred$std.error[7], lep2pred$std.error[7], lep3pred$std.error[7], lep4pred$std.error[7], 
+                  lep5pred$std.error[7], lep6pred$std.error[7], lep7pred$std.error[7], lep8pred$std.error[7])
+lepsCI1 = mata.wald(theta.hats = thetahatsleps, se.theta.hats = sethetahatsleps, 
+          model.weights = modelweightsleps[c(1:8)], mata.t = FALSE)
+lepallpred$conf.low[7] = lepsCI1[1]; lepallpred$conf.high[7] = lepsCI1[2]
+
+##fitted value 8
+thetahatsleps = c(lep1pred$predicted[8], lep2pred$predicted[8], lep3pred$predicted[8], lep4pred$predicted[8], 
+                  lep5pred$predicted[8], lep6pred$predicted[8], lep7pred$predicted[8], lep8pred$predicted[8])
+sethetahatsleps=c(lep1pred$std.error[8], lep2pred$std.error[8], lep3pred$std.error[8], lep4pred$std.error[8], 
+                  lep5pred$std.error[8], lep6pred$std.error[8], lep7pred$std.error[8], lep8pred$std.error[8])
+lepsCI1 = mata.wald(theta.hats = thetahatsleps, se.theta.hats = sethetahatsleps, 
+          model.weights = modelweightsleps[c(1:8)], mata.t = FALSE)
+lepallpred$conf.low[8] = lepsCI1[1]; lepallpred$conf.high[8] = lepsCI1[2]
+
+
+############################################## Cal
+#first get the model weights
+modelweightscals = calmod.crossed_dredge$weight
+
+##fitted value 1
+#get the theta hats for the first prediction and the SE of theta hat
+thetahatscals = c(cal1pred$predicted[1], cal2pred$predicted[1], cal3pred$predicted[1], cal4pred$predicted[1], 
+                  cal5pred$predicted[1], cal6pred$predicted[1], cal7pred$predicted[1], cal8pred$predicted[1])
+sethetahatscals=c(cal1pred$std.error[1], cal2pred$std.error[1], cal3pred$std.error[1], cal4pred$std.error[1], 
+                  cal5pred$std.error[1], cal6pred$std.error[1], cal7pred$std.error[1], cal8pred$std.error[1])
+#run the function
+calsCI1 = mata.wald(theta.hats = thetahatscals, se.theta.hats = sethetahatscals, 
+          model.weights = modelweightscals[c(1:8)], mata.t = FALSE)
+#put the values into the big dataframe
+calallpred$conf.low[1] = calsCI1[1]; calallpred$conf.high[1] = calsCI1[2]
+
+##fitted value 2
+thetahatscals = c(cal1pred$predicted[2], cal2pred$predicted[2], cal3pred$predicted[2], cal4pred$predicted[2], 
+                  cal5pred$predicted[2], cal6pred$predicted[2], cal7pred$predicted[2], cal8pred$predicted[2])
+sethetahatscals=c(cal1pred$std.error[2], cal2pred$std.error[2], cal3pred$std.error[2], cal4pred$std.error[2], 
+                  cal5pred$std.error[2], cal6pred$std.error[2], cal7pred$std.error[2], cal8pred$std.error[2])
+calsCI1 = mata.wald(theta.hats = thetahatscals, se.theta.hats = sethetahatscals, 
+          model.weights = modelweightscals[c(1:8)], mata.t = FALSE)
+calallpred$conf.low[2] = calsCI1[1]; calallpred$conf.high[2] = calsCI1[2]
+
+##fitted value 3
+thetahatscals = c(cal1pred$predicted[3], cal2pred$predicted[3], cal3pred$predicted[3], cal4pred$predicted[3], 
+                  cal5pred$predicted[3], cal6pred$predicted[3], cal7pred$predicted[3], cal8pred$predicted[3])
+sethetahatscals=c(cal1pred$std.error[3], cal2pred$std.error[3], cal3pred$std.error[3], cal4pred$std.error[3], 
+                  cal5pred$std.error[3], cal6pred$std.error[3], cal7pred$std.error[3], cal8pred$std.error[3])
+calsCI1 = mata.wald(theta.hats = thetahatscals, se.theta.hats = sethetahatscals, 
+          model.weights = modelweightscals[c(1:8)], mata.t = FALSE)
+calallpred$conf.low[3] = calsCI1[1]; calallpred$conf.high[3] = calsCI1[2]
+
+##fitted value 4
+thetahatscals = c(cal1pred$predicted[4], cal2pred$predicted[4], cal3pred$predicted[4], cal4pred$predicted[4], 
+                  cal5pred$predicted[4], cal6pred$predicted[4], cal7pred$predicted[4], cal8pred$predicted[4])
+sethetahatscals=c(cal1pred$std.error[4], cal2pred$std.error[4], cal3pred$std.error[4], cal4pred$std.error[4], 
+                  cal5pred$std.error[4], cal6pred$std.error[4], cal7pred$std.error[4], cal8pred$std.error[4])
+calsCI1 = mata.wald(theta.hats = thetahatscals, se.theta.hats = sethetahatscals, 
+          model.weights = modelweightscals[c(1:8)], mata.t = FALSE)
+calallpred$conf.low[4] = calsCI1[1]; calallpred$conf.high[4] = calsCI1[2]
+
+##fitted value 5
+thetahatscals = c(cal1pred$predicted[5], cal2pred$predicted[5], cal3pred$predicted[5], cal4pred$predicted[5], 
+                  cal5pred$predicted[5], cal6pred$predicted[5], cal7pred$predicted[5], cal8pred$predicted[5])
+sethetahatscals=c(cal1pred$std.error[5], cal2pred$std.error[5], cal3pred$std.error[5], cal4pred$std.error[5], 
+                  cal5pred$std.error[5], cal6pred$std.error[5], cal7pred$std.error[5], cal8pred$std.error[5])
+calsCI1 = mata.wald(theta.hats = thetahatscals, se.theta.hats = sethetahatscals, 
+          model.weights = modelweightscals[c(1:8)], mata.t = FALSE)
+calallpred$conf.low[5] = calsCI1[1]; calallpred$conf.high[5] = calsCI1[2]
+
+##fitted value 6
+thetahatscals = c(cal1pred$predicted[6], cal2pred$predicted[6], cal3pred$predicted[6], cal4pred$predicted[6], 
+                  cal5pred$predicted[6], cal6pred$predicted[6], cal7pred$predicted[6], cal8pred$predicted[6])
+sethetahatscals=c(cal1pred$std.error[6], cal2pred$std.error[6], cal3pred$std.error[6], cal4pred$std.error[6], 
+                  cal5pred$std.error[6], cal6pred$std.error[6], cal7pred$std.error[6], cal8pred$std.error[6])
+calsCI1 = mata.wald(theta.hats = thetahatscals, se.theta.hats = sethetahatscals, 
+          model.weights = modelweightscals[c(1:8)], mata.t = FALSE)
+calallpred$conf.low[6] = calsCI1[1]; calallpred$conf.high[6] = calsCI1[2]
+
+##fitted value 7
+thetahatscals = c(cal1pred$predicted[7], cal2pred$predicted[7], cal3pred$predicted[7], cal4pred$predicted[7], 
+                  cal5pred$predicted[7], cal6pred$predicted[7], cal7pred$predicted[7], cal8pred$predicted[7])
+sethetahatscals=c(cal1pred$std.error[7], cal2pred$std.error[7], cal3pred$std.error[7], cal4pred$std.error[7], 
+                  cal5pred$std.error[7], cal6pred$std.error[7], cal7pred$std.error[7], cal8pred$std.error[7])
+calsCI1 = mata.wald(theta.hats = thetahatscals, se.theta.hats = sethetahatscals, 
+          model.weights = modelweightscals[c(1:8)], mata.t = FALSE)
+calallpred$conf.low[7] = calsCI1[1]; calallpred$conf.high[7] = calsCI1[2]
+
+##fitted value 8
+thetahatscals = c(cal1pred$predicted[8], cal2pred$predicted[8], cal3pred$predicted[8], cal4pred$predicted[8], 
+                  cal5pred$predicted[8], cal6pred$predicted[8], cal7pred$predicted[8], cal8pred$predicted[8])
+sethetahatscals=c(cal1pred$std.error[8], cal2pred$std.error[8], cal3pred$std.error[8], cal4pred$std.error[8], 
+                  cal5pred$std.error[8], cal6pred$std.error[8], cal7pred$std.error[8], cal8pred$std.error[8])
+calsCI1 = mata.wald(theta.hats = thetahatscals, se.theta.hats = sethetahatscals, 
+          model.weights = modelweightscals[c(1:8)], mata.t = FALSE)
+calallpred$conf.low[8] = calsCI1[1]; calallpred$conf.high[8] = calsCI1[2]
+```
+
+```{r}
+n = 20 # 'n' is assumed to be even
+x1 = c(rep(0,n/2), rep(1,n/2)) # two groups: x1=0, and x1=1
+x2 = rnorm(n, mean=10, sd=3)
+y = rnorm(n, mean = 3*x1 + 0.1*x2) # data generation
+x1 = factor(x1)
+m1 = glm(y ~ x1) # using 'glm' provides AIC values.
+m2 = glm(y ~ x1 + x2) # using 'lm' doesn't.
+m3 = glm(y ~ x1*x2)
+aic = c(m1$aic, m2$aic, m3$aic)
+delta.aic = aic - min(aic)
+model.weights = exp(-0.5*delta.aic) / sum(exp(-0.5*delta.aic))
+residual.dfs = c(m1$df.residual, m2$df.residual, m3$df.residual)
+p1 = predict(m1, se=TRUE, newdata=list(x1=factor(1), x2=15))
+p2 = predict(m2, se=TRUE, newdata=list(x1=factor(1), x2=15))
+p3 = predict(m3, se=TRUE, newdata=list(x1=factor(1), x2=15))
+theta.hats = c(p1$fit, p2$fit, p3$fit)
+se.theta.hats = c(p1$se.fit, p2$se.fit, p3$se.fit)
+
+theta.hats[1] + c(-1,1)*qt(0.975, residual.dfs[1])*se.theta.hats[1]
+theta.hats[2] + c(-1,1)*qt(0.975, residual.dfs[2])*se.theta.hats[2]
+theta.hats[3] + c(-1,1)*qt(0.975, residual.dfs[3])*se.theta.hats[3]
+
+x = MATA::mata.wald(theta.hats=theta.hats, se.theta.hats=se.theta.hats,
+model.weights=model.weights, mata.t=FALSE)
+
+((3.033905*0.7222926) + (2.658266*0.2777074))
+
+z.quantiles = (theta-theta.hats)/se.theta.hats
+tailarea = sum(model.weights*stats::pnorm(z.quantiles)) - alpha
+tailarea
+
+3.058910e-01 + c(-1,1)*qt(0.975, 12)*0.3924657
+
+lepmod.crossed_dredge$df
+
+```
+
+
+## Effects Plots
+
+```{r}
+#keep just the averaged predictions and the relevant grouping info 
+lepavgpred = lepallpred %>% 
+  select(avg, conf.high, conf.low) %>% 
+  mutate(sal = lep1pred$x, reg = lep1pred$facet, yr = lep1pred$group)
+lepavgpred$sal = factor(lepavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+calavgpred = calallpred %>% 
+  select(avg, conf.high, conf.low) %>% 
+  mutate(sal = cal1pred$x, reg = cal1pred$facet, yr = cal1pred$group)
+calavgpred$sal = factor(calavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+
+
+
+lepmod.crossed.top <- glmmTMB(all.leps ~ spp + site.region + year + site.region * year - 1 + (1 | collection), 
+                      data = mainlice, family=nbinom2)
+summary(lepmod.crossed.top)
+calmod.crossed.top <- glmmTMB(all.cal ~ year + site.region + spp + spp * site.region + 
+                            site.region * year + (1 | collection), 
+                          data = mainlice, family=nbinom2)
+summary(calmod.crossed.top)
+
+lep_top_effects <- ggpredict(lepmod.crossed.top, terms = c('spp', 'year', 'site.region')) #not sure if I did this right
+cal_top_effects <- ggpredict(calmod.crossed.top, terms = c('spp', 'year', 'site.region'))
+
+lep_top_effects = lep_top_effects %>% 
+  rename(sal = x, reg = facet, yr = group)
+cal_top_effects = cal_top_effects %>% 
+  rename(sal = x, reg = facet, yr = group)
+
+lep_top_effects$sal = factor(lep_top_effects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+cal_top_effects$sal = factor(cal_top_effects$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+## Make the plots
+
+leg_title <- 'Salmon Species'
+lepsfullmodplot_top <- lep_top_effects %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "L. salmonis Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+lepsfullmodplot_top
+calfullmodplot_top <- cal_top_effects %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "C. clemensi Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+calfullmodplot_top
+```
+
 
 So now we need an averaged confidence interval for each of these. To do this, we're going to use model-averaged tail area profile liklihood methods as described by Fletcher & Turek (2012). To do this, we can obtain an approximation to the lower limit of a $(1-2\alpha)100%$ model-averaged profile likelihood interval by finding the value of $\theta_L$ which satisfies $$sum_{i=1}^R p(M_i|y) \Phi(r_i(\theta_L)) = \alpha,$$
 where $r_i$ is the signed likelihood ratio statistic defined under model $M_i$ by $$r(\theta) = \mathrm{sign}(\hat{theta}-\theta)sqrt{2(\log(L_p(\hat{theta}))-\log(L_p(\theta))))},$$ using the maximum likelihood estimate $\hat{theta}$ of the parameter $\theta$, and the profile likelihood function for $theta$ given by $$L_p(\theta) = \max_{\lambda}L(\theta,\lambda).$$ In this case, $L(\theta,\lambda)$ is the likelihood function for model $M$ parameterized in terms of $\theta$ and the remaining parameters $\lambda$. In sum, the lower limit of a $(1-2\alpha)100%$ model-averaged profile likelihood interval can by obtained from: $$\sum_{i=1}^R w_i \Phi(r_i(\theta_L)) = \alpha.$$ We can obtain the upper limit by replacing $\alpha$ with $(1-\alpha)$. This 
