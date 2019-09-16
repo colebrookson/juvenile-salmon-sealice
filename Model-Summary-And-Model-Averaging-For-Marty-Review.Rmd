@@ -1321,6 +1321,8 @@ calallpred$conf.low[8] = calsCI1[1]; calallpred$conf.high[8] = calsCI1[2]
 
 ```{r}
 #let's try with MuMIn again
+#devtools::install_github("glmmTMB/glmmTMB/glmmTMB")
+library(glmmTMB)
 
 DI = as.vector(rep('DI', 12)); JS = as.vector(rep('JS', 12))
 f = as.vector(rep('2015', 3)); si = as.vector(rep('2016', 3)); sv = as.vector(rep('2017', 3)); e = as.vector(rep('2018', 3))
@@ -1336,16 +1338,33 @@ newdata[c(1:24), 3] = spp
 newdata = data.frame(newdata) 
 newdata = newdata %>% 
   rename(site.region = `X1`, year = `X2`, spp = `X3`, collection = `X4`)
-newdata
+newdata$collection = NA
+fm1$fit$par[names(fm1$fit$par)=="theta"] <- (-100)
+x = predict(lep4, se.fit = TRUE)
 
 lepconfset1 = get.models(lepmod.crossed_dredge, subset = TRUE)
 lepmodavg1 = model.avg(lepconfset1, subset = cumsum(weight) <= .95)
 
 
 leppredict1 = data.frame(
-  model = sapply(lepconfset1, predict),
-  averagedfull = ggpredict(leplist, terms = c('spp', 'year', 'site.region')))
+  model = sapply(lepconfset1, predict, newdata = newdata),
+  averagedfull = predict(leplist, se.fit = TRUE))
 summary(lepconfset1)
+
+
+data(sleepstudy,package="lme4")
+g0 <- glmmTMB(Reaction~Days+(Days|Subject),sleepstudy)
+predict(g0, sleepstudy)
+## Predict new Subject
+nd <- sleepstudy[1,]
+nd$Subject <- "new"
+predict(g0, newdata=nd, allow.new.levels=TRUE)
+## population-level prediction
+nd_pop <- data.frame(Days=unique(sleepstudy$Days),
+                     Subject=NA)
+x = predict(g0, newdata=nd_pop)
+
+
 
 n = 20 # 'n' is assumed to be even
 x1 = c(rep(0,n/2), rep(1,n/2)) # two groups: x1=0, and x1=1
