@@ -1,3 +1,12 @@
+lep1pred <- ggeffects::ggpredict(lep1, terms = c('spp', 'year', 'site.region'))
+
+
+
+
+
+
+
+
 library(wrapr)
 n = 20 # 'n' is assumed to be even
 x1 = c(rep(0,n/2), rep(1,n/2)) # two groups: x1=0, and x1=1
@@ -64,18 +73,18 @@ tailarea.t = function(theta, theta.hats, se.theta.hats, model.weights, alpha, re
     tailarea
 }
 
-theta.hats[1] + c(-1,1)*qt(0.975, residual.dfs[1])*se.theta.hats[1]
-theta.hats[2] + c(-1,1)*qt(0.975, residual.dfs[2])*se.theta.hats[2]
-theta.hats[3] + c(-1,1)*qt(0.975, residual.dfs[3])*se.theta.hats[3]
+theta.hats[1] + c(-1,1)*qt(0.95, residual.dfs[1])*se.theta.hats[1]
+theta.hats[2] + c(-1,1)*qt(0.95, residual.dfs[2])*se.theta.hats[2]
+theta.hats[3] + c(-1,1)*qt(0.95, residual.dfs[3])*se.theta.hats[3]
 ((3.289499*0.3313084) + (3.228804*0.1733297) + (3.735886*0.4953619))
 mata.wald(theta.hats=theta.hats, se.theta.hats=se.theta.hats,
           model.weights=model.weights, mata.t = FALSE)
 
 
 
-
-
-
+# relationship between variance and standard error
+#interval = thetahat +- z*var(thetahat)^1/2
+#where z is (1-alpha) -> if alpha is 0.05, z = 0.95
 
 
 
