@@ -48,7 +48,7 @@ calmod.crossed_dredge
 
 So the goal here is to get the model-averaged predictions and then the confidence intervals. 
 
-For the predictions, we have the set of $R$ candidate models ${M_1,...,M_n}$ models and we want the model-averaged estimator $\hat{theta}$ of $\theta$ as the weighted average from each model$$\hat{theta} = \sum_{i=1}^R \w_i\hat{theta}$$. This can be used to average the predictions that we get using the ggpredict package. 
+For the predictions, we have the set of $R$ candidate models ${M_1,...,M_n}$ models and we want the model-averaged estimator $\hat{\theta}$ of $\theta$ as the weighted average from each model$$\hat{\theta} = \sum_{i=1}^R w_i\hat{\theta_i}$$. This can be used to average the predictions that we get using the ggpredict package. 
 
 First we need all our candidate models - for simplicity sake they've been organized by the ranking from the model comparison. 
 
