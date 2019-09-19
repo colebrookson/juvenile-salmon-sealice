@@ -1,0 +1,294 @@
+---
+title: "Model-Averaging-For-Sean"
+author: "Cole"
+date: "September 19, 2019"
+output: html_document
+---
+```{r, echo=FALSE}
+#packages
+library(tidyverse)
+library(glmmTMB)
+library(ggeffects)
+library(DHARMa)
+library(MuMIn)
+library(cowplot)
+library(AICcmodavg)
+library(latexpdf)
+library(MATA)
+
+#data
+mainlice <- read.csv("Hakai_lice_data_CB_edits.csv")
+
+#make vars into factors
+mainlice$year <- as.factor(mainlice$year);mainlice$collection <- as.factor(mainlice$collection)
+```
+# Models
+
+## Models (Crossed Effects)
+
+```{r}
+lepmod.crossed <- glmmTMB(all.leps ~ spp * site.region + spp * year + 
+                            site.region * year + (1 | collection), 
+                          data = mainlice, family=nbinom2)
+calmod.crossed <- glmmTMB(all.cal ~ spp * site.region + spp * year + 
+                            site.region * year + (1 | collection), 
+                          data = mainlice, family=nbinom2)
+```
+
+## AIC Tables
+
+```{r}
+lepmod.crossed_dredge = MuMIn::dredge(lepmod.crossed, subset = (`cond(site.region)` && `cond(year)`))
+lepmod.crossed_dredge
+calmod.crossed_dredge = MuMIn::dredge(calmod.crossed, subset = (`cond(site.region)` && `cond(year)`))
+calmod.crossed_dredge
+```
+
+# Model Averaging
+
+So the goal here is to get the model-averaged predictions and then the confidence intervals. 
+
+For the predictions, we have the set of $R$ candidate models ${M_1,...,M_n}$ models and we want the model-averaged estimator $\hat{theta}$ of $\theta$ as the weighted average from each model$$\hat{theta} = \sum_{i=1}^R \w_i\hat{theta}$$. This can be used to average the predictions that we get using the ggpredict package. 
+
+First we need all our candidate models - for simplicity sake they've been organized by the ranking from the model comparison. 
+
+```{r}
+#omited the last two models in each set since their weights were 0. 
+lep1 = glmmTMB(all.leps ~ site.region + year + spp + 
+            site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep2 = glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * year + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep3 = glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * site.region + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep4 = glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * site.region + spp * year + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep5 = glmmTMB(all.leps ~ site.region + year + spp + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep6 = glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * year +  
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep7 = glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * site.region + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+lep8 = glmmTMB(all.leps ~ site.region + year + spp + 
+            spp * site.region + spp * year +  
+            (1 | collection), data = mainlice, family = nbinom2) 
+
+
+
+cal1 = glmmTMB(all.cal ~ site.region + year + spp + 
+            site.region * year + site.region * spp +
+            (1 | collection), data = mainlice, family = nbinom2) 
+cal2 = glmmTMB(all.cal ~ site.region + year + spp + 
+            site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+cal3 = glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * site.region + site.region * year + spp * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+cal4 = glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * year + site.region * year + 
+            (1 | collection), data = mainlice, family = nbinom2)
+cal5 = glmmTMB(all.cal ~ site.region + year + spp + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+cal6 = glmmTMB(all.cal ~ site.region + year + spp + 
+            site.region * year +  
+            (1 | collection), data = mainlice, family = nbinom2)
+cal7 = glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * year + 
+            (1 | collection), data = mainlice, family = nbinom2) 
+cal8 = glmmTMB(all.cal ~ site.region + year + spp + 
+            spp * site.region + spp * year +  
+            (1 | collection), data = mainlice, family = nbinom2) 
+summary(cal1)
+```
+
+Now let's use the ggpredict package to get predictions:
+
+```{r}
+lep1pred <- ggpredict(lep1, terms = c('spp', 'year', 'site.region'))
+lep2pred <- ggpredict(lep2, terms = c('spp', 'year', 'site.region')) 
+lep3pred <- ggpredict(lep3, terms = c('spp', 'year', 'site.region')) 
+lep4pred <- ggpredict(lep4, terms = c('spp', 'year', 'site.region')) 
+lep5pred <- ggpredict(lep5, terms = c('spp', 'year', 'site.region')) 
+lep6pred <- ggpredict(lep6, terms = c('spp', 'year', 'site.region')) 
+lep7pred <- ggpredict(lep7, terms = c('spp', 'year', 'site.region')) 
+lep8pred <- ggpredict(lep8, terms = c('spp', 'year', 'site.region')) 
+
+cal1pred <- ggpredict(cal1, terms = c('spp', 'year', 'site.region'))
+cal2pred <- ggpredict(cal2, terms = c('spp', 'year', 'site.region')) 
+cal3pred <- ggpredict(cal3, terms = c('spp', 'year', 'site.region')) 
+cal4pred <- ggpredict(cal4, terms = c('spp', 'year', 'site.region')) 
+cal5pred <- ggpredict(cal5, terms = c('spp', 'year', 'site.region')) 
+cal6pred <- ggpredict(cal6, terms = c('spp', 'year', 'site.region')) 
+cal7pred <- ggpredict(cal7, terms = c('spp', 'year', 'site.region')) 
+cal8pred <- ggpredict(cal8, terms = c('spp', 'year', 'site.region')) 
+
+```
+
+So now that we have the predictions, we can use the weights to get model averaged results for each. 
+
+```{r}
+###start by getting them all in one dataframe with the weights
+
+#pull the predicted values from each one
+lepallpred = data.frame(cbind(lep1pred$predicted, lep2pred$predicted, lep3pred$predicted, lep4pred$predicted,
+                   lep5pred$predicted, lep6pred$predicted, lep7pred$predicted, lep8pred$predicted)) %>% 
+                  rename(lep1 = X1, lep2 = X2, lep3 = X3, lep4 = X4, lep5 = X5, lep6 = X6, lep7 = X7, lep8 = X8)
+calallpred = data.frame(cbind(cal1pred$predicted, cal2pred$predicted, cal3pred$predicted, cal4pred$predicted,
+                   cal5pred$predicted, cal6pred$predicted, cal7pred$predicted, cal8pred$predicted)) %>% 
+                  rename(cal1 = X1, cal2 = X2, cal3 = X3, cal4 = X4, cal5 = X5, cal6 = X6, cal7 = X7, cal8 = X8)
+
+#add the weights from the model selection object
+lepallpred = lepallpred %>% 
+  mutate(w1 = rep(lepmod.crossed_dredge$weight[1], nrow(lepallpred)), 
+         w2 = rep(lepmod.crossed_dredge$weight[2], nrow(lepallpred)),
+         w3 = rep(lepmod.crossed_dredge$weight[3], nrow(lepallpred)),
+         w4 = rep(lepmod.crossed_dredge$weight[4], nrow(lepallpred)),
+         w5 = rep(lepmod.crossed_dredge$weight[5], nrow(lepallpred)),
+         w6 = rep(lepmod.crossed_dredge$weight[6], nrow(lepallpred)),
+         w7 = rep(lepmod.crossed_dredge$weight[7], nrow(lepallpred)),
+         w8 = rep(lepmod.crossed_dredge$weight[8], nrow(lepallpred)))
+
+calallpred = calallpred %>% 
+  mutate(w1 = rep(calmod.crossed_dredge$weight[1], nrow(calallpred)), 
+         w2 = rep(calmod.crossed_dredge$weight[2], nrow(calallpred)),
+         w3 = rep(calmod.crossed_dredge$weight[3], nrow(calallpred)),
+         w4 = rep(calmod.crossed_dredge$weight[4], nrow(calallpred)),
+         w5 = rep(calmod.crossed_dredge$weight[5], nrow(calallpred)),
+         w6 = rep(calmod.crossed_dredge$weight[6], nrow(calallpred)),
+         w7 = rep(calmod.crossed_dredge$weight[7], nrow(calallpred)),
+         w8 = rep(calmod.crossed_dredge$weight[8], nrow(calallpred)))
+
+#now make averaged predictions!
+lepallpred = lepallpred %>% 
+  mutate(lep1w = lep1*w1, lep2w = lep2*w2, lep3w = lep3*w3, lep4w = lep4*w4, lep5w = lep5*w5, lep6w = lep6*w6, lep7w = lep7*w7, lep8w = lep8*w8) %>% 
+  mutate(avg = lep1w + lep2w + lep3w + lep4w + lep5w + lep6w + lep7w + lep8w)
+
+calallpred = calallpred %>% 
+  mutate(cal1w = cal1*w1, cal2w = cal2*w2, cal3w = cal3*w3, cal4w = cal4*w4, cal5w = cal5*w5, cal6w = cal6*w6, cal7w = cal7*w7, cal8w = cal8*w8) %>% 
+  mutate(avg = cal1w + cal2w + cal3w + cal4w + cal5w + cal6w + cal7w + cal8w)
+
+#keep just the averaged predictions and the relevant grouping info 
+lepavgpred = lepallpred %>% 
+  select(avg) %>% 
+  mutate(sal = lep1pred$x, reg = lep1pred$facet, yr = lep1pred$group)
+lepavgpred$sal = factor(lepavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+
+calavgpred = calallpred %>% 
+  select(avg) %>% 
+  mutate(sal = cal1pred$x, reg = cal1pred$facet, yr = cal1pred$group)
+calavgpred$sal = factor(calavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+```
+
+## Confidence Intervals
+
+Now for the frustratingly simple solution to a problem that took way too many hours to solve. 
+
+```{r}
+#### THIS WORKS
+devtools::install_github("glmmTMB/glmmTMB/glmmTMB")
+library(glmmTMB)
+
+DI = as.vector(rep('D', 12)); JS = as.vector(rep('J', 12))
+f = as.vector(rep('2015', 3)); si = as.vector(rep('2016', 3)); sv = as.vector(rep('2017', 3)); e = as.vector(rep('2018', 3))
+year = as.vector(cbind(f, si, sv, e)); year = as.vector(replicate(2, year))
+CU = 'CU'; PI = 'PI'; SO = 'SO'
+spp = as.vector(rbind(CU, PI, SO)); spp = as.vector(replicate(8, spp))
+
+newdata <- matrix(nrow = 24, ncol = 4)
+newdata[c(1:12), 1] = DI; newdata[c(13:24), 1] = JS
+newdata[c(1:24), 2] = year
+newdata[c(1:24), 3] = spp
+
+newdata = data.frame(newdata) 
+newdata = newdata %>% 
+  rename(site.region = `X1`, year = `X2`, spp = `X3`, collection = `X4`)
+newdata$collection = NA
+
+#for leps
+lepconfset1 = get.models(lepmod.crossed_dredge, subset = TRUE)
+lepmodavg1 = model.avg(lepconfset1, subset = TRUE)
+
+newdata$collection = NA
+leppredict1 = data.frame(
+  model = sapply(lepconfset1, predict, newdata = newdata),
+  averagedfull = predict(lepmodavg1, type = 'response', newdata = newdata, se.fit = TRUE))
+leppredict1$low = leppredict1$averagedfull.fit - (1.96*leppredict1$averagedfull.se.fit)
+leppredict1$up = leppredict1$averagedfull.fit + (1.96*leppredict1$averagedfull.se.fit)
+leppredict1$mine = lepallpred$avg
+leppredict1$mine.low = leppredict1$mine - (1.96*leppredict1$averagedfull.se.fit)
+leppredict1$mine.up = leppredict1$mine + (1.96*leppredict1$averagedfull.se.fit)
+
+#for cal
+calconfset1 = get.models(calmod.crossed_dredge, subset = TRUE)
+calmodavg1 = model.avg(calconfset1, subset = TRUE)
+newdata <- matrix(nrow = 24, ncol = 4)
+newdata[c(1:12), 1] = DI; newdata[c(13:24), 1] = JS
+newdata[c(1:24), 2] = year
+newdata[c(1:24), 3] = spp
+newdata = data.frame(newdata) 
+newdata = newdata %>% 
+  rename(site.region = `X1`, year = `X2`, spp = `X3`, collection = `X4`)
+newdata$collection = NA
+calpredict1 = data.frame(
+  model = sapply(calconfset1, predict, newdata = newdata),
+  averagedfull = predict(calmodavg1, type = 'response', newdata = newdata, se.fit = TRUE))
+calpredict1$low = calpredict1$averagedfull.fit - (1.96*calpredict1$averagedfull.se.fit)
+calpredict1$up = calpredict1$averagedfull.fit + (1.96*calpredict1$averagedfull.se.fit)
+calpredict1$mine = calallpred$avg
+calpredict1$mine.low = calpredict1$mine - (1.96*calpredict1$averagedfull.se.fit)
+calpredict1$mine.up = calpredict1$mine + (1.96*calpredict1$averagedfull.se.fit)
+
+```
+
+## Effects Plot
+```{r}
+reg = data.frame(newdata$site.region)
+yr = data.frame(newdata$year)
+sal = data.frame(newdata$spp)
+lepplot = cbind(data.frame(cbind(leppredict1$averagedfull.fit, leppredict1$averagedfull.se.fit)),  
+                           reg, yr, sal) %>% 
+  rename(predicted = X1, se = X2, reg = newdata.site.region, yr =  newdata.year, sal = newdata.spp)
+lepplot$conf.low = lepplot$predicted - (1.96*lepplot$se)
+lepplot$conf.high = lepplot$predicted + (1.96*lepplot$se)
+
+calplot = cbind(data.frame(cbind(calpredict1$averagedfull.fit, calpredict1$averagedfull.se.fit)),  
+                           reg, yr, sal) %>% 
+  rename(predicted = X1, se = X2, reg = newdata.site.region, yr =  newdata.year, sal = newdata.spp)
+calplot$conf.low = calplot$predicted - (1.96*calplot$se)
+calplot$conf.high = calplot$predicted + (1.96*calplot$se)
+
+str(lepplot)
+
+## Make the plots
+
+leg_title <- 'Salmon Species'
+lepsmodplot_avg <- lepplot %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "L. salmonis Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+lepsmodplot_avg
+calmodplot_avg <- calplot %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = predicted, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "C. clemensi Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b'))
+calmodplot_avg
+```
