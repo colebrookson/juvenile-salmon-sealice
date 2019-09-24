@@ -186,6 +186,54 @@ calavgpred$sal = factor(calavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'P
 
 ## Confidence Intervals
 
+So what I'm going to do is bootstrap the data being fed into the model process 
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Confidence Intervals
+
 Now for the frustratingly simple solution to a problem that took way too many hours to solve. 
 
 ```{r}

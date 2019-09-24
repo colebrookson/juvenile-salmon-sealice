@@ -164,7 +164,7 @@ library(MuMIn)
 s.statmeanplot <- meanliceperfishpersp %>% 
   group_by(., spp) %>% 
   ggplot(., aes(x = collection, y = av.lice, fill = spp)) + 
-  geom_histogram(stat = "identity") +
+  geom_histogram(stat = "identity") + 
   theme_classic()+ 
   scale_color_manual(values=c('seagreen2', 'hotpink3', 'steelblue2')) +
   scale_fill_manual(values=c('seagreen2', 'hotpink1', 'steelblue3'), 
