@@ -49,7 +49,7 @@ pink2018J <- bootlice %>% filter(spp == 'PI' & year == '2018' & site.region == '
 bootintervalcal = matrix(nrow = 24, ncol = 5)
 bootintervallep = matrix(nrow = 24, ncol = 5)
 
-q = 1
+i = 1
 pb = txtProgressBar(min = 0, max = 5, initial = 0) 
 start_time <- Sys.time()
 for(i in 5) {
@@ -476,11 +476,11 @@ for(i in 5) {
     mutate(sal = cal1pred$x, reg = cal1pred$facet, yr = cal1pred$group)
   calavgpred$sal = factor(calavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
 
-  bootintervalcal[,q] = calavgpred$avg
-  bootintervallep[,q] = lepavgpred$avg
+  bootintervalcal[,i] = calavgpred$avg
+  bootintervallep[,i] = lepavgpred$avg
   
 
-  q = q+1
+  
   setTxtProgressBar(pb,i)
 }
 end_time <- Sys.time()
