@@ -46,10 +46,13 @@ pink2017J <- bootlice %>% filter(spp == 'PI' & year == '2017' & site.region == '
 pink2018D <- bootlice %>% filter(spp == 'PI' & year == '2018' & site.region == 'D')
 pink2018J <- bootlice %>% filter(spp == 'PI' & year == '2018' & site.region == 'J')
 
-bootinterval = matrix(nrow = 24, ncol = 10000)
+bootintervalcal = matrix(nrow = 24, ncol = 5)
+bootintervallep = matrix(nrow = 24, ncol = 5)
 
-
-for(i in 10000) {
+q = 1
+pb = txtProgressBar(min = 0, max = 5, initial = 0) 
+start_time <- Sys.time()
+for(i in 5) {
   sock2015Dboot = matrix(nrow = nrow(sock2015D), ncol = 7)
   n = 1
   for(k in unique(sock2015D$collection)) { #for each collection
@@ -350,8 +353,9 @@ for(i in 10000) {
                   chum2015Dboot,chum2015Jboot,chum2016Dboot,chum2016Jboot,chum2017Dboot,chum2017Jboot,chum2018Dboot,chum2018Jboot,
                   pink2015Dboot,pink2015Jboot,pink2016Dboot,pink2016Jboot,pink2017Dboot,pink2017Jboot,pink2018Dboot,pink2018Jboot)) %>% 
     rename(all.cal = X1, all.leps = X2, spp = X3, site.region = X4, collection = X5, year = X6, ufn = X7)
-  summary(bootdata$all.cal)
-                 
+  bootdata$all.cal = as.integer(as.character(bootdata$all.cal))
+  bootdata$all.leps = as.integer(as.character(bootdata$all.leps))
+
   #now run our set of models       
   #omited the last two models in each set since their weights were 0. 
   lep1 = glmmTMB(all.leps ~ site.region + year + spp + 
@@ -472,7 +476,12 @@ for(i in 10000) {
     mutate(sal = cal1pred$x, reg = cal1pred$facet, yr = cal1pred$group)
   calavgpred$sal = factor(calavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
 
+  bootintervalcal[,q] = calavgpred$avg
+  bootintervallep[,q] = lepavgpred$avg
   
 
-  x = x+1
+  q = q+1
+  setTxtProgressBar(pb,i)
 }
+end_time <- Sys.time()
+end_time - start_time
