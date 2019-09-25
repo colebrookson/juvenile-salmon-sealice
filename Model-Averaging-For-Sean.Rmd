@@ -103,7 +103,6 @@ cal7 = glmmTMB(all.cal ~ site.region + year + spp +
 cal8 = glmmTMB(all.cal ~ site.region + year + spp + 
             spp * site.region + spp * year +  
             (1 | collection), data = mainlice, family = nbinom2) 
-summary(cal1)
 ```
 
 Now let's use the ggpredict package to get predictions:
