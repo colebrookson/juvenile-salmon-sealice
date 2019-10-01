@@ -499,3 +499,91 @@ boot_int_lep = data.frame(bootintervallep)
 write_csv(boot_int_cal, 'boot_int_cal.csv')
 write_csv(boot_int_lep, 'boot_int_lep.csv')
 
+#pull the data
+interval_cal_long = read_csv('boot_int_cal_long.csv')
+interval_lep_long = read_csv('boot_int_lep_long.csv')
+
+#name the columns, sort them, and transpose them
+names_lep = lepavgpred %>% 
+  unite(., col = 'names', sal:yr, sep = '_')
+names_cal = calavgpred %>% 
+  unite(., col = 'names', sal:yr, sep = '_')
+
+names_lep = as.vector(names_lep$names)
+names_cal = as.vector(names_cal$names)
+
+colnames(interval_cal_long) = names_cal
+colnames(interval_lep_long) = names_lep
+
+interval_cal_long_sorted <- apply(interval_cal_long,2,sort,decreasing=F)
+interval_lep_long_sorted <- apply(interval_lep_long,2,sort,decreasing=F)
+
+upci_cal = interval_cal_long_sorted[995, ]
+loci_cal = interval_cal_long_sorted[5, ]
+upci_lep = interval_lep_long_sorted[995, ]
+loci_lep = interval_lep_long_sorted[5, ]
+
+#put the up and lo CI's into the df's 
+calavgpred$conf.high = upci_cal
+calavgpred$conf.low = loci_cal
+lepavgpred$conf.high = upci_lep
+lepavgpred$conf.low = loci_lep
+
+#Make the plots
+fte_theme1 <- function(){
+  color.background = 'white'
+  color.grid.major = 'black'
+  color.axis.text = 'black'
+  color.axis.title = 'black'
+  color.title = 'black'
+  theme_bw(base_size = 9) + 
+    theme(panel.background = element_rect(fill=color.background,color = color.background)) +
+    theme(plot.background = element_rect(fill = color.background, color = color.background)) +
+    theme(panel.border = element_blank()) +
+    theme(panel.grid.major = element_blank()) + 
+    theme(panel.grid.minor = element_blank()) + 
+    theme(axis.ticks = element_blank()) +
+    theme(plot.title = element_text(color = color.title, size = 15, vjust = 1.25)) +
+    theme(axis.text.x = element_text(size = 12, color = color.axis.text)) + 
+    theme(axis.text.y = element_text(size = 12, color = color.axis.text)) + 
+    theme(axis.title.x = element_text(size = 14, color = color.axis.title, vjust = 0)) +
+    theme(axis.title.y = element_text(size = 14, color = color.axis.title, vjust = 1.25)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.line.x = element_line(color="black", size = 0.15),
+          axis.line.y = element_line(color="black", size = 0.15)) +
+    theme(strip.background = element_blank(),
+          strip.placement = 'outside',
+          strip.text = element_text(size = 12))+
+    theme(legend.position = c(0.8,0.82),
+          legend.text = element_text(size = 12),
+          legend.title = element_text(size = 12))
+} 
+
+leg_title <- 'Salmon Species'
+lepsmodplot_avg <- lepavgpred %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = avg, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "L. salmonis Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b')) +
+  fte_theme1()
+lepsmodplot_avg
+calmodplot_avg <- calavgpred %>% 
+  group_by(., yr,sal,reg) %>% 
+  ggplot(aes(x = sal, y = avg, colour = sal, shape = reg)) +
+  scale_shape_manual(values = c(15,17)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), position = position_dodge(width = 0.8),colour = 'Black')+
+  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  facet_wrap(~yr,nrow=1,strip.position = "bottom")+
+  theme(strip.background = element_blank(), strip.placement = "outside") + 
+  scale_color_manual(leg_title,values=c('seagreen2', 'hotpink1', 'steelblue2'))+
+  labs(title = "C. clemensi Effects Plot", x = 'Salmon Species/Year', y = 'Average Number of Motile Lice Per Fish') +
+  guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b')) +
+  fte_theme1()
+calmodplot_avg
+
