@@ -14,7 +14,7 @@ library(glmmTMB)
 library(ggeffects)
 library(DHARMa)
 library(MuMIn)
-
+library(here)
 
 # First lets take a look at some of the summary statistics with the data and get a handle on it. 
 # we'll look at the structure of the dataframe, and we'll also spend some time subsetting it into 'workable intervals'
@@ -352,8 +352,14 @@ library(ggrepel)
 library(raster)
 library(ggthemes)
 library(ggsn)
-salmonsites <- read.csv('Hakai_sampling_site_coordinates.csv')
+library(rgeos)
+library(rgdal)
+
+salmonsites <- read_csv('Hakai_sampling_site_coordinates.csv')
 names(salmonsites)
+
+
+BC_shp = readOGR(here('data', 'Spatial Data', 'COAST_TEST2.shp'))
 coords <- data.frame(cbind(salmonsites$Xlatitude,salmonsites$Ylongitutde))
 colnames(coords) <- c('lat', 'long')
 
@@ -375,23 +381,23 @@ fte_theme <- function(){
     theme(panel.grid.minor = element_blank()) + 
     theme(axis.ticks = element_blank()) +
     theme(plot.title = element_text(color = color.title, size = 15, vjust = 1.25)) +
-    theme(axis.text.x = element_text(size = 8, color = color.axis.text, angle = 90)) + 
-    theme(axis.text.y = element_text(size = 10, color = color.axis.text)) + 
-    theme(axis.title.x = element_text(size = 12, color = color.axis.title, vjust = 0)) +
-    theme(axis.title.y = element_text(size = 12, color = color.axis.title, vjust = 1.25)) +
+    theme(axis.text.x = element_text(size = 12, color = color.axis.text, angle = 90)) + 
+    theme(axis.text.y = element_text(size = 12, color = color.axis.text)) + 
+    theme(axis.title.x = element_text(size = 14, color = color.axis.title, vjust = 0)) +
+    theme(axis.title.y = element_text(size = 14, color = color.axis.title, vjust = 1.25)) +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme(axis.line.x = element_line(color="black", size = 0.15),
           axis.line.y = element_line(color="black", size = 0.15)) 
 }
 fte_theme1 <- function(){
-  color.background = 'white'
+  color.background = 'grey75'
   color.grid.major = 'black'
   color.axis.text = 'black'
   color.axis.title = 'black'
   color.title = 'black'
   theme_bw(base_size = 9) + 
-    theme(panel.background = element_rect(fill=color.background,color = color.background)) +
-    theme(plot.background = element_rect(fill = color.background, color = color.background)) +
+    theme(panel.background = element_rect(fill = 'white', color = 'white')) +
+    theme(plot.background = element_rect(fill=color.background,color = color.background)) +
     theme(panel.border = element_rect(colour = 'black')) +
     theme(panel.grid.major = element_blank()) + 
     theme(panel.grid.minor = element_blank()) + 
@@ -414,43 +420,40 @@ canada <- getData("GADM",country="CAN",level=1)
 
 us.states <- us[us$NAME_1 %in% states,]
 ca.provinces <- canada[canada$NAME_1 %in% provinces,]
-biggermap <- 
-  ggplot(data = us.states,aes(x=long,y=lat,group=group), colour = 'black')+
-  geom_path()+
-  geom_path(data=ca.provinces, colour = 'black')+
-  ylim(c(48.1,52.5))+
-  xlim(c(-130.5,-119.5))+
-  coord_map()+
+
+biggermap = ggplot()+
+  geom_polygon(data = us.states,aes(x=long,y=lat,group=group), colour = 'black', size = 0.01, fill = 'grey75')+
+  geom_polygon(data=ca.provinces, aes(x=long,y=lat,group=group), colour = 'black', size = 0.01, fill = 'grey75')+
+    coord_cartesian(xlim = c(-128.5,-119.5), ylim = c(48.1,51.0)) +
   fte_theme1()+
-  annotate("rect", xmin = -127.3, xmax = -125, ymin = 49.8, ymax = 50.9, alpha = .4)+
-  annotate('text', x = -121, y = 51.7, label = 'British Columbia', size = 3.5)+
-  annotate('text', x = -127, y = 48.5, label = 'Vancouver Island', size = 3)+
-  annotate('segment',x=-127, y=48.6, xend=-125.5, yend=49.5, arrow=arrow(length = unit(0.04, "npc")), 
+  annotate("rect", xmin = -127.3, xmax = -125, ymin = 49.8, ymax = 50.9, alpha = .7)+
+  annotate('text', x = -121, y = 50.7, label = 'British Columbia', size = 4)+
+  annotate('text', x = -120.7, y = 48.5, label = 'Washington', size = 4)+
+  annotate('text', x = -126.7, y = 48.5, label = 'Vancouver Island', size = 4)+
+  annotate('segment',x=-126.7, y=48.6, xend=-125.5, yend=49.5, arrow=arrow(length = unit(0.04, "npc")), 
            alpha = 0.8, size=1.1, color="black")
 biggermap
 
-smallermap <- ggplot()+
-  geom_path(data=ca.provinces,aes(x=long,y=lat,group=group))+
-  ylim(c(49.8,50.9))+
-  xlim(c(-127.3,-125))+
+smallermap = ggplot()+
+  geom_polygon(data=ca.provinces,aes(x=long,y=lat,group=group), colour = 'black', size = 0.01, fill = 'grey75')+
+  coord_cartesian(xlim = c(-127.0,-125), ylim = c(50,50.75))+
   geom_point(data = coords, aes(long,lat), color = 'black', size = 4, shape = 21, fill = 'red3')+
-  coord_map() +
   fte_theme()+
-  labs(x = 'Longitude', y = 'Latitude', title = 'Sampling Sites')+
-  annotate("rect", xmin = -125.51, xmax = -125.05, ymin = 50.1, ymax = 50.5, alpha = .4)+
-  annotate("rect", xmin = -126.9, xmax = -126.55, ymin = 50.45, ymax = 50.7, alpha = .4)+
-  annotate('text', x= -125.9, y = 50.03, label = 'Discovery Islands Region', size = 3)+
-  annotate('text', x = -126.35, y = 50.25, label = 'Johnstone Strait Region', size = 3)+
-  annotate('segment',x=-125.9, y=50.05, xend=-125.58, yend=50.31, arrow=arrow(length = unit(0.04, "npc")), 
+  labs(x = 'Longitude', y = 'Latitude')+
+  annotate("rect", xmin = -125.51, xmax = -125.05, ymin = 50.1, ymax = 50.5, alpha = .65)+
+  annotate("rect", xmin = -126.9, xmax = -126.55, ymin = 50.45, ymax = 50.7, alpha = .65)+
+  annotate('text', x= -125.8, y = 50.33, label = 'Discovery Islands', size = 4)+
+  annotate('text', x = -126.6, y = 50.38, label = 'Johnstone Strait', size = 4)+
+  annotate('segment',x=-125.8, y=50.302, xend=-125.565, yend=50.27, arrow=arrow(length = unit(0.04, "npc")), 
            alpha = 0.8, size=1.1, color="black")+
-  annotate('segment',x=-126.35, y=50.27, xend=-126.725, yend=50.42, arrow=arrow(length = unit(0.04, "npc")), 
+  annotate('segment',x=-126.6, y=50.4, xend=-126.65, yend=50.44, arrow=arrow(length = unit(0.04, "npc")), 
            alpha = 0.8, size=1.1, color="black")
 smallermap
 
 ## make the one plot inset with the other
-insetmap <- ggdraw()+
+insetmap = ggdraw()+
   draw_plot(smallermap) + 
-  draw_plot(biggermap, x=0.1, y=0.1, width=0.52, height=0.3) 
+  draw_plot(biggermap, x=0.105, y=0.161, width=0.5, height=0.3) 
 insetmap
 
 

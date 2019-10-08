@@ -7,7 +7,7 @@ library(cowplot)
 library(AICcmodavg)
 library(latexpdf)
 
-mainlice <- read_csv("C:/Users/brookson/Salmon_Work/SalmonWork-master/Hakai_lice_data_CB_edits.csv")
+#mainlice <- read_csv("C:/Users/brookson/Salmon_Work/SalmonWork-master/Hakai_lice_data_CB_edits.csv")
 
 #make vars into factors
 mainlice$year <- as.factor(mainlice$year);mainlice$collection <- as.factor(mainlice$collection)
