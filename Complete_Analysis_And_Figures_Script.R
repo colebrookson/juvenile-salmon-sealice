@@ -1,4 +1,24 @@
-
+library(tidyverse)
+library(cowplot)
+library(bbmle)
+library(lubridate)
+library(rsample)
+library(tibble)
+library(glmmTMB)
+library(ggeffects)
+library(DHARMa)
+library(MuMIn)
+library(here)
+library(mapdata)
+library(maps)
+library(maptools)
+library(ggmap)
+library(ggrepel)
+library(raster)
+library(ggthemes)
+library(ggsn)
+library(rgeos)
+library(rgdal)
 
 #mainlice <- read_csv("C:/Users/brookson/Salmon_Work/SalmonWork-master/Hakai_lice_data_CB_edits.csv")
 
@@ -10,7 +30,7 @@ salmonsites <- read_csv('Hakai_sampling_site_coordinates.csv')
 names(salmonsites)
 
 
-BC_shp = readOGR(here('data', 'Spatial Data', 'COAST_TEST2.shp'))
+BC_shp = readOGR('C:/Users/brookson/Documents/GitHub/SalmonWork/SpatialData/COAST_TEST2.shp')
 coords <- data.frame(cbind(salmonsites$Xlatitude,salmonsites$Ylongitutde))
 colnames(coords) <- c('lat', 'long')
 
@@ -124,7 +144,7 @@ fig_2_1 = ggplot() +
   theme(axis.text.x = element_blank()) +
   theme(axis.title.x = element_blank()) +
   theme(axis.title.y = element_text(size = 15)) +
-  theme(axis.text.y = element_text(size = 12))
+  theme(axis.text.y = element_text(size = 12)) +
   scale_y_continuous(limits = c(0.0, 0.45))
 fig_2_2 = ggplot() +
   geom_col(data = (fig_2_data %>% filter(spp == 'CU')), aes(x = year, y = mean_lep), 
@@ -157,7 +177,7 @@ fig_2_4 = ggplot() +
   theme(axis.title.y = element_text(size = 15)) +
   theme(axis.text.y = element_text(size = 12)) +
   theme(axis.title.x = element_text(size = 15)) +
-  theme(axis.text.x = element_text(size = 12))
+  theme(axis.text.x = element_text(size = 12)) +
   scale_y_continuous(limits = c(0.0, 0.81))
 fig_2_5 = ggplot() +
   geom_col(data = (fig_2_data %>% filter(spp == 'CU')), aes(x = year, y = mean_cal), 
@@ -245,7 +265,7 @@ calmod.crossed_dredge = MuMIn::dredge(calmod.crossed, subset = (`cond(site.regio
 #we're wrapping our esitmator of mu in a function and bootstrapping it
 
 bootlice =  mainlice %>% 
-  select(all.cal, all.leps, spp, site.region, collection, year, ufn)
+  dplyr::select(all.cal, all.leps, spp, site.region, collection, year, ufn)
 
 sock2015D <- bootlice %>% filter(spp == 'SO' & year == '2015' & site.region == 'D')
 sock2015J <- bootlice %>% filter(spp == 'SO' & year == '2015' & site.region == 'J')
@@ -255,6 +275,8 @@ sock2017D <- bootlice %>% filter(spp == 'SO' & year == '2017' & site.region == '
 sock2017J <- bootlice %>% filter(spp == 'SO' & year == '2017' & site.region == 'J')
 sock2018D <- bootlice %>% filter(spp == 'SO' & year == '2018' & site.region == 'D')
 sock2018J <- bootlice %>% filter(spp == 'SO' & year == '2018' & site.region == 'J')
+sock2019D <- bootlice %>% filter(spp == 'SO' & year == '2019' & site.region == 'D')
+sock2019J <- bootlice %>% filter(spp == 'SO' & year == '2019' & site.region == 'J')
 
 chum2015D <- bootlice %>% filter(spp == 'CU' & year == '2015' & site.region == 'D')
 chum2015J <- bootlice %>% filter(spp == 'CU' & year == '2015' & site.region == 'J')
@@ -264,6 +286,8 @@ chum2017D <- bootlice %>% filter(spp == 'CU' & year == '2017' & site.region == '
 chum2017J <- bootlice %>% filter(spp == 'CU' & year == '2017' & site.region == 'J')
 chum2018D <- bootlice %>% filter(spp == 'CU' & year == '2018' & site.region == 'D')
 chum2018J <- bootlice %>% filter(spp == 'CU' & year == '2018' & site.region == 'J')
+chum2019D <- bootlice %>% filter(spp == 'CU' & year == '2019' & site.region == 'D')
+chum2019J <- bootlice %>% filter(spp == 'CU' & year == '2019' & site.region == 'J')
 
 pink2015D <- bootlice %>% filter(spp == 'PI' & year == '2015' & site.region == 'D')
 pink2015J <- bootlice %>% filter(spp == 'PI' & year == '2015' & site.region == 'J')
@@ -273,9 +297,11 @@ pink2017D <- bootlice %>% filter(spp == 'PI' & year == '2017' & site.region == '
 pink2017J <- bootlice %>% filter(spp == 'PI' & year == '2017' & site.region == 'J')
 pink2018D <- bootlice %>% filter(spp == 'PI' & year == '2018' & site.region == 'D')
 pink2018J <- bootlice %>% filter(spp == 'PI' & year == '2018' & site.region == 'J')
+pink2019D <- bootlice %>% filter(spp == 'PI' & year == '2019' & site.region == 'D')
+pink2019J <- bootlice %>% filter(spp == 'PI' & year == '2019' & site.region == 'J')
 
-bootintervalcal = matrix(nrow = 24, ncol = 1000)
-bootintervallep = matrix(nrow = 24, ncol = 1000)
+bootintervalcal = matrix(nrow = 30, ncol = 1000)
+bootintervallep = matrix(nrow = 30, ncol = 1000)
 
 #Run the Loop to populate the matrix - CAUTION:: THIS TAKES OVER 2 FULL DAYS TO RUN ON A POWERFUL DESKTOP COMPUTER
 pb = txtProgressBar(min = 0, max = 1000, initial = 0) 
@@ -377,6 +403,30 @@ for(i in 1:1000) {
     sock2018Jboot[rows,] = res
     n = n + nrow(res)
   }  
+  sock2019Dboot = matrix(nrow = nrow(sock2019D), ncol = 7)
+  n = 1
+  for(k in unique(sock2019D$collection)) { #for each collection
+    #resample the observations in the collection with replacement for the number of rows in that given collection
+    res <- as.matrix(sock2019D %>%
+                       group_by(collection) %>% 
+                       filter(collection == k) %>% 
+                       sample_n(., n(), replace = TRUE))
+    rows = c(n:(n+nrow(res)-1))
+    sock2019Dboot[rows,] = res
+    n = n + nrow(res)
+  }
+  sock2019Jboot = matrix(nrow = nrow(sock2019J), ncol = 7)
+  n = 1
+  for(k in unique(sock2019J$collection)) { #for each collection
+    #resample the observations in the collection with replacement for the number of rows in that given collection
+    res <- as.matrix(sock2019J %>%
+                       group_by(collection) %>% 
+                       filter(collection == k) %>% 
+                       sample_n(., n(), replace = TRUE))
+    rows = c(n:(n+nrow(res)-1))
+    sock2019Jboot[rows,] = res
+    n = n + nrow(res)
+  } 
   
   #pink
   
@@ -476,6 +526,30 @@ for(i in 1:1000) {
     chum2018Jboot[rows,] = res
     n = n + nrow(res)
   }  
+  chum2019Dboot = matrix(nrow = nrow(chum2019D), ncol = 7)
+  n = 1
+  for(k in unique(chum2019D$collection)) { #for each collection
+    #resample the observations in the collection with replacement for the number of rows in that given collection
+    res <- as.matrix(chum2019D %>%
+                       group_by(collection) %>% 
+                       filter(collection == k) %>% 
+                       sample_n(., n(), replace = TRUE))
+    rows = c(n:(n+nrow(res)-1))
+    chum2019Dboot[rows,] = res
+    n = n + nrow(res)
+  }
+  chum2019Jboot = matrix(nrow = nrow(chum2019J), ncol = 7)
+  n = 1
+  for(k in unique(chum2019J$collection)) { #for each collection
+    #resample the observations in the collection with replacement for the number of rows in that given collection
+    res <- as.matrix(chum2019J %>%
+                       group_by(collection) %>% 
+                       filter(collection == k) %>% 
+                       sample_n(., n(), replace = TRUE))
+    rows = c(n:(n+nrow(res)-1))
+    chum2019Jboot[rows,] = res
+    n = n + nrow(res)
+  } 
   
   #pink
   
@@ -575,11 +649,35 @@ for(i in 1:1000) {
     pink2018Jboot[rows,] = res
     n = n + nrow(res)
   }  
+  pink2019Dboot = matrix(nrow = nrow(pink2019D), ncol = 7)
+  n = 1
+  for(k in unique(pink2019D$collection)) { #for each collection
+    #resample the observations in the collection with replacement for the number of rows in that given collection
+    res <- as.matrix(pink2019D %>%
+                       group_by(collection) %>% 
+                       filter(collection == k) %>% 
+                       sample_n(., n(), replace = TRUE))
+    rows = c(n:(n+nrow(res)-1))
+    pink2019Dboot[rows,] = res
+    n = n + nrow(res)
+  }
+  pink2019Jboot = matrix(nrow = nrow(pink2019J), ncol = 7)
+  n = 1
+  for(k in unique(pink2019J$collection)) { #for each collection
+    #resample the observations in the collection with replacement for the number of rows in that given collection
+    res <- as.matrix(pink2019J %>%
+                       group_by(collection) %>% 
+                       filter(collection == k) %>% 
+                       sample_n(., n(), replace = TRUE))
+    rows = c(n:(n+nrow(res)-1))
+    pink2019Jboot[rows,] = res
+    n = n + nrow(res)
+  }  
   
   #bind the matrices so we can have our resampled dataframe
-  bootdata = data.frame(rbind(sock2015Dboot,sock2015Jboot,sock2016Dboot,sock2016Jboot,sock2017Dboot,sock2017Jboot,sock2018Dboot,sock2018Jboot,
-                              chum2015Dboot,chum2015Jboot,chum2016Dboot,chum2016Jboot,chum2017Dboot,chum2017Jboot,chum2018Dboot,chum2018Jboot,
-                              pink2015Dboot,pink2015Jboot,pink2016Dboot,pink2016Jboot,pink2017Dboot,pink2017Jboot,pink2018Dboot,pink2018Jboot)) %>% 
+  bootdata = data.frame(rbind(sock2015Dboot,sock2015Jboot,sock2016Dboot,sock2016Jboot,sock2017Dboot,sock2017Jboot,sock2018Dboot,sock2018Jboot,sock2019Dboot,sock2019Jboot,
+                              chum2015Dboot,chum2015Jboot,chum2016Dboot,chum2016Jboot,chum2017Dboot,chum2017Jboot,chum2018Dboot,chum2018Jboot,chum2019Dboot,chum2019Jboot,
+                              pink2015Dboot,pink2015Jboot,pink2016Dboot,pink2016Jboot,pink2017Dboot,pink2017Jboot,pink2018Dboot,pink2018Jboot,pink2019Dboot,pink2019Jboot)) %>% 
     rename(all.cal = X1, all.leps = X2, spp = X3, site.region = X4, collection = X5, year = X6, ufn = X7)
   bootdata$all.cal = as.integer(as.character(bootdata$all.cal))
   bootdata$all.leps = as.integer(as.character(bootdata$all.leps))
@@ -695,12 +793,12 @@ for(i in 1:1000) {
   
   #keep just the averaged predictions and the relevant grouping info 
   lepavgpred = lepallpred %>% 
-    select(avg) %>% 
+    dplyr::select(avg) %>% 
     mutate(sal = lep1pred$x, reg = lep1pred$facet, yr = lep1pred$group)
   lepavgpred$sal = factor(lepavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
   
   calavgpred = calallpred %>% 
-    select(avg) %>% 
+    dplyr::select(avg) %>% 
     mutate(sal = cal1pred$x, reg = cal1pred$facet, yr = cal1pred$group)
   calavgpred$sal = factor(calavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
   
@@ -716,6 +814,9 @@ boot_int_cal = data.frame(bootintervalcal)
 boot_int_lep = data.frame(bootintervallep)
 write_csv(boot_int_cal, 'boot_int_cal.csv')
 write_csv(boot_int_lep, 'boot_int_lep.csv')
+
+#####NOTE: to make life easy, I just manually go and change these to long version in the csv itself - have to do that 
+#before readng in the next lines
 
 #pull the data
 interval_cal_long = read_csv('boot_int_cal_long.csv')
