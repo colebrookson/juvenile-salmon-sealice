@@ -20,7 +20,7 @@ library(ggsn)
 library(rgeos)
 library(rgdal)
 
-#mainlice <- read_csv("C:/Users/brookson/Salmon_Work/SalmonWork-master/Hakai_lice_data_CB_edits.csv")
+#test <- read_csv("C:/Users/brookson/Salmon_Work/SalmonWork-master/Hakai_lice_data_CB_edits.csv")
 
 #make vars into factors
 mainlice$year <- as.factor(mainlice$year);mainlice$collection <- as.factor(mainlice$collection)
@@ -126,6 +126,9 @@ insetmap = ggdraw()+
   draw_plot(smallermap) + 
   draw_plot(biggermap, x=0.105, y=0.161, width=0.5, height=0.3) 
 insetmap
+ggsave('study_map.png', plot = insetmap,
+       width = 8, height = 7.5,
+       dpi = 300)
 
 ## Figure 2: 3x2 of sal and lice species
 fig_2_data = mainlice %>% 
@@ -178,7 +181,7 @@ fig_2_4 = ggplot() +
   theme(axis.text.y = element_text(size = 12)) +
   theme(axis.title.x = element_text(size = 15)) +
   theme(axis.text.x = element_text(size = 12)) +
-  scale_y_continuous(limits = c(0.0, 0.81))
+  scale_y_continuous(limits = c(0.0, 0.85))
 fig_2_5 = ggplot() +
   geom_col(data = (fig_2_data %>% filter(spp == 'CU')), aes(x = year, y = mean_cal), 
            colour = 'black', fill = '#59AE7F', width = 0.7) +
@@ -189,7 +192,7 @@ fig_2_5 = ggplot() +
   theme(axis.title.y = element_blank()) +
   theme(axis.title.x = element_text(size = 15)) +
   theme(axis.text.x = element_text(size = 12)) +
-  scale_y_continuous(limits = c(0.0, 0.81)) 
+  scale_y_continuous(limits = c(0.0, 0.85)) 
 fig_2_6 = ggplot() +
   geom_col(data = (fig_2_data %>% filter(spp == 'SO')), aes(x = year, y = mean_cal), 
            colour = 'black', fill = '#23359d', width = 0.7) +
@@ -200,11 +203,13 @@ fig_2_6 = ggplot() +
   theme(axis.title.y = element_blank()) +
   theme(axis.title.x = element_text(size = 15)) +
   theme(axis.text.x = element_text(size = 12)) +
-  scale_y_continuous(limits = c(0.0, 0.81)) 
+  scale_y_continuous(limits = c(0.0, 0.85)) 
 
 fig_2 = plot_grid(fig_2_1, fig_2_2, fig_2_3,
                   fig_2_4, fig_2_5, fig_2_6, nrow = 2, rel_heights = c(0.85, 1), rel_widths = c(1, 0.8, 0.8))
-
+ggsave('lice_per_fish_sp.png', plot = fig_2,
+       width = 8, height = 7.5,
+       dpi = 300)
 
 ## Figure 3: average number of lice per fish (fish sp and by year)
 fig_3_data = mainlice %>% 
@@ -247,8 +252,9 @@ fig_3_3 = ggplot() +
 
 fig_3 = plot_grid(fig_3_1, fig_3_2, fig_3_3, nrow = 1,
                   rel_widths = c(1, 0.8, 0.8))
-
-
+ggsave('lice_per_fish.png', plot = fig_3,
+       scale = 1, width = 8, height = 6.7,
+       dpi = 300)
 
 #get the necessary model selection things:
 lepmod.crossed <- glmmTMB(all.leps ~ spp * site.region + spp * year + 
@@ -842,6 +848,123 @@ loci_cal = interval_cal_long_sorted[5, ]
 upci_lep = interval_lep_long_sorted[995, ]
 loci_lep = interval_lep_long_sorted[5, ]
 
+#fit the models and do the model averaging process again to get the actual estimates themselves
+lep1 = glmmTMB(all.leps ~ site.region + year + spp + 
+                 site.region * year + 
+                 (1 | collection), data = mainlice, family = nbinom2) 
+lep2 = glmmTMB(all.leps ~ site.region + year + spp + 
+                 spp * year + site.region * year + 
+                 (1 | collection), data = mainlice, family = nbinom2) 
+lep3 = glmmTMB(all.leps ~ site.region + year + spp + 
+                 spp * site.region + site.region * year + 
+                 (1 | collection), data = mainlice, family = nbinom2) 
+lep4 = glmmTMB(all.leps ~ site.region + year + spp + 
+                 spp * site.region + spp * year + site.region * year + 
+                 (1 | collection), data = mainlice, family = nbinom2) 
+lep5 = glmmTMB(all.leps ~ site.region + year + spp + 
+                 (1 | collection), data = mainlice, family = nbinom2) 
+lep6 = glmmTMB(all.leps ~ site.region + year + spp + 
+                 spp * year +  
+                 (1 | collection), data = mainlice, family = nbinom2) 
+lep7 = glmmTMB(all.leps ~ site.region + year + spp + 
+                 spp * site.region + 
+                 (1 | collection), data = mainlice, family = nbinom2) 
+lep8 = glmmTMB(all.leps ~ site.region + year + spp + 
+                 spp * site.region + spp * year +  
+                 (1 | collection), data = mainlice, family = nbinom2) 
+
+cal1 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 site.region * year + site.region * spp +
+                 (1 | collection), data = mainlice, family = nbinom2) 
+cal2 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 site.region * year + 
+                 (1 | collection), data = mainlice, family = nbinom2) 
+cal3 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 spp * site.region + site.region * year + spp * year + 
+                 (1 | collection), data = mainlice, family = nbinom2) 
+cal4 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 spp * year + site.region * year + 
+                 (1 | collection), data = mainlice, family = nbinom2)
+cal5 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 (1 | collection), data = mainlice, family = nbinom2) 
+cal6 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 site.region * year +  
+                 (1 | collection), data = mainlice, family = nbinom2)
+cal7 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 spp * year + 
+                 (1 | collection), data = mainlice, family = nbinom2) 
+cal8 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 spp * site.region + spp * year +  
+                 (1 | collection), data = mainlice, family = nbinom2) 
+
+#get the predictions of the estiamtes
+lep1pred <- ggpredict(lep1, terms = c('spp', 'year', 'site.region'))
+lep2pred <- ggpredict(lep2, terms = c('spp', 'year', 'site.region')) 
+lep3pred <- ggpredict(lep3, terms = c('spp', 'year', 'site.region')) 
+lep4pred <- ggpredict(lep4, terms = c('spp', 'year', 'site.region')) 
+lep5pred <- ggpredict(lep5, terms = c('spp', 'year', 'site.region')) 
+lep6pred <- ggpredict(lep6, terms = c('spp', 'year', 'site.region')) 
+lep7pred <- ggpredict(lep7, terms = c('spp', 'year', 'site.region')) 
+lep8pred <- ggpredict(lep8, terms = c('spp', 'year', 'site.region')) 
+
+cal1pred <- ggpredict(cal1, terms = c('spp', 'year', 'site.region'))
+cal2pred <- ggpredict(cal2, terms = c('spp', 'year', 'site.region')) 
+cal3pred <- ggpredict(cal3, terms = c('spp', 'year', 'site.region')) 
+cal4pred <- ggpredict(cal4, terms = c('spp', 'year', 'site.region')) 
+cal5pred <- ggpredict(cal5, terms = c('spp', 'year', 'site.region')) 
+cal6pred <- ggpredict(cal6, terms = c('spp', 'year', 'site.region')) 
+cal7pred <- ggpredict(cal7, terms = c('spp', 'year', 'site.region')) 
+cal8pred <- ggpredict(cal8, terms = c('spp', 'year', 'site.region')) 
+
+###start by getting them all in one dataframe with the weights
+
+#pull the predicted values from each one
+lepallpred = data.frame(cbind(lep1pred$predicted, lep2pred$predicted, lep3pred$predicted, lep4pred$predicted,
+                              lep5pred$predicted, lep6pred$predicted, lep7pred$predicted, lep8pred$predicted)) %>% 
+  rename(lep1 = X1, lep2 = X2, lep3 = X3, lep4 = X4, lep5 = X5, lep6 = X6, lep7 = X7, lep8 = X8)
+calallpred = data.frame(cbind(cal1pred$predicted, cal2pred$predicted, cal3pred$predicted, cal4pred$predicted,
+                              cal5pred$predicted, cal6pred$predicted, cal7pred$predicted, cal8pred$predicted)) %>% 
+  rename(cal1 = X1, cal2 = X2, cal3 = X3, cal4 = X4, cal5 = X5, cal6 = X6, cal7 = X7, cal8 = X8)
+
+#add the weights from the model selection object
+lepallpred = lepallpred %>% 
+  mutate(w1 = rep(lepmod.crossed_dredge$weight[1], nrow(lepallpred)), 
+         w2 = rep(lepmod.crossed_dredge$weight[2], nrow(lepallpred)),
+         w3 = rep(lepmod.crossed_dredge$weight[3], nrow(lepallpred)),
+         w4 = rep(lepmod.crossed_dredge$weight[4], nrow(lepallpred)),
+         w5 = rep(lepmod.crossed_dredge$weight[5], nrow(lepallpred)),
+         w6 = rep(lepmod.crossed_dredge$weight[6], nrow(lepallpred)),
+         w7 = rep(lepmod.crossed_dredge$weight[7], nrow(lepallpred)),
+         w8 = rep(lepmod.crossed_dredge$weight[8], nrow(lepallpred)))
+
+calallpred = calallpred %>% 
+  mutate(w1 = rep(calmod.crossed_dredge$weight[1], nrow(calallpred)), 
+         w2 = rep(calmod.crossed_dredge$weight[2], nrow(calallpred)),
+         w3 = rep(calmod.crossed_dredge$weight[3], nrow(calallpred)),
+         w4 = rep(calmod.crossed_dredge$weight[4], nrow(calallpred)),
+         w5 = rep(calmod.crossed_dredge$weight[5], nrow(calallpred)),
+         w6 = rep(calmod.crossed_dredge$weight[6], nrow(calallpred)),
+         w7 = rep(calmod.crossed_dredge$weight[7], nrow(calallpred)),
+         w8 = rep(calmod.crossed_dredge$weight[8], nrow(calallpred)))
+
+#now make averaged predictions!
+lepallpred = lepallpred %>% 
+  mutate(lep1w = lep1*w1, lep2w = lep2*w2, lep3w = lep3*w3, lep4w = lep4*w4, lep5w = lep5*w5, lep6w = lep6*w6, lep7w = lep7*w7, lep8w = lep8*w8) %>% 
+  mutate(avg = lep1w + lep2w + lep3w + lep4w + lep5w + lep6w + lep7w + lep8w)
+
+calallpred = calallpred %>% 
+  mutate(cal1w = cal1*w1, cal2w = cal2*w2, cal3w = cal3*w3, cal4w = cal4*w4, cal5w = cal5*w5, cal6w = cal6*w6, cal7w = cal7*w7, cal8w = cal8*w8) %>% 
+  mutate(avg = cal1w + cal2w + cal3w + cal4w + cal5w + cal6w + cal7w + cal8w)
+
+#keep just the averaged predictions and the relevant grouping info 
+lepavgpred = lepallpred %>% 
+  dplyr::select(avg) %>% 
+  mutate(sal = lep1pred$x, reg = lep1pred$facet, yr = lep1pred$group)
+
+calavgpred = calallpred %>% 
+  dplyr::select(avg) %>% 
+  mutate(sal = cal1pred$x, reg = cal1pred$facet, yr = cal1pred$group)
+
 #put the up and lo CI's into the df's 
 calavgpred$conf.high = upci_cal
 calavgpred$conf.low = loci_cal
@@ -894,6 +1017,9 @@ lepsmodplot_avg <- lepavgpred %>%
   guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b')) +
   fte_theme1()
 lepsmodplot_avg
+ggsave('model_ests_lep.png', plot = lepsmodplot_avg,
+       width = 8, height = 7.5,
+       dpi = 300)
 calmodplot_avg <- calavgpred %>% 
   group_by(., yr,sal,reg) %>% 
   ggplot(aes(x = sal, y = avg, colour = sal, shape = reg)) +
@@ -907,5 +1033,46 @@ calmodplot_avg <- calavgpred %>%
   guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b')) +
   fte_theme1()
 calmodplot_avg
+
+ggsave('model_ests_cal.png', plot = calmodplot_avg,
+       width = 8, height = 7.5,
+       dpi = 300)
+
+
+mainlice %>% 
+  filter(spp == PI) %>% 
+  filter(year == 2019) %>% 
+  summarize(all = mean(all.cal))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
