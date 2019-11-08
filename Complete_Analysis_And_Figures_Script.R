@@ -19,7 +19,6 @@ library(ggthemes)
 library(ggsn)
 library(rgeos)
 library(rgdal)
-library(relaimpo)
 
 #test <- read_csv("C:/Users/brookson/Salmon_Work/SalmonWork-master/Hakai_lice_data_CB_edits.csv")
 
@@ -58,6 +57,7 @@ fte_theme_map_small <- function(){
     theme(axis.title.x = element_text(size = 14, color = color.axis.title, vjust = 0)) +
     theme(axis.title.y = element_text(size = 14, color = color.axis.title, vjust = 1.25)) +
     theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.ticks = element_line(colour = 'black')) +
     theme(axis.line.x = element_line(color="black", size = 0.15),
           axis.line.y = element_line(color="black", size = 0.15)) 
 }
@@ -102,20 +102,20 @@ biggermap = ggplot()+
   annotate('text', x = -121, y = 50.7, label = 'British Columbia', size = 4)+
   annotate('text', x = -120.7, y = 48.5, label = 'Washington', size = 4)+
   annotate('text', x = -126.7, y = 48.5, label = 'Vancouver Island', size = 4)+
-  annotate('segment',x=-126.7, y=48.6, xend=-125.5, yend=49.5, arrow=arrow(length = unit(0.04, "npc")), 
-           alpha = 0.8, size=1.1, color="black")
+  annotate('segment',x=-126.7, y=48.6, xend=-125.5, yend=49.5, arrow=arrow(length = unit(0.16, "npc")), 
+           alpha = 0.8, size=1.2, color="black")
 biggermap
 
 smallermap = ggplot()+
   geom_polygon(data=ca.provinces,aes(x=long,y=lat,group=group), colour = 'black', size = 0.01, fill = 'grey75')+
   coord_cartesian(xlim = c(-127.0,-125), ylim = c(50,50.75))+
-  geom_point(data = coords, aes(long,lat), color = 'black', size = 4, shape = 21, fill = 'red3')+
   fte_theme_map_small()+
   labs(x = 'Longitude', y = 'Latitude')+
   annotate("rect", xmin = -125.51, xmax = -125.05, ymin = 50.1, ymax = 50.5, alpha = .65)+
   annotate("rect", xmin = -126.9, xmax = -126.55, ymin = 50.45, ymax = 50.7, alpha = .65)+
   annotate('text', x= -125.8, y = 50.33, label = 'Discovery Islands', size = 4)+
   annotate('text', x = -126.6, y = 50.38, label = 'Johnstone Strait', size = 4)+
+  geom_point(data = coords, aes(long,lat), color = 'black', size = 4, shape = 21, fill = 'black')+
   annotate('segment',x=-125.8, y=50.302, xend=-125.565, yend=50.27, arrow=arrow(length = unit(0.04, "npc")), 
            alpha = 0.8, size=1.1, color="black")+
   annotate('segment',x=-126.6, y=50.4, xend=-126.65, yend=50.44, arrow=arrow(length = unit(0.04, "npc")), 
@@ -1013,8 +1013,8 @@ lepsmodplot_avg <- lepavgpred %>%
   group_by(., yr,sal,reg) %>% 
   ggplot(aes(x = sal, y = avg, colour = sal, shape = reg)) +
   scale_shape_manual(values = c(15,17), labels = c('Discovery Islands', 'Johnstone Strait')) +
-  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), size = 0.7, position = position_dodge(width = 0.835),colour = 'Black')+
-  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), size = 0.78, position = position_dodge(width = 0.835),colour = 'Black')+
+  geom_point(size = 4.7,position = position_dodge(width = 0.8)) +
   facet_wrap(~yr,nrow=1,strip.position = "bottom")+
   theme(strip.background = element_blank(), strip.placement = "outside") + 
   scale_color_manual(leg_title,values=c('#ff9999','#59AE7F','#23359d'), labels = c('Pink', 'Chum', 'Sockeye'))+
@@ -1030,8 +1030,8 @@ calmodplot_avg <- calavgpred %>%
   group_by(., yr,sal,reg) %>% 
   ggplot(aes(x = sal, y = avg, colour = sal, shape = reg)) +
   scale_shape_manual(values = c(15,17), labels = c('Discovery Islands', 'Johnstone Strait')) +
-  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), size = 0.7, position = position_dodge(width = 0.835),colour = 'Black')+
-  geom_point(size = 4,position = position_dodge(width = 0.8)) +
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), size = 0.78, position = position_dodge(width = 0.835),colour = 'Black')+
+  geom_point(size = 4.7,position = position_dodge(width = 0.8)) +
   facet_wrap(~yr,nrow=1,strip.position = "bottom")+
   theme(strip.background = element_blank(), strip.placement = "outside") + 
   scale_colour_manual(leg_title,values=c('#ff9999','#59AE7F','#23359d'), labels = c('Pink', 'Chum', 'Sockeye'))+
