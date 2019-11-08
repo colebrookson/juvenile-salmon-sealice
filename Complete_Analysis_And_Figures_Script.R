@@ -1013,11 +1013,11 @@ lepsmodplot_avg <- lepavgpred %>%
   group_by(., yr,sal,reg) %>% 
   ggplot(aes(x = sal, y = avg, colour = sal, shape = reg)) +
   scale_shape_manual(values = c(15,17), labels = c('Discovery Islands', 'Johnstone Strait')) +
-  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), size = 0.8, position = position_dodge(width = 0.835),colour = 'Black')+
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), size = 0.7, position = position_dodge(width = 0.835),colour = 'Black')+
   geom_point(size = 4,position = position_dodge(width = 0.8)) +
   facet_wrap(~yr,nrow=1,strip.position = "bottom")+
   theme(strip.background = element_blank(), strip.placement = "outside") + 
-  scale_color_manual(leg_title,values=c('#ff9999','#59AE7F','#23359d'), labels = c('Chum', 'Pink', 'Sockeye'))+
+  scale_color_manual(leg_title,values=c('#ff9999','#59AE7F','#23359d'), labels = c('Pink', 'Chum', 'Sockeye'))+
   labs(x = 'Salmon Species/Year', y = lep_y_effects) +
   guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b')) +
   scale_y_continuous(limits = c(0,1.5), breaks = c(0.5,1.0,1.5))+
@@ -1030,11 +1030,11 @@ calmodplot_avg <- calavgpred %>%
   group_by(., yr,sal,reg) %>% 
   ggplot(aes(x = sal, y = avg, colour = sal, shape = reg)) +
   scale_shape_manual(values = c(15,17), labels = c('Discovery Islands', 'Johnstone Strait')) +
-  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), size = 0.8, position = position_dodge(width = 0.835),colour = 'Black')+
+  geom_errorbar(aes(ymin=conf.low, ymax = conf.high,width = 0), size = 0.7, position = position_dodge(width = 0.835),colour = 'Black')+
   geom_point(size = 4,position = position_dodge(width = 0.8)) +
   facet_wrap(~yr,nrow=1,strip.position = "bottom")+
   theme(strip.background = element_blank(), strip.placement = "outside") + 
-  scale_colour_manual(leg_title,values=c('#ff9999','#59AE7F','#23359d'), labels = c('Chum', 'Pink', 'Sockeye'))+
+  scale_colour_manual(leg_title,values=c('#ff9999','#59AE7F','#23359d'), labels = c('Pink', 'Chum', 'Sockeye'))+
   labs(x = 'Salmon Species/Year', y = cal_y_effects) +
   guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b')) +
   fte_theme1()
