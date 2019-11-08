@@ -19,6 +19,7 @@ library(ggthemes)
 library(ggsn)
 library(rgeos)
 library(rgdal)
+library(relaimpo)
 
 #test <- read_csv("C:/Users/brookson/Salmon_Work/SalmonWork-master/Hakai_lice_data_CB_edits.csv")
 
@@ -985,25 +986,29 @@ fte_theme1 <- function(){
     theme(panel.grid.major = element_blank()) + 
     theme(panel.grid.minor = element_blank()) + 
     theme(axis.ticks = element_blank()) +
-    theme(plot.title = element_text(color = color.title, size = 15, vjust = 1.25)) +
-    theme(axis.text.x = element_text(size = 12, color = color.axis.text)) + 
-    theme(axis.text.y = element_text(size = 12, color = color.axis.text)) + 
-    theme(axis.title.x = element_text(size = 14, color = color.axis.title, vjust = 0)) +
-    theme(axis.title.y = element_text(size = 14, color = color.axis.title, vjust = 1.25)) +
+    theme(plot.title = element_text(color = color.title, size = 16, vjust = 1.25)) +
+    theme(axis.text.x = element_text(size = 13, color = color.axis.text)) + 
+    theme(axis.text.y = element_text(size = 13, color = color.axis.text)) + 
+    theme(axis.title.x = element_text(size = 15, color = color.axis.title, vjust = 0)) +
+    theme(axis.title.y = element_text(size = 15, color = color.axis.title, vjust = 1.25)) +
     theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.ticks.x = element_line(colour = 'black')) +
     theme(axis.line.x = element_line(color="black", size = 0.15),
           axis.line.y = element_line(color="black", size = 0.15)) +
     theme(strip.background = element_blank(),
           strip.placement = 'outside',
-          strip.text = element_text(size = 12))+
-    theme(legend.position = c(0.8,0.82),
-          legend.text = element_text(size = 12),
-          legend.title = element_text(size = 12))
+          strip.text = element_text(size = 13))+
+    theme(legend.position = c(0.6,0.82),
+          legend.text = element_text(size = 13),
+          legend.title = element_text(size = 13))
 } 
 
 leg_title <- 'Salmon Species'
 lep_y_effects = expression(paste("Mean Number of Motile  ", italic("L. salmonis"), " Per Fish"))
 cal_y_effects = expression(paste("Mean Number of Motile  ", italic("C. clemensi"), " Per Fish"))
+lepavgpred$sal <- factor(lepavgpred$sal,levels = c('PI', 'CU', 'SO'))
+calavgpred$sal <- factor(calavgpred$sal,levels = c('PI', 'CU', 'SO'))
+
 lepsmodplot_avg <- lepavgpred %>% 
   group_by(., yr,sal,reg) %>% 
   ggplot(aes(x = sal, y = avg, colour = sal, shape = reg)) +
@@ -1012,9 +1017,10 @@ lepsmodplot_avg <- lepavgpred %>%
   geom_point(size = 4,position = position_dodge(width = 0.8)) +
   facet_wrap(~yr,nrow=1,strip.position = "bottom")+
   theme(strip.background = element_blank(), strip.placement = "outside") + 
-  scale_color_manual(leg_title,values=c('#59AE7F', '#ff9999', '#23359d'), labels = c('Chum', 'Pink', 'Sockeye'))+
+  scale_color_manual(leg_title,values=c('#ff9999','#59AE7F','#23359d'), labels = c('Chum', 'Pink', 'Sockeye'))+
   labs(x = 'Salmon Species/Year', y = lep_y_effects) +
   guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b')) +
+  scale_y_continuous(limits = c(0,1.5), breaks = c(0.5,1.0,1.5))+
   fte_theme1()
 lepsmodplot_avg
 ggsave('model_ests_lep.png', plot = lepsmodplot_avg,
@@ -1028,7 +1034,7 @@ calmodplot_avg <- calavgpred %>%
   geom_point(size = 4,position = position_dodge(width = 0.8)) +
   facet_wrap(~yr,nrow=1,strip.position = "bottom")+
   theme(strip.background = element_blank(), strip.placement = "outside") + 
-  scale_colour_manual(leg_title,values=c('#59AE7F', '#ff9999', '#23359d'), labels = c('Chum', 'Pink', 'Sockeye'))+
+  scale_colour_manual(leg_title,values=c('#ff9999','#59AE7F','#23359d'), labels = c('Chum', 'Pink', 'Sockeye'))+
   labs(x = 'Salmon Species/Year', y = cal_y_effects) +
   guides(shape = guide_legend(title = 'Region', override.aes = list(shape = c(0,2)), type = 'b')) +
   fte_theme1()
@@ -1039,10 +1045,9 @@ ggsave('model_ests_cal.png', plot = calmodplot_avg,
        dpi = 300)
 
 
-mainlice %>% 
-  filter(spp == PI) %>% 
-  filter(year == 2019) %>% 
-  summarize(all = mean(all.cal))
+# Relative Importance Extraction
+
+
 
 
 
