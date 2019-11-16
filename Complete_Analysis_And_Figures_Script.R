@@ -1047,8 +1047,8 @@ ggsave('model_ests_cal.png', plot = calmodplot_avg,
 
 # Relative Importance Extraction
 
-
-
+sw(lepmod.crossed_dredge)
+sw(calmod.crossed_dredge)
 
 
 

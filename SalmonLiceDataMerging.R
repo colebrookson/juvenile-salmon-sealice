@@ -2,6 +2,7 @@ library(tidyverse)
 library(googlesheets)
 library(data.table)
 
+
 survey_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/survey_data.csv")
 seine_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/seine_data.csv")
 fish = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_field_data.csv")
@@ -89,11 +90,34 @@ newlice_2019$year = format(as.Date(newlice_2019$survey_date, format="%m/%d/%Y"),
 
 newlice_2019 = newlice_2019 %>% 
   rename(spp = species)
-
+mainlice = mainlice %>% 
+  rename(site_id = site.id)
 
 mainlice = mainlice %>% 
-  select(year, spp, site.region, collection, ufn, all.cal, all.leps, all.lice)
-newlice_2019 = newlice_2019 %>% 
-  select(year, spp, site.region, collection, ufn, all.cal, all.leps, all.lice)
+  select(year, spp, site.region, site_id, collection, ufn, all.cal, all.leps, all.lice)
+newlice_2019_sub = newlice_2019 %>% 
+  select(year, spp, site.region, site_id, collection, ufn, all.cal, all.leps, all.lice)
 
-mainlice = rbind(mainlice, newlice_2019)
+mainlice = rbind(mainlice, newlice_2019_sub)
+
+#join up the stock data via UFN to get the stock ID into our dataset for sockeye
+
+stock_data = read.csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/stock_id.csv')
+library(stringr)
+main_stock = left_join(mainlice, stock_data, by = 'ufn')  
+
+main_stock =  main_stock %>% 
+  filter(spp == 'SO') %>% 
+  filter(prob_1 !=is.na(prob_1)) %>% 
+  mutate(stock_1 = tolower(stock_1)) %>% 
+  group_by(stock_1) %>% 
+  summarize(count = length(stock_1))
+main_stock$stock_1 = str_to_title(main_stock$stock_1)
+
+sum_stock = main_stock %>% 
+  filter(count > 10)
+sum(sum_stock$count)
+sum(main_stock$count)
+
+n_distinct(mainlice$)
+
