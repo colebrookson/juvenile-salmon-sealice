@@ -135,8 +135,8 @@ ggsave('study_map.png', plot = insetmap,
 fig_2_data = mainlice %>% 
   group_by(year, spp) %>% 
   summarize(mean_cal = mean(all.cal), mean_lep = mean(all.leps))
-lep_y_title = expression(paste("Mean Motile ", italic("L. salmonis"), " Per Fish"))
-cal_y_title = expression(paste("Mean Motile ", italic("C. clemensi"), " Per Fish"))
+lep_y_title = expression(paste("Mean Motile ", italic("L. salmonis"), " Abundance"))
+cal_y_title = expression(paste("Mean Motile ", italic("C. clemensi"), " Abundance"))
 
 #make each plot then stitch them together
 fig_2_1 = ggplot() +
@@ -1004,8 +1004,8 @@ fte_theme1 <- function(){
 } 
 
 leg_title <- 'Salmon Species'
-lep_y_effects = expression(paste("Mean Number of Motile  ", italic("L. salmonis"), " Per Fish"))
-cal_y_effects = expression(paste("Mean Number of Motile  ", italic("C. clemensi"), " Per Fish"))
+lep_y_effects = expression(paste("Mean Motile  ", italic("L. salmonis"), " Abundance"))
+cal_y_effects = expression(paste("Mean Motile  ", italic("C. clemensi"), " Abundance"))
 lepavgpred$sal <- factor(lepavgpred$sal,levels = c('PI', 'CU', 'SO'))
 calavgpred$sal <- factor(calavgpred$sal,levels = c('PI', 'CU', 'SO'))
 
@@ -1051,20 +1051,70 @@ sw(lepmod.crossed_dredge)
 sw(calmod.crossed_dredge)
 
 
+# Get average estimated lice 
+
+cal_allyears = glmmTMB(all.cal ~ spp +
+                 (1 | collection), data = mainlice, family = nbinom2)
+lep_allyears = glmmTMB(all.leps ~ spp +
+                         (1 | collection), data = mainlice, family = nbinom2)
+cal_allyears_predict = ggpredict(cal_allyears, terms = c('spp'), ci.lvl = 0.99)
+lep_allyears_predict = ggpredict(lep_allyears, terms = c('spp'), ci.lvl = 0.99)
+
+# Make histograms of fish caught to show how many of our focal species there are
+fish = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_field_data.csv")
+seine_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/seine_data.csv")
+survey_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/survey_data.csv")
 
 
+fish = left_join(fish, seine_data, by = "seine_id")
+fish = left_join(fish, survey_data, by = 'survey_id')
+fish$year = substr(fish$survey_date, 0, 4)
+fish$year = as.factor(fish$year)
+
+#Make the plots
+fte_theme3 <- function(){
+  color.background = 'white'
+  color.grid.major = 'black'
+  color.axis.text = 'black'
+  color.axis.title = 'black'
+  color.title = 'black'
+  theme_bw(base_size = 9) + 
+    theme(panel.background = element_rect(fill=color.background,color = color.background)) +
+    theme(plot.background = element_rect(fill = color.background, color = color.background)) +
+    theme(panel.border = element_blank()) +
+    theme(panel.grid.major = element_blank()) + 
+    theme(panel.grid.minor = element_blank()) + 
+    theme(axis.ticks = element_blank()) +
+    theme(plot.title = element_text(color = color.title, size = 16, vjust = 1.25)) +
+    theme(axis.text.x = element_text(size = 13, color = color.axis.text)) + 
+    theme(axis.text.y = element_text(size = 13, color = color.axis.text)) + 
+    theme(axis.title.x = element_text(size = 15, color = color.axis.title, vjust = 0)) +
+    theme(axis.title.y = element_text(size = 15, color = color.axis.title, vjust = 1.25)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(axis.ticks.x = element_line(colour = 'black')) +
+    theme(axis.line.x.bottom = element_line(color="black", size = 0.15),
+          axis.line.y.left = element_line(color="black", size = 0.15),
+          axis.line.x.top = element_line(color="black", size = 0.15),
+          axis.line.y.right = element_line(color="black", size = 0.15)) +
+    theme(strip.background = element_blank(),
+          strip.placement = 'outside',
+          strip.text = element_text(size = 13))+
+    theme(legend.position = c(0.8,0.82),
+          legend.text = element_text(size = 13),
+          legend.title = element_text(size = 13))
+} 
+
+leg_title = 'Fish Speices'
+fish_caught = ggplot(data = fish, aes(x = year)) +
+  geom_bar(aes(x = year, fill = species), colour = 'black', position = 'dodge', stat = 'count')+
+  scale_fill_manual(leg_title,values=c('skyblue1', 'goldenrod3', '#59AE7F', 'red4', '#ff9999','#23359d'), labels = c('Chinook', 'Coho', 'Chum', 'Herring', 'Pink', 'Sockeye'))+
+  fte_theme3() +
+  labs(x = 'Year', y = 'Number of Fish Caught')
 
 
-
-
-
-
-
-
-
-
-
-
+ggsave('all_fish_caught.png', plot = fish_caught,
+       width = 8, height = 7.5,
+       dpi = 300)
 
 
 

@@ -6,8 +6,9 @@ library(data.table)
 survey_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/survey_data.csv")
 seine_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/seine_data.csv")
 fish = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_field_data.csv")
-mainlice = read.csv("Hakai_lice_data_CB_edits.csv")
 field = read.csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_field.csv')
+mainlice = read.csv("Hakai_lice_data_CB_edits.csv")
+
 
 `%notin%` = negate(`%in%`)
 
