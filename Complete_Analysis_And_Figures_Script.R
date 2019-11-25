@@ -20,18 +20,33 @@ library(ggsn)
 library(rgeos)
 library(rgdal)
 
+`%notin%` = negate(`%in%`)
+
 #test <- read_csv("C:/Users/brookson/Salmon_Work/SalmonWork-master/Hakai_lice_data_CB_edits.csv")
 
 #make vars into factors
 mainlice$year <- as.factor(mainlice$year);mainlice$collection <- as.factor(mainlice$collection)
 
 ## Figure 1: Map
-salmonsites <- read_csv('Hakai_sampling_site_coordinates.csv')
-names(salmonsites)
+salmonsites <- read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/site_coordinates.csv')
+salmonsites1 <- read_csv('C:/Users/brookson/Documents/GitHub/SalmonWork/Hakai_sampling_site_coordinates.csv')
+
+unique(mainlice$site_id)
+salmonsites = salmonsites %>% 
+  filter(site_id %in% unique(mainlice$site_id)) %>% 
+  filter(coordinate_type == 'ocgy_std') %>% 
+  dplyr::select(site_id, site_lat, site_long)
+salmonsites1 = data.frame(salmonsites1 %>% 
+  filter(Site %notin% unique(salmonsites$site_id)))
+salmonsites1 = salmonsites1 %>% 
+  dplyr::select(Site, Xlatitude, Ylongitutde) %>% 
+  rename(site_id = Site, site_lat = Xlatitude, site_long = Ylongitutde)
+
+salmonsites = rbind(salmonsites, salmonsites1)
 
 
 BC_shp = readOGR('C:/Users/brookson/Documents/GitHub/SalmonWork/SpatialData/COAST_TEST2.shp')
-coords <- data.frame(cbind(salmonsites$Xlatitude,salmonsites$Ylongitutde))
+coords <- data.frame(cbind(salmonsites$site_lat,salmonsites$site_long))
 colnames(coords) <- c('lat', 'long')
 
 sort(unique(ggplot2::map_data("world")$region))
@@ -209,7 +224,7 @@ fig_2_6 = ggplot() +
 fig_2 = plot_grid(fig_2_1, fig_2_2, fig_2_3,
                   fig_2_4, fig_2_5, fig_2_6, nrow = 2, rel_heights = c(0.85, 1), rel_widths = c(1, 0.8, 0.8))
 ggsave('lice_per_fish_sp.png', plot = fig_2,
-       width = 8, height = 7.5,
+       width = 8, height = 8.0,
        dpi = 300)
 
 ## Figure 3: average number of lice per fish (fish sp and by year)
@@ -1118,10 +1133,10 @@ ggsave('all_fish_caught.png', plot = fish_caught,
 
 
 
+x = fish_caught
 
 
-
-
+library(tidyverse)
 
 
 
