@@ -1,110 +1,148 @@
 library(tidyverse)
 library(googlesheets)
 library(data.table)
-
+library(stringr)
 
 survey_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/survey_data.csv")
 seine_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/seine_data.csv")
 fish = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_field_data.csv")
-field = read.csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_field.csv')
-mainlice = read.csv("Hakai_lice_data_CB_edits.csv")
+field = read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_field.csv')
+lab_fs = read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_lab_fs.csv')
+lab_mot = read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_lab_mot.csv')
+fish_lab = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_lab_data.csv")
 
+#mainlice = read_csv("Hakai_lice_data_CB_edits.csv")
+#keep = mainlice
+#write.csv(keep, 'Hakai_lice_CB_edits_analysis_from_first_draft_to_coauthors.csv') keeping this for posterity
 
 `%notin%` = negate(`%in%`)
 
-#Process: get all the fish from 2019, only keep the ones from the same sites(? - didn't actually do this but might need to?), 
-# keep only seines that are balanced collections
-
-#keep only 2019 surveys
-survey_data = survey_data %>% 
-  filter(survey_date > as.Date("2019-01-01"))
-
-
-
-#get the seines from the relevant surveys
-seine_data = seine_data %>% 
-  filter(survey_id %in% survey_data$survey_id)
-
-seine_data = seine_data %>% 
-  filter(so_taken > 4) %>% 
-  filter(cu_taken > 4) %>% 
-  filter(pi_taken > 4)
-
-#only keep the fish with the right seine
-fish = fish %>% 
-  filter(seine_id %in% seine_data$seine_id)
-
-#get the lice measurements for only those fish
-field = field %>% 
-  filter(ufn %in% fish$ufn)
-
-#pull relevant info into a new table from the lice data and the relevant fish data
 field = as.data.table(field)
 fish = as.data.table(fish)
 seine_data = as.data.table(seine_data)
 survey_data = as.data.table(survey_data)
+lab_fs = as.data.table(lab_fs)
+lab_mot = as.data.table(lab_mot)
 
-## pull fish data to the field data
+#motile lab
+setkey(lab_mot,ufn)
+setkey(fish,ufn)
+newlice_mot = merge(lab_mot,fish, all.x=TRUE)
+setkey(newlice_mot, seine_id)
+setkey(seine_data, seine_id)
+newlice_mot = merge(newlice_mot, seine_data, all.x = TRUE)
+setkey(newlice_mot, survey_id)
+setkey(survey_data, survey_id)
+newlice_mot = merge(newlice_mot, survey_data, all.x = TRUE)
+
+#lab fine scale
+setkey(lab_fs,ufn)
+setkey(fish,ufn)
+newlice_fs = merge(lab_fs,fish, all.x=TRUE)
+setkey(newlice_fs, seine_id)
+setkey(seine_data, seine_id)
+newlice_fs = merge(newlice_fs, seine_data, all.x = TRUE)
+setkey(newlice_fs, survey_id)
+setkey(survey_data, survey_id)
+newlice_fs = merge(newlice_fs, survey_data, all.x = TRUE)
+
+#lab fine scale
 setkey(field,ufn)
 setkey(fish,ufn)
-newlice = merge(field,fish, all.x=TRUE)
-## pull the seiene data to the newlice data
-setkey(newlice,seine_id)
-setkey(seine_data,seine_id)
-newlice = merge(newlice,seine_data, all.x = TRUE)
-## pull the survey data to the newlice data
-setkey(newlice,survey_id)
+newlice_field = merge(field,fish, all.x=TRUE)
+setkey(newlice_field, seine_id)
+setkey(seine_data, seine_id)
+newlice_field = merge(newlice_field, seine_data, all.x = TRUE)
+setkey(newlice_field, survey_id)
 setkey(survey_data, survey_id)
-newlice = merge(newlice, survey_data, all.x = TRUE)
+newlice_field = merge(newlice_field, survey_data, all.x = TRUE)
 
+#default to keeping the fine scale over the motile, motile over field
+#no fish in motile that are in fine scale
+#881 fish in motile that are also in field - exclude those fish from 'field' 
+mot_and_field_ufn = intersect(lab_mot$ufn, field$ufn)
+newlice_field = newlice_field %>% 
+  filter(ufn %notin% mot_and_field_ufn)
 
-#get rid of unnecessary columns
-newlice_2019 = newlice[, c(1:3, 8:14, 28, 64, 65)]
-
-#make new collection numbers for the 2019 data
-newlice_2019 = newlice_2019 %>% 
-  mutate(collection = paste(site_id, survey_date, sep="_")) 
-
-collections = data.table(cbind(unique(newlice_2019$collection), c(53, 54, 55, 56, 57, 58, 59, 60))) %>% 
-  rename(collection = V1)
-
-newlice_2019$collection = as.factor(newlice_2019$collection)
-newlice_2019 = as.data.table(newlice_2019)
-
-setkey(newlice_2019, collection)
-setkey(collections, collection)
-newlice_2019 = merge(newlice_2019, collections, all.x = TRUE)
-
-newlice_2019 = newlice_2019 %>% 
-  select(-collection) %>% 
-  rename(collection = V2)
-
-#make all the columns I need
-newlice_2019 = newlice_2019 %>% 
+#now get counts of total motiles, motile leps and motile cal
+newlice_field = newlice_field %>% 
   rowwise() %>% 
-  mutate(all.cal = sum(cal_mot_field, cgf_field), all.leps = sum(lpam_field, lpaf_field, laf_field, lam_field, lgf_field), all.lice = sum(all.cal, all.leps))
-newlice_2019 = newlice_2019 %>% 
-  mutate(site.region = paste(site_id[1]),
-         year = survey_date)
-newlice_2019$site.region<- substr(newlice_2019$site.region, 0, 1)
-newlice_2019$year = format(as.Date(newlice_2019$survey_date, format="%m/%d/%Y"),"%Y")
-
-newlice_2019 = newlice_2019 %>% 
+  mutate(all.cal = sum(cal_mot_field, cgf_field), 
+         all.leps = sum(lpam_field, lpaf_field, laf_field, lam_field, lgf_field), 
+         all.lice = sum(all.cal, all.leps))
+newlice_mot = newlice_mot %>% 
+  rowwise() %>% 
+  mutate(all.cal = sum(cpaf_lab, caf_lab, cgf_lab, cm_lab), 
+         all.leps = sum(lpaf_lab,lpam_lab,lam_lab, laf_lab, lgf_lab), 
+         all.lice = sum(all.cal, all.leps))
+newlice_fs = newlice_fs %>% 
+  rowwise() %>% 
+  mutate(all.cal = sum(cal_grav_f, cal_a_f, cal_a_m, cal_pa_f, cal_pa_m), 
+         all.leps = sum(lep_pa_m_1, lep_pa_m_2, lep_pa_f_1, lep_pa_f_2, lep_pa_unid, lep_a_m, lep_a_f, lep_grav_f), 
+         all.lice = sum(all.cal, all.leps))
+#now keep only the relevant columns and get rid of the rest
+newlice_field = newlice_field %>% 
+  mutate(year = format(as.Date(survey_date, format="%m/%d/%Y"),"%Y"), 
+         site.region = substr(site_id, 0, 1),
+         collection = paste(site_id, survey_date, sep="_")) %>% #unique place/time identifier for random effect
+  dplyr::select(year, species, site.region, site_id, collection, ufn, 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice) %>% 
   rename(spp = species)
-mainlice = mainlice %>% 
-  rename(site_id = site.id)
+newlice_mot = newlice_mot %>% 
+  mutate(year = format(as.Date(survey_date, format="%m/%d/%Y"),"%Y"), 
+         site.region = substr(site_id, 0, 1),
+         collection = paste(site_id, survey_date, sep="_")) %>% 
+  dplyr::select(year, species, site.region, site_id, collection, ufn, 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice) %>% 
+  rename(spp = species)
+newlice_fs = newlice_fs %>% 
+  mutate(year = format(as.Date(survey_date, format="%m/%d/%Y"),"%Y"), 
+         site.region = substr(site_id, 0, 1),
+         collection = paste(site_id, survey_date, sep="_")) %>% 
+  dplyr::select(year, species, site.region, site_id, collection, ufn, 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice) %>% 
+  rename(spp = species)
 
-mainlice = mainlice %>% 
-  select(year, spp, site.region, site_id, collection, ufn, all.cal, all.leps, all.lice)
-newlice_2019_sub = newlice_2019 %>% 
-  select(year, spp, site.region, site_id, collection, ufn, all.cal, all.leps, all.lice)
+#now keep only collections (seines) that have min. 5 of all 3 focal species
+newlice_field = newlice_field %>% 
+  filter(so_taken > 4) %>% 
+  filter(cu_taken > 4) %>% 
+  filter(pi_taken > 4)
+newlice_fs = newlice_fs %>% 
+  filter(so_taken > 4) %>% 
+  filter(cu_taken > 4) %>% 
+  filter(pi_taken > 4)
+newlice_mot = newlice_mot %>% 
+  filter(so_taken > 4) %>% 
+  filter(cu_taken > 4) %>% 
+  filter(pi_taken > 4)
 
-mainlice = rbind(mainlice, newlice_2019_sub)
+#bind and remove duplicates
+mainlice = rbind(newlice_field, newlice_fs, newlice_mot)
+mainlice = mainlice[!duplicated(mainlice$ufn), ]
+mainlice = mainlice %>% 
+  dplyr::select(-pi_taken, -so_taken, -cu_taken)
+
+
+
+##### comented code below will show how my initial dataset had some lice from all of the different licing protocols
+##### but not all and I don't know why - therefore, when pulling directly from Hakai data, I have 3092 fish instead of 
+##### ~2100 fish which is obviously a big difference. Hopefully results will stay consistent. Looking at the collections
+##### previously I had around 60 collections, now I have 129, and there are more than double the sites than previously
+##### so that's where the discrepancy is coming from. 
+
+# t = rbind(newlice_field, newlice_fs, newlice_mot)
+# n_distinct(t$ufn)
+# x = t %>% 
+#   filter(year != 2019)
+# int = intersect(keep$ufn, x$ufn)
+# int_mot = intersect(newlice_mot$ufn, int)
+# int_field = intersect(newlice_field$ufn, int)
+# int_fs = intersect(newlice_fs$ufn, int)
+
 
 #join up the stock data via UFN to get the stock ID into our dataset for sockeye
-
 stock_data = read.csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/stock_id.csv')
-library(stringr)
 main_stock = left_join(mainlice, stock_data, by = 'ufn')  
 
 main_stock =  main_stock %>% 
@@ -120,5 +158,6 @@ sum_stock = main_stock %>%
 sum(sum_stock$count)
 sum(main_stock$count)
 
-n_distinct(mainlice$)
-
+t = fish %>% 
+  filter(ufn %in% mainlice$ufn)
+summary(t$fork_length_field)

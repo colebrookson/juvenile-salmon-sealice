@@ -19,31 +19,230 @@ library(ggthemes)
 library(ggsn)
 library(rgeos)
 library(rgdal)
+library(data.table)
+library(googlesheets)
+library(stringr)
+library(doParallel)
 
 `%notin%` = negate(`%in%`)
 
-#test <- read_csv("C:/Users/brookson/Salmon_Work/SalmonWork-master/Hakai_lice_data_CB_edits.csv")
+
+survey_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/survey_data.csv")
+seine_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/seine_data.csv")
+fish = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_field_data.csv")
+field = read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_field.csv')
+lab_fs = read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_lab_fs.csv')
+lab_mot = read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_lab_mot.csv')
+fish_lab = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_lab_data.csv")
+
+#mainlice = read_csv("Hakai_lice_data_CB_edits.csv")
+#keep = mainlice
+#write.csv(keep, 'Hakai_lice_CB_edits_analysis_from_first_draft_to_coauthors.csv') keeping this for posterity
+
+field = as.data.table(field)
+fish = as.data.table(fish)
+seine_data = as.data.table(seine_data)
+survey_data = as.data.table(survey_data)
+lab_fs = as.data.table(lab_fs)
+lab_mot = as.data.table(lab_mot)
+
+#motile lab
+setkey(lab_mot,ufn)
+setkey(fish,ufn)
+newlice_mot = merge(lab_mot,fish, all.x=TRUE)
+newlice_mot = left_join(newlice_mot, fish_lab, by = 'ufn'); newlice_mot = as.data.table(newlice_mot)
+setkey(newlice_mot, seine_id)
+setkey(seine_data, seine_id)
+newlice_mot = merge(newlice_mot, seine_data, all.x = TRUE)
+setkey(newlice_mot, survey_id)
+setkey(survey_data, survey_id)
+newlice_mot = merge(newlice_mot, survey_data, all.x = TRUE)
+
+#lab fine scale
+setkey(lab_fs,ufn)
+setkey(fish,ufn)
+newlice_fs = merge(lab_fs,fish, all.x=TRUE)
+newlice_fs = left_join(newlice_fs, fish_lab, by = 'ufn'); newlice_fs = as.data.table(newlice_fs)
+setkey(newlice_fs, seine_id)
+setkey(seine_data, seine_id)
+newlice_fs = merge(newlice_fs, seine_data, all.x = TRUE)
+setkey(newlice_fs, survey_id)
+setkey(survey_data, survey_id)
+newlice_fs = merge(newlice_fs, survey_data, all.x = TRUE)
+
+#lab fine scale
+setkey(field,ufn)
+setkey(fish,ufn)
+newlice_field = merge(field,fish, all.x=TRUE)
+newlice_field = left_join(newlice_field, fish_lab, by = 'ufn'); newlice_field = as.data.table(newlice_field)
+setkey(newlice_field, seine_id)
+setkey(seine_data, seine_id)
+newlice_field = merge(newlice_field, seine_data, all.x = TRUE)
+setkey(newlice_field, survey_id)
+setkey(survey_data, survey_id)
+newlice_field = merge(newlice_field, survey_data, all.x = TRUE)
+
+#default to keeping the fine scale over the motile, motile over field
+#no fish in motile that are in fine scale
+#881 fish in motile that are also in field - exclude those fish from 'field' 
+mot_and_field_ufn = intersect(lab_mot$ufn, field$ufn)
+newlice_field = newlice_field %>% 
+  filter(ufn %notin% mot_and_field_ufn)
+
+#now get counts of total motiles, motile leps and motile cal
+newlice_field = newlice_field %>% 
+  rowwise() %>% 
+  mutate(all.cal = sum(cal_mot_field, cgf_field), 
+         all.leps = sum(lpam_field, lpaf_field, laf_field, lam_field, lgf_field), 
+         all.lice = sum(all.cal, all.leps))
+newlice_mot = newlice_mot %>% 
+  rowwise() %>% 
+  mutate(all.cal = sum(cpaf_lab, caf_lab, cgf_lab, cm_lab), 
+         all.leps = sum(lpaf_lab,lpam_lab,lam_lab, laf_lab, lgf_lab), 
+         all.lice = sum(all.cal, all.leps))
+newlice_fs = newlice_fs %>% 
+  rowwise() %>% 
+  mutate(all.cal = sum(cal_grav_f, cal_a_f, cal_a_m, cal_pa_f, cal_pa_m), 
+         all.leps = sum(lep_pa_m_1, lep_pa_m_2, lep_pa_f_1, lep_pa_f_2, lep_pa_unid, lep_a_m, lep_a_f, lep_grav_f), 
+         all.lice = sum(all.cal, all.leps))
+#now keep only the relevant columns and get rid of the rest
+#with fork length
+newlice_field_fork = newlice_field %>% 
+  mutate(year = format(as.Date(survey_date, format="%m/%d/%Y"),"%Y"), 
+         site.region = substr(site_id, 0, 1),
+         collection = paste(site_id, survey_date, sep="_")) %>% #unique place/time identifier for random effect
+  dplyr::select(year, species, site.region, site_id, collection, ufn, 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length) %>% 
+  rename(spp = species) %>% 
+  filter(!is.na(fork_length))
+newlice_mot_fork = newlice_mot %>% 
+  mutate(year = format(as.Date(survey_date, format="%m/%d/%Y"),"%Y"), 
+         site.region = substr(site_id, 0, 1),
+         collection = paste(site_id, survey_date, sep="_")) %>% 
+  dplyr::select(year, species, site.region, site_id, collection, ufn, 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length) %>% 
+  rename(spp = species) %>% 
+  filter(!is.na(fork_length))
+newlice_fs_fork = newlice_fs %>% 
+  mutate(year = format(as.Date(survey_date, format="%m/%d/%Y"),"%Y"), 
+         site.region = substr(site_id, 0, 1),
+         collection = paste(site_id, survey_date, sep="_")) %>% 
+  dplyr::select(year, species, site.region, site_id, collection, ufn, 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length) %>% 
+  rename(spp = species) %>% 
+  filter(!is.na(fork_length))
+
+#without fork length
+newlice_field = newlice_field %>% 
+  mutate(year = format(as.Date(survey_date, format="%m/%d/%Y"),"%Y"), 
+         site.region = substr(site_id, 0, 1),
+         collection = paste(site_id, survey_date, sep="_")) %>% #unique place/time identifier for random effect
+  dplyr::select(year, species, site.region, site_id, collection, ufn, 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length) %>% 
+  rename(spp = species) 
+newlice_mot = newlice_mot %>% 
+  mutate(year = format(as.Date(survey_date, format="%m/%d/%Y"),"%Y"), 
+         site.region = substr(site_id, 0, 1),
+         collection = paste(site_id, survey_date, sep="_")) %>% 
+  dplyr::select(year, species, site.region, site_id, collection, ufn, 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length) %>% 
+  rename(spp = species) 
+newlice_fs = newlice_fs %>% 
+  mutate(year = format(as.Date(survey_date, format="%m/%d/%Y"),"%Y"), 
+         site.region = substr(site_id, 0, 1),
+         collection = paste(site_id, survey_date, sep="_")) %>% 
+  dplyr::select(year, species, site.region, site_id, collection, ufn, 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length) %>% 
+  rename(spp = species) 
+
+#now keep only collections (seines) that have min. 5 of all 3 focal species
+newlice_field = newlice_field %>% 
+  filter(so_taken > 4) %>% 
+  filter(cu_taken > 4) %>% 
+  filter(pi_taken > 4)
+newlice_fs = newlice_fs %>% 
+  filter(so_taken > 4) %>% 
+  filter(cu_taken > 4) %>% 
+  filter(pi_taken > 4)
+newlice_mot = newlice_mot %>% 
+  filter(so_taken > 4) %>% 
+  filter(cu_taken > 4) %>% 
+  filter(pi_taken > 4)
+
+newlice_field_fork = newlice_field_fork %>% 
+  filter(so_taken > 4) %>% 
+  filter(cu_taken > 4) %>% 
+  filter(pi_taken > 4)
+newlice_fs_fork = newlice_fs_fork %>% 
+  filter(so_taken > 4) %>% 
+  filter(cu_taken > 4) %>% 
+  filter(pi_taken > 4)
+newlice_mot_fork = newlice_mot_fork %>% 
+  filter(so_taken > 4) %>% 
+  filter(cu_taken > 4) %>% 
+  filter(pi_taken > 4)
+
+#bind and remove duplicates
+mainlice = rbind(newlice_field, newlice_fs, newlice_mot)
+mainlice = mainlice[!duplicated(mainlice$ufn), ]
+mainlice = mainlice %>% 
+  dplyr::select(-pi_taken, -so_taken, -cu_taken)
+mainlice = mainlice %>% 
+  filter(spp %in% c('SO', 'PI', 'CU'))
+
+mainlice_fork = rbind(newlice_field_fork, newlice_fs_fork, newlice_mot_fork)
+mainlice_fork = mainlice_fork[!duplicated(mainlice_fork$ufn), ]
+mainlice_fork = mainlice_fork %>% 
+  dplyr::select(-pi_taken, -so_taken, -cu_taken)
+mainlice_fork = mainlice_fork %>% 
+  filter(spp %in% c('SO', 'PI', 'CU'))
+
+#mainlice_nofork = mainlice
+
+##### comented code below will show how my initial dataset had some lice from all of the different licing protocols
+##### but not all and I don't know why - therefore, when pulling directly from Hakai data, I have 3092 fish instead of 
+##### ~2100 fish which is obviously a big difference. Hopefully results will stay consistent. Looking at the collections
+##### previously I had around 60 collections, now I have 129, and there are more than double the sites than previously
+##### so that's where the discrepancy is coming from. 
+
+# t = rbind(newlice_field, newlice_fs, newlice_mot)
+# n_distinct(t$ufn)
+# x = t %>% 
+#   filter(year != 2019)
+# int = intersect(keep$ufn, x$ufn)
+# int_mot = intersect(newlice_mot$ufn, int)
+# int_field = intersect(newlice_field$ufn, int)
+# int_fs = intersect(newlice_fs$ufn, int)
+
+
+#join up the stock data via UFN to get the stock ID into our dataset for sockeye
+stock_data = read.csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/stock_id.csv')
+main_stock = left_join(mainlice, stock_data, by = 'ufn')  
+
+main_stock =  main_stock %>% 
+  filter(spp == 'SO') %>% 
+  filter(prob_1 !=is.na(prob_1)) %>% 
+  mutate(stock_1 = tolower(stock_1)) %>% 
+  group_by(stock_1) %>% 
+  summarize(count = length(stock_1))
+main_stock$stock_1 = str_to_title(main_stock$stock_1)
+
+sum_stock = main_stock %>% 
+  filter(count > 10)
+sum(sum_stock$count)
+sum(main_stock$count)
 
 #make vars into factors
 mainlice$year <- as.factor(mainlice$year);mainlice$collection <- as.factor(mainlice$collection)
 
 ## Figure 1: Map
 salmonsites <- read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/site_coordinates.csv')
-salmonsites1 <- read_csv('C:/Users/brookson/Documents/GitHub/SalmonWork/Hakai_sampling_site_coordinates.csv')
 
 unique(mainlice$site_id)
 salmonsites = salmonsites %>% 
   filter(site_id %in% unique(mainlice$site_id)) %>% 
-  filter(coordinate_type == 'ocgy_std') %>% 
   dplyr::select(site_id, site_lat, site_long)
-salmonsites1 = data.frame(salmonsites1 %>% 
-  filter(Site %notin% unique(salmonsites$site_id)))
-salmonsites1 = salmonsites1 %>% 
-  dplyr::select(Site, Xlatitude, Ylongitutde) %>% 
-  rename(site_id = Site, site_lat = Xlatitude, site_long = Ylongitutde)
-
-salmonsites = rbind(salmonsites, salmonsites1)
-
+salmonsites = salmonsites[!duplicated(salmonsites$site_id), ]
 
 BC_shp = readOGR('C:/Users/brookson/Documents/GitHub/SalmonWork/SpatialData/COAST_TEST2.shp')
 coords <- data.frame(cbind(salmonsites$site_lat,salmonsites$site_long))
@@ -281,6 +480,20 @@ calmod.crossed <- glmmTMB(all.cal ~ spp * site.region + spp * year +
                           data = mainlice, family=nbinom2)
 lepmod.crossed_dredge = MuMIn::dredge(lepmod.crossed, subset = (`cond(site.region)` && `cond(year)`))
 calmod.crossed_dredge = MuMIn::dredge(calmod.crossed, subset = (`cond(site.region)` && `cond(year)`))
+ 
+#try models with forklength included -- leps model won't converge and cal model isn't any better 
+lepmod_fork = glmmTMB(all.leps ~ spp * site.region + spp * year + 
+                        site.region * year + fork_length*year + fork_length*site.region +
+                        (1 | collection), 
+                      data = mainlice_fork, family=nbinom2)
+calmod_fork = glmmTMB(all.cal ~ spp * site.region + spp * year + 
+                        site.region * year + fork_length*spp + fork_length*site.region +
+                        (1 | collection), 
+                      data = mainlice_fork, family=nbinom2)
+calmod_nofork = glmmTMB(all.cal ~ spp * site.region + spp * year + 
+                        site.region * year + (1 | collection), 
+                      data = mainlice_fork, family=nbinom2)
+AICtab(calmod_nofork, calmod_fork)
 
 #so the goal here is to bootstrap the data (parametric) by resampling the hierarchical levels, then 
 #run the model averaging process with the new data and use that to get our model-averaged CI's. Essentially, 
@@ -322,13 +535,19 @@ pink2018J <- bootlice %>% filter(spp == 'PI' & year == '2018' & site.region == '
 pink2019D <- bootlice %>% filter(spp == 'PI' & year == '2019' & site.region == 'D')
 pink2019J <- bootlice %>% filter(spp == 'PI' & year == '2019' & site.region == 'J')
 
-bootintervalcal = matrix(nrow = 30, ncol = 1000)
-bootintervallep = matrix(nrow = 30, ncol = 1000)
+bootintervalcal = matrix(nrow = 30, ncol = 10000)
+bootintervallep = matrix(nrow = 30, ncol = 10000)
 
-#Run the Loop to populate the matrix - CAUTION:: THIS TAKES OVER 2 FULL DAYS TO RUN ON A POWERFUL DESKTOP COMPUTER
-pb = txtProgressBar(min = 0, max = 1000, initial = 0) 
-start_time <- Sys.time()
-for(i in 1:1000) {
+#Run the Loop to populate the matrix - CAUTION:: THIS TAKES OVER 2 FULL DAYS TO RUN IN PARALLEL ON A POWERFUL DESKTOP COMPUTER
+pb = txtProgressBar(min = 0, max = 10, initial = 0) 
+cores = detectCores()
+cl = makeCluster(cores[1]-1)
+registerDoParallel(cl)
+
+start = Sys.time()
+i = 1:10000
+y = foreach(i, .packages = c('tidyverse', 'rsample', 'tibble', 'glmmTMB', 'MuMIn', 'ggeffects')) %dopar% {
+  
   sock2015Dboot = matrix(nrow = nrow(sock2015D), ncol = 7)
   n = 1
   for(k in unique(sock2015D$collection)) { #for each collection
@@ -824,13 +1043,22 @@ for(i in 1:1000) {
     mutate(sal = cal1pred$x, reg = cal1pred$facet, yr = cal1pred$group)
   calavgpred$sal = factor(calavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
   
-  bootintervalcal[,i] = calavgpred$avg
-  bootintervallep[,i] = lepavgpred$avg
-  
-  setTxtProgressBar(pb,i)
+ # bootintervalcal[,i] = calavgpred$avg
+ # bootintervallep[,i] = lepavgpred$avg
+  c(calavgpred$avg, lepavgpred$avg)
+
 }
-end_time <- Sys.time()
-end_time - start_time
+
+for(i in 1:10000) {
+  bootintervalcal[,i] = y[[i]][1:30]
+  bootintervallep[,i] = y[[i]][31:60]
+}
+
+
+stopCluster(cl)
+end = Sys.time()
+run_time = end - start
+
 
 boot_int_cal = data.frame(bootintervalcal)
 boot_int_lep = data.frame(bootintervallep)
@@ -838,7 +1066,7 @@ write_csv(boot_int_cal, 'boot_int_cal.csv')
 write_csv(boot_int_lep, 'boot_int_lep.csv')
 
 #####NOTE: to make life easy, I just manually go and change these to long version in the csv itself - have to do that 
-#before readng in the next lines
+#before readng in ???the next lines
 
 #pull the data
 interval_cal_long = read_csv('boot_int_cal_long.csv')
