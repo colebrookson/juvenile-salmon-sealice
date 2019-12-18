@@ -539,14 +539,13 @@ bootintervalcal = matrix(nrow = 30, ncol = 10000)
 bootintervallep = matrix(nrow = 30, ncol = 10000)
 
 #Run the Loop to populate the matrix - CAUTION:: THIS TAKES OVER 2 FULL DAYS TO RUN IN PARALLEL ON A POWERFUL DESKTOP COMPUTER
-pb = txtProgressBar(min = 0, max = 10, initial = 0) 
 cores = detectCores()
 cl = makeCluster(cores[1]-1)
 registerDoParallel(cl)
 
 start = Sys.time()
-i = 1:10000
-y = foreach(i, .packages = c('tidyverse', 'rsample', 'tibble', 'glmmTMB', 'MuMIn', 'ggeffects')) %dopar% {
+
+y = foreach(i = 1:100, .packages = c('tidyverse', 'rsample', 'tibble', 'glmmTMB', 'MuMIn', 'ggeffects')) %dopar% {
   
   sock2015Dboot = matrix(nrow = nrow(sock2015D), ncol = 7)
   n = 1
@@ -1048,8 +1047,9 @@ y = foreach(i, .packages = c('tidyverse', 'rsample', 'tibble', 'glmmTMB', 'MuMIn
   c(calavgpred$avg, lepavgpred$avg)
 
 }
+y_copy = y 
 
-for(i in 1:10000) {
+for(i in 1:100) {
   bootintervalcal[,i] = y[[i]][1:30]
   bootintervallep[,i] = y[[i]][31:60]
 }
