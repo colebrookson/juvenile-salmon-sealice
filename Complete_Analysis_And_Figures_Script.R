@@ -545,7 +545,7 @@ registerDoParallel(cl)
 
 start = Sys.time()
 
-y = foreach(i = 1:100, .packages = c('tidyverse', 'rsample', 'tibble', 'glmmTMB', 'MuMIn', 'ggeffects')) %dopar% {
+y = foreach(i = 1:10000, .packages = c('tidyverse', 'rsample', 'tibble', 'glmmTMB', 'MuMIn', 'ggeffects')) %dopar% {
   
   sock2015Dboot = matrix(nrow = nrow(sock2015D), ncol = 7)
   n = 1
@@ -1035,12 +1035,12 @@ y = foreach(i = 1:100, .packages = c('tidyverse', 'rsample', 'tibble', 'glmmTMB'
   lepavgpred = lepallpred %>% 
     dplyr::select(avg) %>% 
     mutate(sal = lep1pred$x, reg = lep1pred$facet, yr = lep1pred$group)
-  lepavgpred$sal = factor(lepavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+  #lepavgpred$sal = factor(lepavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
   
   calavgpred = calallpred %>% 
     dplyr::select(avg) %>% 
     mutate(sal = cal1pred$x, reg = cal1pred$facet, yr = cal1pred$group)
-  calavgpred$sal = factor(calavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
+  #calavgpred$sal = factor(calavgpred$sal, levels = c(1, 2, 3), labels = c('CU', 'PI', 'SO'))
   
  # bootintervalcal[,i] = calavgpred$avg
  # bootintervallep[,i] = lepavgpred$avg
@@ -1049,7 +1049,7 @@ y = foreach(i = 1:100, .packages = c('tidyverse', 'rsample', 'tibble', 'glmmTMB'
 }
 y_copy = y 
 
-for(i in 1:100) {
+for(i in 1:10000) {
   bootintervalcal[,i] = y[[i]][1:30]
   bootintervallep[,i] = y[[i]][31:60]
 }
@@ -1065,12 +1065,10 @@ boot_int_lep = data.frame(bootintervallep)
 write_csv(boot_int_cal, 'boot_int_cal.csv')
 write_csv(boot_int_lep, 'boot_int_lep.csv')
 
-#####NOTE: to make life easy, I just manually go and change these to long version in the csv itself - have to do that 
-#before readng in ???the next lines
 
-#pull the data
-interval_cal_long = read_csv('boot_int_cal_long.csv')
-interval_lep_long = read_csv('boot_int_lep_long.csv')
+interval_cal_long = as.data.frame(t(bootintervalcal))
+interval_lep_long = as.data.frame(t(bootintervallep))
+
 
 #name the columns, sort them, and transpose them
 names_lep = lepavgpred %>% 
@@ -1087,10 +1085,10 @@ colnames(interval_lep_long) = names_lep
 interval_cal_long_sorted <- apply(interval_cal_long,2,sort,decreasing=F)
 interval_lep_long_sorted <- apply(interval_lep_long,2,sort,decreasing=F)
 
-upci_cal = interval_cal_long_sorted[995, ]
-loci_cal = interval_cal_long_sorted[5, ]
-upci_lep = interval_lep_long_sorted[995, ]
-loci_lep = interval_lep_long_sorted[5, ]
+upci_cal = interval_cal_long_sorted[9750, ]
+loci_cal = interval_cal_long_sorted[250, ]
+upci_lep = interval_lep_long_sorted[9750, ]
+loci_lep = interval_lep_long_sorted[250, ]
 
 #fit the models and do the model averaging process again to get the actual estimates themselves
 lep1 = glmmTMB(all.leps ~ site.region + year + spp + 
@@ -1210,6 +1208,14 @@ calavgpred = calallpred %>%
   mutate(sal = cal1pred$x, reg = cal1pred$facet, yr = cal1pred$group)
 
 #put the up and lo CI's into the df's 
+sal_order = c("CU","PI", "SO")
+yr_order = c('2015', '2016', '2017', '2018')
+calavgpred = calavgpred[order(factor(calavgpred$sal, levels = sal_order), 
+                              factor(calavgpred$yr, levels = yr_order)),]
+
+lepavgpred = lepavgpred[order(factor(lepavgpred$sal, levels = sal_order),
+                              factor(lepavgpred$yr, levels = yr_order)),]
+
 calavgpred$conf.high = upci_cal
 calavgpred$conf.low = loci_cal
 lepavgpred$conf.high = upci_lep
@@ -1251,6 +1257,9 @@ lep_y_effects = expression(paste("Mean Motile  ", italic("L. salmonis"), " Abund
 cal_y_effects = expression(paste("Mean Motile  ", italic("C. clemensi"), " Abundance"))
 lepavgpred$sal <- factor(lepavgpred$sal,levels = c('PI', 'CU', 'SO'))
 calavgpred$sal <- factor(calavgpred$sal,levels = c('PI', 'CU', 'SO'))
+lepavgpred$yr = factor(lepavgpred$yr, levels = c('2015', '2016', '2017', '2018', '2019'))
+calavgpred$yr = factor(calavgpred$yr, levels = c('2015', '2016', '2017', '2018', '2019'))
+
 
 lepsmodplot_avg <- lepavgpred %>% 
   group_by(., yr,sal,reg) %>% 
