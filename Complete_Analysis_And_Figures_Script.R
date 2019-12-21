@@ -1298,7 +1298,6 @@ ggsave('model_ests_cal.png', plot = calmodplot_avg,
 
 
 # Relative Importance Extraction
-
 sw(lepmod.crossed_dredge)
 sw(calmod.crossed_dredge)
 
@@ -1309,8 +1308,8 @@ cal_allyears = glmmTMB(all.cal ~ spp +
                  (1 | collection), data = mainlice, family = nbinom2)
 lep_allyears = glmmTMB(all.leps ~ spp +
                          (1 | collection), data = mainlice, family = nbinom2)
-cal_allyears_predict = ggpredict(cal_allyears, terms = c('spp'), ci.lvl = 0.99)
-lep_allyears_predict = ggpredict(lep_allyears, terms = c('spp'), ci.lvl = 0.99)
+cal_allyears_predict = ggpredict(cal_allyears, terms = c('spp'), ci.lvl = 0.95)
+lep_allyears_predict = ggpredict(lep_allyears, terms = c('spp'), ci.lvl = 0.95)
 
 # Make histograms of fish caught to show how many of our focal species there are
 fish = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_field_data.csv")
@@ -1368,12 +1367,12 @@ ggsave('all_fish_caught.png', plot = fish_caught,
        width = 8, height = 7.5,
        dpi = 300)
 
-
-
 x = fish_caught
 
-
-library(tidyverse)
+herring = fish %>% 
+  filter(species == 'HE')
+herring_field = lab_mot %>% 
+  filter(ufn %in% herring$ufn)
 
 
 
