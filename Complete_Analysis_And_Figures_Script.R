@@ -216,7 +216,7 @@ mainlice_fork = mainlice_fork %>%
 
 
 #join up the stock data via UFN to get the stock ID into our dataset for sockeye
-stock_data = read.csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/stock_id.csv')
+stock_data = read.csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sample_results/stock_id.csv')
 main_stock = left_join(mainlice, stock_data, by = 'ufn')  
 
 main_stock =  main_stock %>% 
@@ -349,6 +349,12 @@ ggsave('study_map.png', plot = insetmap,
 fig_2_data = mainlice %>% 
   group_by(year, spp) %>% 
   summarize(mean_cal = mean(all.cal), mean_lep = mean(all.leps))
+fig_2_allyear_data = mainlice %>% 
+  group_by(spp) %>% 
+  summarize(mean_cal = mean(all.cal), mean_lep = mean(all.leps)) %>% 
+  mutate(year = 'All')
+fig_2_allyear_data = fig_2_allyear_data[,c(4,1,2,3)]
+fig_2_data = rbind(data.frame(fig_2_data), data.frame(fig_2_allyear_data))
 lep_y_title = expression(paste("Mean Motile ", italic("L. salmonis"), " Abundance"))
 cal_y_title = expression(paste("Mean Motile ", italic("C. clemensi"), " Abundance"))
 
@@ -1375,8 +1381,10 @@ herring_field = lab_mot %>%
   filter(ufn %in% herring$ufn)
 
 
-
-
+sites_year_spp = mainlice %>% 
+  group_by(year, spp, site_id) %>% 
+  summarize(obs = n())
+write.table(sites_year_spp, file = "sites_year_spp.txt", sep = ",", quote = FALSE, row.names = F)
 
 
 
