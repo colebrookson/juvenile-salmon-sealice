@@ -112,7 +112,7 @@ newlice_field_fork = newlice_field %>%
          site.region = substr(site_id, 0, 1),
          collection = paste(site_id, survey_date, sep="_")) %>% #unique place/time identifier for random effect
   dplyr::select(year, species, site.region, site_id, collection, ufn, 
-                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length) %>% 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length, seine_id) %>% 
   rename(spp = species) %>% 
   filter(!is.na(fork_length))
 newlice_mot_fork = newlice_mot %>% 
@@ -120,7 +120,7 @@ newlice_mot_fork = newlice_mot %>%
          site.region = substr(site_id, 0, 1),
          collection = paste(site_id, survey_date, sep="_")) %>% 
   dplyr::select(year, species, site.region, site_id, collection, ufn, 
-                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length) %>% 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length, seine_id) %>% 
   rename(spp = species) %>% 
   filter(!is.na(fork_length))
 newlice_fs_fork = newlice_fs %>% 
@@ -128,7 +128,7 @@ newlice_fs_fork = newlice_fs %>%
          site.region = substr(site_id, 0, 1),
          collection = paste(site_id, survey_date, sep="_")) %>% 
   dplyr::select(year, species, site.region, site_id, collection, ufn, 
-                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length) %>% 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length, seine_id) %>% 
   rename(spp = species) %>% 
   filter(!is.na(fork_length))
 
@@ -138,49 +138,41 @@ newlice_field = newlice_field %>%
          site.region = substr(site_id, 0, 1),
          collection = paste(site_id, survey_date, sep="_")) %>% #unique place/time identifier for random effect
   dplyr::select(year, species, site.region, site_id, collection, ufn, 
-                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length) %>% 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length, seine_id) %>% 
   rename(spp = species) 
 newlice_mot = newlice_mot %>% 
   mutate(year = format(as.Date(survey_date, format="%m/%d/%Y"),"%Y"), 
          site.region = substr(site_id, 0, 1),
          collection = paste(site_id, survey_date, sep="_")) %>% 
   dplyr::select(year, species, site.region, site_id, collection, ufn, 
-                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length) %>% 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length, seine_id) %>% 
   rename(spp = species) 
 newlice_fs = newlice_fs %>% 
   mutate(year = format(as.Date(survey_date, format="%m/%d/%Y"),"%Y"), 
          site.region = substr(site_id, 0, 1),
          collection = paste(site_id, survey_date, sep="_")) %>% 
   dplyr::select(year, species, site.region, site_id, collection, ufn, 
-                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length) %>% 
+                all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length, seine_id) %>% 
   rename(spp = species) 
 
 #now keep only collections (seines) that have min. 5 of all 3 focal species
+proper_seines = seine_data %>% 
+  filter(so_taken > 4) %>% 
+  filter(pi_taken > 4) %>% 
+  filter(cu_taken > 4)
 newlice_field = newlice_field %>% 
-  filter(so_taken > 4) %>% 
-  filter(cu_taken > 4) %>% 
-  filter(pi_taken > 4)
+  filter(seine_id %in% proper_seines$seine_id)
 newlice_fs = newlice_fs %>% 
-  filter(so_taken > 4) %>% 
-  filter(cu_taken > 4) %>% 
-  filter(pi_taken > 4)
+  filter(seine_id %in% proper_seines$seine_id)
 newlice_mot = newlice_mot %>% 
-  filter(so_taken > 4) %>% 
-  filter(cu_taken > 4) %>% 
-  filter(pi_taken > 4)
+  filter(seine_id %in% proper_seines$seine_id)
 
 newlice_field_fork = newlice_field_fork %>% 
-  filter(so_taken > 4) %>% 
-  filter(cu_taken > 4) %>% 
-  filter(pi_taken > 4)
+  filter(seine_id %in% proper_seines$seine_id)
 newlice_fs_fork = newlice_fs_fork %>% 
-  filter(so_taken > 4) %>% 
-  filter(cu_taken > 4) %>% 
-  filter(pi_taken > 4)
+  filter(seine_id %in% proper_seines$seine_id)
 newlice_mot_fork = newlice_mot_fork %>% 
-  filter(so_taken > 4) %>% 
-  filter(cu_taken > 4) %>% 
-  filter(pi_taken > 4)
+  filter(seine_id %in% proper_seines$seine_id)
 
 #bind and remove duplicates
 mainlice = rbind(newlice_field, newlice_fs, newlice_mot)
@@ -1382,7 +1374,7 @@ herring_field = lab_mot %>%
 
 
 sites_year_spp = mainlice %>% 
-  group_by(year, spp, site_id) %>% 
+  group_by(spp, collection) %>% 
   summarize(obs = n())
 write.table(sites_year_spp, file = "sites_year_spp.txt", sep = ",", quote = FALSE, row.names = F)
 
