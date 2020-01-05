@@ -241,6 +241,7 @@ main_stock =  main_stock %>%
   summarize(count = length(stock_1))
 main_stock$stock_1 = str_to_title(main_stock$stock_1)
 
+
 sum_stock = main_stock %>% 
   filter(count > 10)
 sum(sum_stock$count)
