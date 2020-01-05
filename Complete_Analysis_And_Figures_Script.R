@@ -39,6 +39,14 @@ fish_lab = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_lab_d
 #keep = mainlice
 #write.csv(keep, 'Hakai_lice_CB_edits_analysis_from_first_draft_to_coauthors.csv') keeping this for posterity
 
+#first, only keep the survey's where more than 4 of each focal species were kept
+# proper_surveys = seine_data %>% 
+#   filter(so_taken > 4) %>% 
+#   filter(pi_taken > 4) %>% 
+#   filter(cu_taken > 4)
+# proper_fish = fish %>% 
+#   filter(seine_id %in% proper_seines$seine_id)
+
 field = as.data.table(field)
 fish = as.data.table(fish)
 seine_data = as.data.table(seine_data)
@@ -132,6 +140,38 @@ newlice_fs_fork = newlice_fs %>%
   rename(spp = species) %>% 
   filter(!is.na(fork_length))
 
+#bind and remove duplicates
+mainlice_fork = rbind(newlice_field_fork, newlice_fs_fork, newlice_mot_fork)
+mainlice_fork = mainlice_fork[!duplicated(mainlice_fork$ufn), ]
+mainlice_fork = mainlice_fork %>% 
+  dplyr::select(-pi_taken, -so_taken, -cu_taken)
+mainlice_fork = mainlice_fork %>% 
+  filter(spp %in% c('SO', 'PI', 'CU'))
+
+#now keep only collections (seines) that have min. 5 of all 3 focal species
+collections_all_fork = c(unique(mainlice_fork$collection))
+collections_proper_fork = c()
+collections_bad_fork = c()
+suppressWarnings(for(i in collections_all_fork) {
+  temp = mainlice_fork %>% 
+    filter(collection == i) %>% 
+    group_by(spp) %>% 
+    summarize(n = n())
+  if(nrow(temp) == 3) {
+    if(temp$n[1] > 4 && temp$n[2] > 4 && temp$n[3] > 4) {
+      collections_proper_fork = c(collections_proper_fork, i)
+    } else{
+      collections_bad_fork = c(collections_bad_fork, i)
+    }
+    
+  } else {
+    collections_bad_fork = c(collections_bad_fork, i)
+  }
+}
+)
+mainlice_fork = mainlice_fork %>% 
+  filter(collection %in% collections_proper_fork)
+
 #without fork length
 newlice_field = newlice_field %>% 
   mutate(year = format(as.Date(survey_date, format="%m/%d/%Y"),"%Y"), 
@@ -155,25 +195,6 @@ newlice_fs = newlice_fs %>%
                 all.cal, all.leps, so_taken, cu_taken, pi_taken, all.lice, fork_length, seine_id) %>% 
   rename(spp = species) 
 
-#now keep only collections (seines) that have min. 5 of all 3 focal species
-proper_seines = seine_data %>% 
-  filter(so_taken > 4) %>% 
-  filter(pi_taken > 4) %>% 
-  filter(cu_taken > 4)
-newlice_field = newlice_field %>% 
-  filter(seine_id %in% proper_seines$seine_id)
-newlice_fs = newlice_fs %>% 
-  filter(seine_id %in% proper_seines$seine_id)
-newlice_mot = newlice_mot %>% 
-  filter(seine_id %in% proper_seines$seine_id)
-
-newlice_field_fork = newlice_field_fork %>% 
-  filter(seine_id %in% proper_seines$seine_id)
-newlice_fs_fork = newlice_fs_fork %>% 
-  filter(seine_id %in% proper_seines$seine_id)
-newlice_mot_fork = newlice_mot_fork %>% 
-  filter(seine_id %in% proper_seines$seine_id)
-
 #bind and remove duplicates
 mainlice = rbind(newlice_field, newlice_fs, newlice_mot)
 mainlice = mainlice[!duplicated(mainlice$ufn), ]
@@ -182,30 +203,31 @@ mainlice = mainlice %>%
 mainlice = mainlice %>% 
   filter(spp %in% c('SO', 'PI', 'CU'))
 
-mainlice_fork = rbind(newlice_field_fork, newlice_fs_fork, newlice_mot_fork)
-mainlice_fork = mainlice_fork[!duplicated(mainlice_fork$ufn), ]
-mainlice_fork = mainlice_fork %>% 
-  dplyr::select(-pi_taken, -so_taken, -cu_taken)
-mainlice_fork = mainlice_fork %>% 
-  filter(spp %in% c('SO', 'PI', 'CU'))
+#now keep only collections (seines) that have min. 5 of all 3 focal species
+collections_all = c(unique(mainlice$collection))
+collections_proper = c()
+collections_bad = c()
+suppressWarnings(for(i in collections_all) {
+  temp = mainlice %>% 
+    filter(collection == i) %>% 
+    group_by(spp) %>% 
+    summarize(n = n())
+  if(nrow(temp) == 3) {
+          if(temp$n[1] > 4 && temp$n[2] > 4 && temp$n[3] > 4) {
+            collections_proper = c(collections_proper, i)
+          } else{
+            collections_bad = c(collections_bad, i)
+          }
+  
+  } else {
+      collections_bad = c(collections_bad, i)
+  }
+}
+)
+mainlice = mainlice %>% 
+  filter(collection %in% collections_proper)
 
 #mainlice_nofork = mainlice
-
-##### comented code below will show how my initial dataset had some lice from all of the different licing protocols
-##### but not all and I don't know why - therefore, when pulling directly from Hakai data, I have 3092 fish instead of 
-##### ~2100 fish which is obviously a big difference. Hopefully results will stay consistent. Looking at the collections
-##### previously I had around 60 collections, now I have 129, and there are more than double the sites than previously
-##### so that's where the discrepancy is coming from. 
-
-# t = rbind(newlice_field, newlice_fs, newlice_mot)
-# n_distinct(t$ufn)
-# x = t %>% 
-#   filter(year != 2019)
-# int = intersect(keep$ufn, x$ufn)
-# int_mot = intersect(newlice_mot$ufn, int)
-# int_field = intersect(newlice_field$ufn, int)
-# int_fs = intersect(newlice_fs$ufn, int)
-
 
 #join up the stock data via UFN to get the stock ID into our dataset for sockeye
 stock_data = read.csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sample_results/stock_id.csv')
@@ -470,20 +492,43 @@ ggsave('lice_per_fish.png', plot = fig_3,
        dpi = 300)
 
 #get the necessary model selection things:
-lepmod.crossed <- glmmTMB(all.leps ~ spp * site.region + spp * year + 
+lepmod.crossedp <- glmmTMB(all.leps ~ spp * site.region + spp * year + 
+                            site.region * year + (1 | collection),
+                            ziformula = ~1,
+                          data = mainlice, family=poisson)
+lepmod.crossednb <- glmmTMB(all.leps ~ spp * site.region + spp * year + 
+                            site.region * year + (1 | collection),
+                          ziformula = ~1,
+                          data = mainlice, family=nbinom2)
+AICtab(lepmod.crossedp, lepmod.crossednb)
+calmod.crossednb <- glmmTMB(all.cal ~ spp * site.region + spp * year + 
                             site.region * year + (1 | collection), 
                           data = mainlice, family=nbinom2)
-calmod.crossed <- glmmTMB(all.cal ~ spp * site.region + spp * year + 
+calmod.crossedp <- glmmTMB(all.cal ~ spp * site.region + spp * year + 
                             site.region * year + (1 | collection), 
-                          data = mainlice, family=nbinom2)
-lepmod.crossed_dredge = MuMIn::dredge(lepmod.crossed, subset = (`cond(site.region)` && `cond(year)`))
-calmod.crossed_dredge = MuMIn::dredge(calmod.crossed, subset = (`cond(site.region)` && `cond(year)`))
+                          data = mainlice, family=poisson)
+AICtab(calmod.crossedp, calmod.crossednb)
+
+#check models
+lep_p_sr <- simulateResiduals(lepmod.crossedp)
+cal_nb_sr <- simulateResiduals(calmod.crossednb)
+plot(lep_p_sr)
+plot(cal_nb_sr)
+#NOTE: despite the fact that the nb one fit better (dAIC = 2.2), not all of the submodels converged with the nb, 
+# so using the poisson one instead so they actually fit 
+lepmod.crossed_dredge = MuMIn::dredge(lepmod.crossedp, subset = (`cond(site.region)` && `cond(year)`))
+calmod.crossed_dredge = MuMIn::dredge(calmod.crossednb, subset = (`cond(site.region)` && `cond(year)`))
  
 #try models with forklength included -- leps model won't converge and cal model isn't any better 
-lepmod_fork = glmmTMB(all.leps ~ spp * site.region + spp * year + 
+lepmod_forkp = glmmTMB(all.leps ~ spp * site.region + spp * year + 
                         site.region * year + fork_length*year + fork_length*site.region +
                         (1 | collection), 
-                      data = mainlice_fork, family=nbinom2)
+                      data = mainlice_fork, family=poisson)
+lepmod_forknb = glmmTMB(all.leps ~ spp * site.region + spp * year + 
+                         site.region * year + fork_length*year + fork_length*site.region +
+                         (1 | collection), 
+                       data = mainlice_fork, family=nbinom2)
+#neither distribution fits
 calmod_fork = glmmTMB(all.cal ~ spp * site.region + spp * year + 
                         site.region * year + fork_length*spp + fork_length*site.region +
                         (1 | collection), 
@@ -924,51 +969,54 @@ y = foreach(i = 1:10000, .packages = c('tidyverse', 'rsample', 'tibble', 'glmmTM
   #omited the last two models in each set since their weights were 0. 
   lep1 = glmmTMB(all.leps ~ site.region + year + spp + 
                    site.region * year + 
-                   (1 | collection), data = bootdata, family = nbinom2) 
+                   (1 | collection), data = bootdata, family = poisson)
   lep2 = glmmTMB(all.leps ~ site.region + year + spp + 
-                   spp * year + site.region * year + 
-                   (1 | collection), data = bootdata, family = nbinom2) 
-  lep3 = glmmTMB(all.leps ~ site.region + year + spp + 
                    spp * site.region + site.region * year + 
-                   (1 | collection), data = bootdata, family = nbinom2) 
-  lep4 = glmmTMB(all.leps ~ site.region + year + spp + 
+                   (1 | collection), data = bootdata, family = poisson) 
+  lep3 = glmmTMB(all.leps ~ site.region + year + spp + 
                    spp * site.region + spp * year + site.region * year + 
-                   (1 | collection), data = bootdata, family = nbinom2) 
+                   (1 | collection), data = bootdata, family = poisson) 
+  lep4 = glmmTMB(all.leps ~ site.region + year + spp + 
+                   spp * year + site.region * year + 
+                   (1 | collection), data = bootdata, family = poisson) 
   lep5 = glmmTMB(all.leps ~ site.region + year + spp + 
-                   (1 | collection), data = bootdata, family = nbinom2) 
+                   (1 | collection), data = bootdata, family = poisson) 
   lep6 = glmmTMB(all.leps ~ site.region + year + spp + 
-                   spp * year +  
-                   (1 | collection), data = bootdata, family = nbinom2) 
-  lep7 = glmmTMB(all.leps ~ site.region + year + spp + 
                    spp * site.region + 
-                   (1 | collection), data = bootdata, family = nbinom2) 
+                   (1 | collection), data = bootdata, family = poisson) 
+  lep7 = glmmTMB(all.leps ~ site.region + year + spp + 
+                   spp * year +  
+                   (1 | collection), data = bootdata, family = poisson) 
   lep8 = glmmTMB(all.leps ~ site.region + year + spp + 
                    spp * site.region + spp * year +  
-                   (1 | collection), data = bootdata, family = nbinom2) 
+                   (1 | collection), data = bootdata, family = poisson) 
+
   
   cal1 = glmmTMB(all.cal ~ site.region + year + spp + 
-                   site.region * year + site.region * spp +
-                   (1 | collection), data = bootdata, family = nbinom2) 
-  cal2 = glmmTMB(all.cal ~ site.region + year + spp + 
-                   site.region * year + 
-                   (1 | collection), data = bootdata, family = nbinom2) 
-  cal3 = glmmTMB(all.cal ~ site.region + year + spp + 
                    spp * site.region + site.region * year + spp * year + 
-                   (1 | collection), data = bootdata, family = nbinom2) 
-  cal4 = glmmTMB(all.cal ~ site.region + year + spp + 
+                   (1 | collection), data = bootdata, family = nbinom2)
+  cal2 = glmmTMB(all.cal ~ site.region + year + spp + 
                    spp * year + site.region * year + 
                    (1 | collection), data = bootdata, family = nbinom2)
+  cal3 = glmmTMB(all.cal ~ site.region + year + spp + 
+                   site.region * year + site.region * spp +
+                   (1 | collection), data = bootdata, family = nbinom2) 
+  cal4 = glmmTMB(all.cal ~ site.region + year + spp + 
+                   site.region * year + 
+                   (1 | collection), data = bootdata, family = nbinom2) 
   cal5 = glmmTMB(all.cal ~ site.region + year + spp + 
-                   (1 | collection), data = bootdata, family = nbinom2) 
-  cal6 = glmmTMB(all.cal ~ site.region + year + spp + 
-                   site.region * year +  
-                   (1 | collection), data = bootdata, family = nbinom2)
-  cal7 = glmmTMB(all.cal ~ site.region + year + spp + 
                    spp * year + 
-                   (1 | collection), data = bootdata, family = nbinom2) 
-  cal8 = glmmTMB(all.cal ~ site.region + year + spp + 
+                   (1 | collection), data = bootdata, family = nbinom2)
+  cal6 = glmmTMB(all.cal ~ site.region + year + spp + 
                    spp * site.region + spp * year +  
                    (1 | collection), data = bootdata, family = nbinom2) 
+  cal7 = glmmTMB(all.cal ~ site.region + year + spp + 
+                   site.region * spp +  
+                   (1 | collection), data = bootdata, family = nbinom2)
+  cal8 = glmmTMB(all.cal ~ site.region + year + spp + 
+                   (1 | collection), data = bootdata, family = nbinom2)
+ 
+
   
   #get the predictions of the estiamtes
   lep1pred <- ggpredict(lep1, terms = c('spp', 'year', 'site.region'))
@@ -1091,51 +1139,52 @@ loci_lep = interval_lep_long_sorted[250, ]
 #fit the models and do the model averaging process again to get the actual estimates themselves
 lep1 = glmmTMB(all.leps ~ site.region + year + spp + 
                  site.region * year + 
-                 (1 | collection), data = mainlice, family = nbinom2) 
+                 (1 | collection), data = mainlice, family = poisson)
 lep2 = glmmTMB(all.leps ~ site.region + year + spp + 
-                 spp * year + site.region * year + 
-                 (1 | collection), data = mainlice, family = nbinom2) 
-lep3 = glmmTMB(all.leps ~ site.region + year + spp + 
                  spp * site.region + site.region * year + 
-                 (1 | collection), data = mainlice, family = nbinom2) 
-lep4 = glmmTMB(all.leps ~ site.region + year + spp + 
+                 (1 | collection), data = mainlice, family = poisson) 
+lep3 = glmmTMB(all.leps ~ site.region + year + spp + 
                  spp * site.region + spp * year + site.region * year + 
-                 (1 | collection), data = mainlice, family = nbinom2) 
+                 (1 | collection), data = mainlice, family = poisson) 
+lep4 = glmmTMB(all.leps ~ site.region + year + spp + 
+                 spp * year + site.region * year + 
+                 (1 | collection), data = mainlice, family = poisson) 
 lep5 = glmmTMB(all.leps ~ site.region + year + spp + 
-                 (1 | collection), data = mainlice, family = nbinom2) 
+                 (1 | collection), data = mainlice, family = poisson) 
 lep6 = glmmTMB(all.leps ~ site.region + year + spp + 
-                 spp * year +  
-                 (1 | collection), data = mainlice, family = nbinom2) 
-lep7 = glmmTMB(all.leps ~ site.region + year + spp + 
                  spp * site.region + 
-                 (1 | collection), data = mainlice, family = nbinom2) 
+                 (1 | collection), data = mainlice, family = poisson) 
+lep7 = glmmTMB(all.leps ~ site.region + year + spp + 
+                 spp * year +  
+                 (1 | collection), data = mainlice, family = poisson) 
 lep8 = glmmTMB(all.leps ~ site.region + year + spp + 
                  spp * site.region + spp * year +  
-                 (1 | collection), data = mainlice, family = nbinom2) 
+                 (1 | collection), data = mainlice, family = poisson) 
+
 
 cal1 = glmmTMB(all.cal ~ site.region + year + spp + 
-                 site.region * year + site.region * spp +
-                 (1 | collection), data = mainlice, family = nbinom2) 
-cal2 = glmmTMB(all.cal ~ site.region + year + spp + 
-                 site.region * year + 
-                 (1 | collection), data = mainlice, family = nbinom2) 
-cal3 = glmmTMB(all.cal ~ site.region + year + spp + 
                  spp * site.region + site.region * year + spp * year + 
-                 (1 | collection), data = mainlice, family = nbinom2) 
-cal4 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 (1 | collection), data = mainlice, family = nbinom2)
+cal2 = glmmTMB(all.cal ~ site.region + year + spp + 
                  spp * year + site.region * year + 
                  (1 | collection), data = mainlice, family = nbinom2)
+cal3 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 site.region * year + site.region * spp +
+                 (1 | collection), data = mainlice, family = nbinom2) 
+cal4 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 site.region * year + 
+                 (1 | collection), data = mainlice, family = nbinom2) 
 cal5 = glmmTMB(all.cal ~ site.region + year + spp + 
-                 (1 | collection), data = mainlice, family = nbinom2) 
-cal6 = glmmTMB(all.cal ~ site.region + year + spp + 
-                 site.region * year +  
-                 (1 | collection), data = mainlice, family = nbinom2)
-cal7 = glmmTMB(all.cal ~ site.region + year + spp + 
                  spp * year + 
-                 (1 | collection), data = mainlice, family = nbinom2) 
-cal8 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 (1 | collection), data = mainlice, family = nbinom2)
+cal6 = glmmTMB(all.cal ~ site.region + year + spp + 
                  spp * site.region + spp * year +  
                  (1 | collection), data = mainlice, family = nbinom2) 
+cal7 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 site.region * spp +  
+                 (1 | collection), data = mainlice, family = nbinom2)
+cal8 = glmmTMB(all.cal ~ site.region + year + spp + 
+                 (1 | collection), data = mainlice, family = nbinom2)
 
 #get the predictions of the estiamtes
 lep1pred <- ggpredict(lep1, terms = c('spp', 'year', 'site.region'))
@@ -1378,6 +1427,10 @@ sites_year_spp = mainlice %>%
   summarize(obs = n())
 write.table(sites_year_spp, file = "sites_year_spp.txt", sep = ",", quote = FALSE, row.names = F)
 
+
+x = fish %>%  filter(seine_id %in% proper_seines$seine_id)
+x = x %>% 
+  filter(species %in% c('SO', 'CU', 'PI'))
 
 
 
