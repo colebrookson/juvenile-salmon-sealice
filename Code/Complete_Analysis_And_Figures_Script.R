@@ -35,10 +35,6 @@ lab_fs = read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_lab_
 lab_mot = read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_lab_mot.csv')
 fish_lab = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_lab_data.csv")
 
-#mainlice = read_csv("Hakai_lice_data_CB_edits.csv")
-#keep = mainlice
-#write.csv(keep, 'Hakai_lice_CB_edits_analysis_from_first_draft_to_coauthors.csv') keeping this for posterity
-
 #first, only keep the survey's where more than 4 of each focal species were kept
 # proper_surveys = seine_data %>% 
 #   filter(so_taken > 4) %>% 
@@ -1415,23 +1411,11 @@ ggsave('all_fish_caught.png', plot = fish_caught,
        width = 8, height = 7.5,
        dpi = 300)
 
-x = fish_caught
-
-herring = fish %>% 
-  filter(species == 'HE')
-herring_field = lab_mot %>% 
-  filter(ufn %in% herring$ufn)
-
-
 sites_year_spp = mainlice %>% 
   group_by(spp, collection) %>% 
   summarize(obs = n())
 write.table(sites_year_spp, file = "sites_year_spp.txt", sep = ",", quote = FALSE, row.names = F)
 
-
-x = fish %>%  filter(seine_id %in% proper_seines$seine_id)
-x = x %>% 
-  filter(species %in% c('SO', 'CU', 'PI'))
 
 
 
