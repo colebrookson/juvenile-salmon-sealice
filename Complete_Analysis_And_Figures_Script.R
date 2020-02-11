@@ -1424,7 +1424,7 @@ herring_field = lab_mot %>%
 
 
 sites_year_spp = mainlice %>% 
-  group_by(spp, collection) %>% 
+  group_by(year, site_id, spp) %>% 
   summarize(obs = n())
 write.table(sites_year_spp, file = "sites_year_spp.txt", sep = ",", quote = FALSE, row.names = F)
 
