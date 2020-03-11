@@ -227,7 +227,7 @@ mainlice = mainlice %>%
 #mainlice_nofork = mainlice
 
 #join up the stock data via UFN to get the stock ID into our dataset for sockeye
-stock_data = read.csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sample_results/stock_id.csv')
+#stock_data = read.csv('stock_id.csv')
 main_stock = left_join(mainlice, stock_data, by = 'ufn')  
 
 main_stock =  main_stock %>% 
@@ -1223,6 +1223,18 @@ cal5pred <- ggpredict(cal5, terms = c('spp', 'year', 'site.region'))
 cal6pred <- ggpredict(cal6, terms = c('spp', 'year', 'site.region')) 
 cal7pred <- ggpredict(cal7, terms = c('spp', 'year', 'site.region')) 
 cal8pred <- ggpredict(cal8, terms = c('spp', 'year', 'site.region')) 
+
+#pull shape parameters and fiex-effects estimates
+fixed_cal1 = fixef(cal1)
+unlist(fixed_cal1)
+print.default(fixed_cal1)
+
+fixed_lep1 = fixef(lep1)
+unlist(fixed_lep1)
+print.default(fixed_lep1)
+
+cal_shape = sigma(cal1)
+lep_shape = sigma(lep1)
 
 ###start by getting them all in one dataframe with the weights
 
