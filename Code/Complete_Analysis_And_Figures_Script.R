@@ -20,7 +20,6 @@ library(ggsn)
 library(rgeos)
 library(rgdal)
 library(data.table)
-library(googlesheets)
 library(stringr)
 library(doParallel)
 
