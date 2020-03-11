@@ -27,22 +27,14 @@ library(doParallel)
 
 #NOTE: the most up-to-date versions of this data can be found at the following URL:
 #https://github.com/HakaiInstitute/jsp-data/tree/master/data
-
-survey_data = survey_data
-seine_data = seine_data
-fish = fish_field_data
-field = fish_field_data
-lab_fs = sealice_lab_fs
-lab_mot = sealice_lab_mot
-fish_lab = fish_lab_data
-
-survey_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/survey_data.csv")
-seine_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/seine_data.csv")
-fish = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_field_data.csv")
-field = read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_field.csv')
-lab_fs = read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_lab_fs.csv')
-lab_mot = read_csv('C:/Users/brookson/Documents/GitHub/jsp-data/data/sealice_lab_mot.csv')
-fish_lab = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_lab_data.csv")
+setwd(here('Data'))
+survey_data = read_csv("survey_data.csv")
+seine_data = read_csv("seine_data.csv")
+fish = read_csv("fish_field_data.csv")
+field = read_csv('sealice_field.csv')
+lab_fs = read_csv('sealice_lab_fs.csv')
+lab_mot = read_csv('sealice_lab_mot.csv')
+fish_lab = read_csv("fish_lab_data.csv")
 
 #first, only keep the survey's where more than 4 of each focal species were kept
 # proper_surveys = seine_data %>% 
