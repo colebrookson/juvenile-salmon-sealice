@@ -1,3 +1,7 @@
+##### TITLE: Differential Infection of Parasitic Sea Lice on Juvenile Pacific Salmon in British Columbia, Canada
+##### CREATOR: Cole B. Brookson
+##### INITIALIZATION DATE: 2019-11-21
+
 library(tidyverse)
 library(cowplot)
 library(bbmle)
