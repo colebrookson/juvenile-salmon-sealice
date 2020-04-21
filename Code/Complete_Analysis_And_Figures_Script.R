@@ -27,7 +27,7 @@ library(data.table)
 library(stringr)
 library(doParallel)
 
-`%notin%` = negate(`%in%`)
+`%notin%` = negate(`%in%`) # What does this do?
 
 #NOTE: the most up-to-date versions of this data can be found at the following URL:
 #https://github.com/HakaiInstitute/jsp-data/tree/master/data
