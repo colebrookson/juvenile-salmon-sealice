@@ -26,6 +26,7 @@ library(rgdal)
 library(data.table)
 library(stringr)
 library(doParallel)
+library(here)
 
 `%notin%` = negate(`%in%`) #creates inverse operator of the %in% operator for use in filtering data
 
@@ -38,6 +39,7 @@ field = read_csv(here('./data/sealice_field.csv'))
 lab_fs = read_csv(here('./data/sealice_lab_fs.csv'))
 lab_mot = read_csv(here('./data/sealice_lab_mot.csv'))
 fish_lab = read_csv(here('./data/fish_lab_data.csv'), guess_max = 300000)
+stock_data = read_csv(here('./data/stock_id.csv'), guess_max = 300000)
 
 #first, only keep the survey's where more than 4 of each focal species were kept
 # proper_surveys = seine_data %>% 
