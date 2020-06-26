@@ -31,14 +31,13 @@ library(doParallel)
 
 #NOTE: the most up-to-date versions of this data can be found at the following URL:
 #https://github.com/HakaiInstitute/jsp-data/tree/master/data
-setwd(here('Data'))
-survey_data = read_csv("survey_data.csv")
-seine_data = read_csv("seine_data.csv")
-fish = read_csv("fish_field_data.csv", guess_max = 300000)
-field = read_csv('sealice_field.csv')
-lab_fs = read_csv('sealice_lab_fs.csv')
-lab_mot = read_csv('sealice_lab_mot.csv')
-fish_lab = read_csv("fish_lab_data.csv", guess_max = 300000)
+survey_data = read_csv(here("./data/survey_data.csv"))
+seine_data = read_csv(here("./data/seine_data.csv"))
+fish = read_csv(here('./data/fish_field_data.csv'), guess_max = 300000)
+field = read_csv(here('./data/sealice_field.csv'))
+lab_fs = read_csv(here('./data/sealice_lab_fs.csv'))
+lab_mot = read_csv(here('./data/sealice_lab_mot.csv'))
+fish_lab = read_csv(here('./data/fish_lab_data.csv'), guess_max = 300000)
 
 #first, only keep the survey's where more than 4 of each focal species were kept
 # proper_surveys = seine_data %>% 
