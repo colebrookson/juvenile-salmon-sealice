@@ -253,16 +253,9 @@ sum(main_stock$count)
 #make vars into factors
 mainlice$year = as.factor(mainlice$year);mainlice$collection = as.factor(mainlice$collection)
 
-#check sizes of fish we do have measurements for
-mainlice_fork %>% 
-  group_by(spp) %>% 
-  summarize(mean(fork_length))
-hist(mainlice_fork$fork_length)
-
 #####do some throw away calculations for paper/reviewers
 
 #check number of observations in a dataset if collections were filtered to 10 fish
-#now keep only collections (seines) that have min. 5 of all 3 focal species
 collections_check_10 = c(unique(mainlice$collection))
 collections_check_10_proper = c()
 collections_check_10_bad = c()
@@ -285,3 +278,13 @@ suppressWarnings(for(i in collections_check_10) {
 )
 mainlice_check_10 = mainlice %>% 
   filter(collection %in% collections_check_10_proper)
+
+#get mean and sd of lengths for the fish we do have length measurement for 
+#check sizes of fish we do have measurements for
+size_test = mainlice_fork %>% 
+  group_by(spp) %>% 
+  summarize(mean(fork_length))
+size_sd_test = mainlice_fork %>% 
+  group_by(spp) %>% 
+  summarize(sd(fork_length))
+
