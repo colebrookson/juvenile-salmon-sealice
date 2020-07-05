@@ -258,3 +258,30 @@ mainlice_fork %>%
   group_by(spp) %>% 
   summarize(mean(fork_length))
 hist(mainlice_fork$fork_length)
+
+#####do some throw away calculations for paper/reviewers
+
+#check number of observations in a dataset if collections were filtered to 10 fish
+#now keep only collections (seines) that have min. 5 of all 3 focal species
+collections_check_10 = c(unique(mainlice$collection))
+collections_check_10_proper = c()
+collections_check_10_bad = c()
+suppressWarnings(for(i in collections_check_10) {
+  temp = mainlice %>% 
+    filter(collection == i) %>% 
+    group_by(spp) %>% 
+    summarize(n = n())
+  if(nrow(temp) == 3) {
+    if(temp$n[1] > 9 && temp$n[2] > 9 && temp$n[3] > 9) {
+      collections_check_10_proper = c(collections_check_10_proper, i)
+    } else{
+      collections_bad = c(collections_bad, i)
+    }
+    
+  } else {
+    collections_check_10_bad = c(collections_check_10_bad, i)
+  }
+}
+)
+mainlice_check_10 = mainlice %>% 
+  filter(collection %in% collections_check_10_proper)
