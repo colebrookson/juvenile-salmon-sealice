@@ -4,7 +4,9 @@ This repo contains the code and dataused to produce the analysis and figures for
 salmon by ectoparasitic sea lice (Brookson et al. 2020 - CJFAS). Please cite this repository at the following DOI: [![DOI](https://zenodo.org/badge/178743921.svg)](https://zenodo.org/badge/latestdoi/178743921)
 
 
-This data is from the Hakai Institute, and updated data can be found on their Github repository under the [Juvenile Salmon Program](https://github.com/HakaiInstitute/jsp-data), or at this [DOI](https://hecate.hakai.org/geonetwork/srv/eng/catalog.search#/metadata/6c449900-c726-4e9a-b241-707711e253a7). The data here is static and is kept for full reproducibility of the analyses we included in our paper submission. 
+These data are derrived from the Hakai Institute, and updated versions of these data can be found on their Github repository under the [Juvenile Salmon Program](https://github.com/HakaiInstitute/jsp-data), or at this [DOI](https://hecate.hakai.org/geonetwork/srv/eng/catalog.search#/metadata/6c449900-c726-4e9a-b241-707711e253a7). The data here are static and kept for full reproducibility of the analyses we included in our publication. 
+
+Please feel free to use and borrow from this code base according to the licence below.
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 
