@@ -1,10 +1,15 @@
+##### TITLE: Differential Infection of Parasitic Sea Lice on Juvenile Pacific Salmon in British Columbia, Canada
+##### CREATOR: Cole B. Brookson
+##### INITIALIZATION DATE: 2019-11-21
+
+library(here)
 source(here('./code/data_manip_prep.R'))
 
 coords <- data.frame(cbind(salmonsites$site_lat,salmonsites$site_long))
 colnames(coords) <- c('lat', 'long')
 
-sort(unique(ggplot2::map_data("world")$region))
-westcoast <- map_data('canada')
+#sort(unique(ggplot2::map_data("world")$region))
+#westcoast <- ggplot2::map_data('Canada') ---- DEPRECATED
 
 #make two themes, one for the inset, one for the big map
 fte_theme_map_small <- function(){
@@ -98,7 +103,10 @@ insetmap = ggdraw()+
 insetmap
 ggsave(here('./figures/study_map.png'), plot = insetmap,
        width = 8, height = 7.5,
-       dpi = 300)
+       dpi = 200)
+ggsave(here('./figures/study_map_fullres.png'), plot = insetmap,
+       width = 8, height = 7.5,
+       dpi = 1200)
 
 ## Figure 2: 3x2 of sal and lice species
 stde <- function(x) sd(x)/sqrt(length(x))
@@ -207,6 +215,9 @@ fig_2 = plot_grid(fig_2_1, fig_2_2, fig_2_3,
 ggsave(here('./figures/lice_per_fish_sp.png'), plot = fig_2,
        width = 8, height = 8.0,
        dpi = 300)
+ggsave(here('./figures/lice_per_fish_sp_fullres.png'), plot = fig_2,
+       width = 8, height = 8.0,
+       dpi = 1200)
 
 ## Figure 3: average number of lice per fish (fish sp and by year)
 fig_3_data = mainlice %>% 
@@ -252,3 +263,6 @@ fig_3 = plot_grid(fig_3_1, fig_3_2, fig_3_3, nrow = 1,
 ggsave(here('./figures/lice_per_fish.png'), plot = fig_3,
        scale = 1, width = 8, height = 6.7,
        dpi = 300)
+ggsave(here('./figures/lice_per_fish_fullres.png'), plot = fig_3,
+       scale = 1, width = 8, height = 6.7,
+       dpi = 1200)

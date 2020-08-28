@@ -1,4 +1,8 @@
-source(here('./code/data_manip_prep.R'))
+##### TITLE: Differential Infection of Parasitic Sea Lice on Juvenile Pacific Salmon in British Columbia, Canada
+##### CREATOR: Cole B. Brookson
+##### INITIALIZATION DATE: 2019-11-21
+
+library(here)
 source(here('./code/figures_pre_model_runs.R'))
 
 
@@ -98,8 +102,8 @@ cl = makeCluster(cores[1]-1)
 registerDoParallel(cl)
 
 start = Sys.time()
-
-y = foreach(i = 1:10000, .packages = c('tidyverse', 'rsample', 'tibble', 'glmmTMB', 'MuMIn', 'ggeffects')) %dopar% {
+y = foreach(i = 1:10, .packages = c('tidyverse', 'rsample', 'tibble', 'glmmTMB', 'MuMIn', 'ggeffects'),
+            .export = c(lepallpred, calallpred, lepavgpred, calavgpred)) %dopar% {
   
   sock2015Dboot = matrix(nrow = nrow(sock2015D), ncol = 7)
   n = 1
@@ -603,10 +607,11 @@ y = foreach(i = 1:10000, .packages = c('tidyverse', 'rsample', 'tibble', 'glmmTM
   # bootintervallep[,i] = lepavgpred$avg
   c(calavgpred$avg, lepavgpred$avg)
   
+  
 }
 y_copy = y 
 
-for(i in 1:10000) {
+for(i in 1:10) {
   bootintervalcal[,i] = y[[i]][1:30]
   bootintervallep[,i] = y[[i]][31:60]
 }
