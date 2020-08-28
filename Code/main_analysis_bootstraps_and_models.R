@@ -624,25 +624,28 @@ run_time = end - start
 
 boot_int_cal = data.frame(bootintervalcal)
 boot_int_lep = data.frame(bootintervallep)
-write_csv(boot_int_cal, 'boot_int_cal.csv')
-write_csv(boot_int_lep, 'boot_int_lep.csv')
+write_csv(boot_int_cal, here('./data/boot_int_cal.csv'))
+write_csv(boot_int_lep, here('./data/boot_int_lep.csv'))
+
+#this is just a checkpoint to save a file of the step that takes the longest
+interval_cal_wide = read_csv(here('boot_int_cal.csv'))
+interval_lep_wide = read_csv(here('boot_int_lep.csv'))
 
 
-interval_cal_long = as.data.frame(t(bootintervalcal))
-interval_lep_long = as.data.frame(t(bootintervallep))
+#column names were sorted and transposed manually (to save sapece in the script)
+#and are read in here for simplicity
+names_lep = read_csv(here('./data/loop_names_lep.csv'))
+names_lep = as.vector(names_lep$names_lep.names)
+names_cal = read_csv(here('./data/loop_names_cal.csv'))
+names_cal = as.vector(names_cal$names_cal.names)
 
-
-#name the columns, sort them, and transpose them
-names_lep = lepavgpred %>% 
-  unite(., col = 'names', sal:yr, sep = '_')
-names_cal = calavgpred %>% 
-  unite(., col = 'names', sal:yr, sep = '_')
-
-names_lep = as.vector(names_lep$names)
-names_cal = as.vector(names_cal$names)
-
-colnames(interval_cal_long) = names_cal
-colnames(interval_lep_long) = names_lep
+#transpose wide data to long
+rownames(interval_cal_wide) = names_cal
+rownames(interval_lep_wide) = names_lep
+interval_cal_long = transpose(interval_cal_wide)
+colnames(interval_cal_long) = rownames(interval_cal_wide)
+interval_lep_long = transpose(interval_lep_wide)
+colnames(interval_lep_long) = rownames(interval_lep_wide)
 
 interval_cal_long_sorted <- apply(interval_cal_long,2,sort,decreasing=F)
 interval_lep_long_sorted <- apply(interval_lep_long,2,sort,decreasing=F)
@@ -651,6 +654,11 @@ upci_cal = interval_cal_long_sorted[9750, ]
 loci_cal = interval_cal_long_sorted[250, ]
 upci_lep = interval_lep_long_sorted[9750, ]
 loci_lep = interval_lep_long_sorted[250, ]
+#make sure the confidence interval values are ordered:
+upci_cal = upci_cal[order(factor(names(upci_cal)))]
+loci_cal = loci_cal[order(factor(names(loci_cal)))]
+upci_lep = upci_lep[order(factor(names(upci_lep)))]
+loci_lep = loci_lep[order(factor(names(loci_lep)))]
 
 #fit the models and do the model averaging process again to get the actual estimates themselves
 lep1 = glmmTMB(all.leps ~ site.region + year + spp + 
@@ -850,9 +858,12 @@ lepsmodplot_avg <- lepavgpred %>%
   scale_y_continuous(limits = c(0,1.5), breaks = c(0.5,1.0,1.5))+
   fte_theme1()
 lepsmodplot_avg
-ggsave('model_ests_lep.png', plot = lepsmodplot_avg,
+ggsave(here('./figures/model_ests_lep.png'), plot = lepsmodplot_avg,
        width = 8, height = 7.5,
-       dpi = 300)
+       dpi = 200)
+ggsave(here('./figures/model_ests_lep_fullres.png'), plot = lepsmodplot_avg,
+       width = 8, height = 7.5,
+       dpi = 1200)
 calmodplot_avg <- calavgpred %>% 
   group_by(., yr,sal,reg) %>% 
   ggplot(aes(x = sal, y = avg, colour = sal, shape = reg)) +
@@ -867,9 +878,12 @@ calmodplot_avg <- calavgpred %>%
   fte_theme1()
 calmodplot_avg
 
-ggsave('model_ests_cal.png', plot = calmodplot_avg,
+ggsave(here('./figures/model_ests_cal.png'), plot = calmodplot_avg,
        width = 8, height = 7.5,
        dpi = 300)
+ggsave(here('./figures/model_ests_cal_fullres.png'), plot = calmodplot_avg,
+       width = 8, height = 7.5,
+       dpi = 1200)
 
 
 # Relative Importance Extraction
@@ -887,9 +901,9 @@ cal_allyears_predict = ggpredict(cal_allyears, terms = c('spp'), ci.lvl = 0.95)
 lep_allyears_predict = ggpredict(lep_allyears, terms = c('spp'), ci.lvl = 0.95)
 
 # Make histograms of fish caught to show how many of our focal species there are
-fish = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/fish_field_data.csv")
-seine_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/seine_data.csv")
-survey_data = read_csv("C:/Users/brookson/Documents/GitHub/jsp-data/data/survey_data.csv")
+fish = read_csv(here('./data/fish_field_data.csv'))
+seine_data = read_csv(here('./data/seine_data.csv'))
+survey_data = read_csv(here('./data/survey_data.csv'))
 
 
 fish = left_join(fish, seine_data, by = "seine_id")
@@ -938,12 +952,15 @@ fish_caught = ggplot(data = fish, aes(x = year)) +
   labs(x = 'Year', y = 'Number of Fish Caught')
 
 
-ggsave('all_fish_caught.png', plot = fish_caught,
+ggsave(here('./figures/all_fish_caught.png'), plot = fish_caught,
        width = 8, height = 7.5,
        dpi = 300)
+ggsave(here('./figures/all_fish_caught_fullres.png'), plot = fish_caught,
+       width = 8, height = 7.5,
+       dpi = 1200)
 
 sites_year_spp = mainlice %>% 
   group_by(year, site_id, spp) %>% 
   summarize(obs = n())
-write.table(sites_year_spp, file = "sites_year_spp.txt", sep = ",", quote = FALSE, row.names = F)
+write.table(sites_year_spp, file = here('./data/sites_year_spp.txt'), sep = ",", quote = FALSE, row.names = F)
 
